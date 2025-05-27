@@ -10,8 +10,12 @@ export const metadata: Metadata = {
   title: "Emily & Matthew - May 9, 2026",
   description: "Join us for our wedding celebration at the Old Louisiana State Capitol in Baton Rouge, Louisiana",
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "16x16", type: "image/x-icon" },
+      { url: "/icon.png", type: "image/svg+xml" },
+    ],
     apple: "/apple-touch-icon.png",
+    shortcut: "/favicon.ico",
   },
   openGraph: {
     title: "Emily & Matthew - May 9, 2026",
