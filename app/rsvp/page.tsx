@@ -34,58 +34,6 @@ interface FormData {
   additionalNotes: string
 }
 
-// Elegant monogram component inspired by the invitation
-function MonogramRSVP() {
-  return (
-    <div className="flex flex-col items-center mb-12">
-      <div className="relative mb-6">
-        <div className="w-32 h-20 border-2 border-sage/40 rounded-full flex flex-col items-center justify-center bg-white/80 backdrop-blur-sm">
-          <div className="text-3xl font-cormorant text-sage font-light tracking-wider">R</div>
-          <div className="w-8 h-px bg-sage/40 my-1"></div>
-          <div className="text-3xl font-cormorant text-sage font-light tracking-wider">S</div>
-        </div>
-        {/* Botanical elements */}
-        <div className="absolute -top-2 -right-2">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-sage/60">
-            <path
-              d="M12 2L14 8L20 6L16 12L22 14L16 16L20 18L14 16L12 22L10 16L4 18L8 12L2 10L8 8L4 6L10 8L12 2Z"
-              stroke="currentColor"
-              strokeWidth="1"
-              fill="none"
-            />
-          </svg>
-        </div>
-        <div className="absolute -bottom-2 -left-2">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-sage/60">
-            <path
-              d="M10 2L11 6L15 5L13 10L18 11L13 12L15 15L11 14L10 18L9 14L5 15L7 10L2 9L7 8L5 5L9 6L10 2Z"
-              stroke="currentColor"
-              strokeWidth="1"
-              fill="none"
-            />
-          </svg>
-        </div>
-      </div>
-      <div className="text-center">
-        <p className="text-sm text-slate-500 font-light tracking-wide mb-2">Kindly respond by</p>
-        <p className="text-sm text-slate-500 font-light tracking-wide mb-4">April ninth, twenty twenty-six</p>
-        <h1 className="text-4xl font-cormorant text-slate-700 font-light tracking-wide mb-2">RSVP</h1>
-        <p className="text-lg font-cormorant text-slate-600 italic">for the wedding of</p>
-        <div className="mt-4">
-          <p className="text-2xl font-cormorant text-slate-700 font-light tracking-widest">EMILY BUECHE</p>
-          <p className="text-xl font-cormorant text-slate-600 italic my-2">and</p>
-          <p className="text-2xl font-cormorant text-slate-700 font-light tracking-widest">MATTHEW ADAMS</p>
-        </div>
-        <div className="mt-6">
-          <p className="text-sm text-slate-500 font-light tracking-wide">Saturday, the ninth of May</p>
-          <p className="text-sm text-slate-500 font-light tracking-wide">Twenty twenty-six</p>
-          <p className="text-sm text-slate-500 font-light tracking-wide mt-2">BATON ROUGE, LOUISIANA</p>
-        </div>
-      </div>
-    </div>
-  )
-}
-
 export default function RSVPPage() {
   const [currentStep, setCurrentStep] = useState(1)
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -205,8 +153,6 @@ export default function RSVPPage() {
       <div className="pt-20 pb-20">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
-            <MonogramRSVP />
-
             {/* Progress Indicator */}
             <div className="flex justify-center mb-12">
               <div className="flex items-center space-x-6">
