@@ -178,14 +178,14 @@ export default function RSVPPage() {
             {currentStep === 1 && (
               <div className="bg-white/90 backdrop-blur-sm rounded-lg shadow-sm border border-sage/10 overflow-hidden">
                 <div className="bg-sage/5 p-6 text-center border-b border-sage/10">
-                  <h2 className="text-2xl font-cormorant font-light text-slate-700 tracking-wide">Your Information</h2>
+                  <h2 className="text-3xl font-cormorant font-medium text-slate-800 tracking-wide">Your Information</h2>
                 </div>
                 <div className="p-8">
                   <div className="space-y-8">
                     <div className="text-center">
                       <Label
                         htmlFor="guestName"
-                        className="text-lg font-cormorant text-slate-600 mb-4 block font-light"
+                        className="text-xl font-cormorant text-slate-700 mb-4 block font-medium"
                       >
                         Please enter your name as it appears on your invitation
                       </Label>
@@ -195,7 +195,7 @@ export default function RSVPPage() {
                         onChange={(e) => setFormData({ ...formData, guestName: e.target.value })}
                         placeholder="Full Name"
                         className={cn(
-                          "text-lg p-4 text-center border-sage/20 focus:border-sage bg-white/80 font-cormorant",
+                          "text-xl p-4 text-center border-sage/20 focus:border-sage bg-white/80 font-cormorant",
                           guestNotFound && "border-red-300 focus:border-red-500",
                         )}
                       />
@@ -233,14 +233,14 @@ export default function RSVPPage() {
             {currentStep === 2 && (
               <div className="bg-white/90 backdrop-blur-sm rounded-lg shadow-sm border border-sage/10 overflow-hidden">
                 <div className="bg-sage/5 p-6 text-center border-b border-sage/10">
-                  <h2 className="text-2xl font-cormorant font-light text-slate-700 tracking-wide">Event Attendance</h2>
+                  <h2 className="text-3xl font-cormorant font-medium text-slate-800 tracking-wide">Event Attendance</h2>
                 </div>
                 <div className="p-8">
                   <div className="space-y-8">
                     {formData.events.map((event, index) => (
                       <div key={index} className="border border-sage/10 rounded-lg p-6 bg-white/60">
                         <div className="text-center mb-6">
-                          <h3 className="text-xl font-cormorant text-slate-700 font-light tracking-wide">
+                          <h3 className="text-2xl font-cormorant text-slate-800 font-medium tracking-wide">
                             {event.eventName}
                           </h3>
                           <div className="w-12 h-px bg-sage/30 mx-auto mt-2"></div>
@@ -248,7 +248,7 @@ export default function RSVPPage() {
 
                         <div className={cn("grid gap-8", maxPartySize > 1 ? "md:grid-cols-2" : "grid-cols-1")}>
                           <div className="text-center">
-                            <Label className="text-sm font-cormorant text-slate-600 mb-4 block font-light">
+                            <Label className="text-sm font-cormorant text-slate-700 mb-4 block font-medium">
                               Will you attend?
                             </Label>
                             <RadioGroup
@@ -258,13 +258,13 @@ export default function RSVPPage() {
                             >
                               <div className="flex items-center justify-center space-x-3">
                                 <RadioGroupItem value="yes" id={`yes-${index}`} className="border-sage text-sage" />
-                                <Label htmlFor={`yes-${index}`} className="font-cormorant text-slate-600 font-light">
+                                <Label htmlFor={`yes-${index}`} className="font-cormorant text-slate-700 font-medium">
                                   Joyfully accepts
                                 </Label>
                               </div>
                               <div className="flex items-center justify-center space-x-3">
                                 <RadioGroupItem value="no" id={`no-${index}`} className="border-sage text-sage" />
-                                <Label htmlFor={`no-${index}`} className="font-cormorant text-slate-600 font-light">
+                                <Label htmlFor={`no-${index}`} className="font-cormorant text-slate-700 font-medium">
                                   Regretfully declines
                                 </Label>
                               </div>
@@ -273,7 +273,7 @@ export default function RSVPPage() {
 
                           {event.attending === "yes" && maxPartySize > 1 && (
                             <div className="text-center">
-                              <Label className="text-sm font-cormorant text-slate-600 mb-4 block font-light">
+                              <Label className="text-sm font-cormorant text-slate-700 mb-4 block font-medium">
                                 Number of guests
                               </Label>
                               <Select
@@ -326,14 +326,14 @@ export default function RSVPPage() {
             {currentStep === 3 && (
               <div className="bg-white/90 backdrop-blur-sm rounded-lg shadow-sm border border-sage/10 overflow-hidden">
                 <div className="bg-sage/5 p-6 text-center border-b border-sage/10">
-                  <h2 className="text-2xl font-cormorant font-light text-slate-700 tracking-wide">
+                  <h2 className="text-3xl font-cormorant font-medium text-slate-800 tracking-wide">
                     Additional Details
                   </h2>
                 </div>
                 <div className="p-8">
                   <div className="space-y-8">
                     <div className="text-center">
-                      <Label className="text-lg font-cormorant text-slate-600 mb-6 block font-light">
+                      <Label className="text-lg font-cormorant text-slate-700 mb-6 block font-medium">
                         Meal Selection
                       </Label>
                       <RadioGroup
@@ -343,19 +343,19 @@ export default function RSVPPage() {
                       >
                         <div className="flex items-center justify-center space-x-3">
                           <RadioGroupItem value="chicken" id="chicken" className="border-sage text-sage" />
-                          <Label htmlFor="chicken" className="font-cormorant text-slate-600 font-light">
+                          <Label htmlFor="chicken" className="font-cormorant text-slate-700 font-medium">
                             Herb-Crusted Chicken
                           </Label>
                         </div>
                         <div className="flex items-center justify-center space-x-3">
                           <RadioGroupItem value="fish" id="fish" className="border-sage text-sage" />
-                          <Label htmlFor="fish" className="font-cormorant text-slate-600 font-light">
+                          <Label htmlFor="fish" className="font-cormorant text-slate-700 font-medium">
                             Blackened Red Fish
                           </Label>
                         </div>
                         <div className="flex items-center justify-center space-x-3">
                           <RadioGroupItem value="vegetarian" id="vegetarian" className="border-sage text-sage" />
-                          <Label htmlFor="vegetarian" className="font-cormorant text-slate-600 font-light">
+                          <Label htmlFor="vegetarian" className="font-cormorant text-slate-700 font-medium">
                             Vegetarian Selection
                           </Label>
                         </div>
@@ -365,7 +365,7 @@ export default function RSVPPage() {
                     <div>
                       <Label
                         htmlFor="dietary"
-                        className="text-lg font-cormorant text-slate-600 mb-4 block font-light text-center"
+                        className="text-lg font-cormorant text-slate-700 mb-4 block font-medium text-center"
                       >
                         Dietary Considerations
                       </Label>
@@ -382,7 +382,7 @@ export default function RSVPPage() {
                     <div>
                       <Label
                         htmlFor="notes"
-                        className="text-lg font-cormorant text-slate-600 mb-4 block font-light text-center"
+                        className="text-lg font-cormorant text-slate-700 mb-4 block font-medium text-center"
                       >
                         Special Notes
                       </Label>
