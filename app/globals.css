@@ -78,6 +78,32 @@
   }
 }
 
+/* Center all headers across the site */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-align: center;
+}
+
+/* Tighter margins for paragraph text */
+p {
+  margin-bottom: 0.75rem;
+}
+
+/* Override default prose margins */
+.prose p {
+  margin-bottom: 0.75rem;
+}
+
+/* Specific adjustments for better spacing */
+.text-lg p,
+.text-xl p {
+  margin-bottom: 0.5rem;
+}
+
 /* Elegant typography enhancements */
 .font-cormorant {
   letter-spacing: 0.02em;
