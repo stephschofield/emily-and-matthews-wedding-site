@@ -11,40 +11,42 @@ export function CoupleSection() {
       <div className="container mx-auto px-4 relative z-10">
         <SectionTitle>Our Story</SectionTitle>
 
-        {/* Centered photo and text layout */}
+        {/* Centered photo and text side by side */}
         <div className="max-w-4xl mx-auto mb-16">
-          {/* Centered Photo */}
-          <div className="flex justify-center mb-12">
-            <div className="relative rounded-lg overflow-hidden shadow-xl max-w-md">
-              <Image
-                src="/images/couple-story.jpeg"
-                alt="Emily and Matthew together"
-                width={400}
-                height={300}
-                className="w-full h-auto"
-              />
-            </div>
-          </div>
-
-          {/* Centered Text Content */}
-          <div className="space-y-8 text-center">
-            <div className="max-w-lg mx-auto">
-              <h3 className="text-3xl font-cormorant text-navy mb-4 font-light">Emily Bueche</h3>
-              <p className="text-lg text-slate-700 leading-relaxed">
-                Emily grew up in Louisiana, where she developed a love for the rich culture and traditions of her home
-                state. She enjoys cooking traditional Cajun dishes, exploring the outdoors, and spending time with
-                family and friends.
-              </p>
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Photo */}
+            <div className="flex justify-center lg:justify-end">
+              <div className="relative rounded-lg overflow-hidden shadow-xl max-w-md">
+                <Image
+                  src="/images/couple-story.jpeg"
+                  alt="Emily and Matthew together"
+                  width={400}
+                  height={300}
+                  className="w-full h-auto"
+                />
+              </div>
             </div>
 
-            <FloralDivider className="text-sage/50 h-6 w-auto mx-auto" />
+            {/* Text content */}
+            <div className="space-y-8 text-center lg:text-left">
+              <div className="max-w-lg mx-auto lg:mx-0">
+                <h3 className="text-3xl font-cormorant text-navy mb-4 font-light">Emily Bueche</h3>
+                <p className="text-lg text-slate-700 leading-relaxed">
+                  Emily grew up in Louisiana, where she developed a love for the rich culture and traditions of her home
+                  state. She enjoys cooking traditional Cajun dishes, exploring the outdoors, and spending time with
+                  family and friends.
+                </p>
+              </div>
 
-            <div className="max-w-lg mx-auto">
-              <h3 className="text-3xl font-cormorant text-navy mb-4 font-light">Matthew Adams</h3>
-              <p className="text-lg text-slate-700 leading-relaxed">
-                Matthew is a Louisiana native with a passion for history and architecture. When not working, he can be
-                found exploring historical sites, trying new restaurants, and cheering for the LSU Tigers.
-              </p>
+              <FloralDivider className="text-sage/50 h-6 w-auto mx-auto lg:mx-0" />
+
+              <div className="max-w-lg mx-auto lg:mx-0">
+                <h3 className="text-3xl font-cormorant text-navy mb-4 font-light">Matthew Adams</h3>
+                <p className="text-lg text-slate-700 leading-relaxed">
+                  Matthew is a Louisiana native with a passion for history and architecture. When not working, he can be
+                  found exploring historical sites, trying new restaurants, and cheering for the LSU Tigers.
+                </p>
+              </div>
             </div>
           </div>
         </div>
