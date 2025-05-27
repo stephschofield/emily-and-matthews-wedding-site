@@ -26,9 +26,9 @@ export function CoupleSection() {
             </div>
           </div>
 
-          {/* Text content - takes up 3 columns */}
+          {/* Text content - takes up 3 columns but with constrained width */}
           <div className="lg:col-span-3 space-y-8">
-            <div className="text-center lg:text-left">
+            <div className="text-center lg:text-left max-w-lg mx-auto lg:mx-0">
               <h3 className="text-3xl font-cormorant text-navy mb-4 font-light">Emily Bueche</h3>
               <p className="text-lg text-slate-700 leading-relaxed">
                 Emily grew up in Louisiana, where she developed a love for the rich culture and traditions of her home
@@ -39,7 +39,7 @@ export function CoupleSection() {
 
             <FloralDivider className="text-sage/50 h-6 w-auto mx-auto lg:mx-0" />
 
-            <div className="text-center lg:text-left">
+            <div className="text-center lg:text-left max-w-lg mx-auto lg:mx-0">
               <h3 className="text-3xl font-cormorant text-navy mb-4 font-light">Matthew Adams</h3>
               <p className="text-lg text-slate-700 leading-relaxed">
                 Matthew is a Louisiana native with a passion for history and architecture. When not working, he can be
@@ -49,7 +49,7 @@ export function CoupleSection() {
           </div>
         </div>
 
-        <div className="mt-16 max-w-3xl mx-auto text-center">
+        <div className="mt-16 max-w-2xl mx-auto text-center">
           <FloralDivider className="text-sage/70 h-8 w-auto mx-auto mb-8" />
 
           <h3 className="text-3xl font-cormorant text-navy mb-6 font-light">How We Met</h3>
