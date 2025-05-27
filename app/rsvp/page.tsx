@@ -132,6 +132,12 @@ export default function RSVPPage() {
   const updateEventRSVP = (index: number, field: keyof EventRSVP, value: string | number) => {
     const updatedEvents = [...formData.events]
     updatedEvents[index] = { ...updatedEvents[index], [field]: value }
+
+    // If attending "yes" and maxPartySize is 1, automatically set partySize to 1
+    if (field === "attending" && value === "yes" && maxPartySize === 1) {
+      updatedEvents[index].partySize = 1
+    }
+
     setFormData({ ...formData, events: updatedEvents })
   }
 
@@ -294,7 +300,7 @@ export default function RSVPPage() {
                           <div className="w-12 h-px bg-sage/30 mx-auto mt-2"></div>
                         </div>
 
-                        <div className="grid md:grid-cols-2 gap-8">
+                        <div className={cn("grid gap-8", maxPartySize > 1 ? "md:grid-cols-2" : "grid-cols-1")}>
                           <div className="text-center">
                             <Label className="text-sm font-cormorant text-slate-600 mb-4 block font-light">
                               Will you attend?
@@ -319,7 +325,7 @@ export default function RSVPPage() {
                             </RadioGroup>
                           </div>
 
-                          {event.attending === "yes" && (
+                          {event.attending === "yes" && maxPartySize > 1 && (
                             <div className="text-center">
                               <Label className="text-sm font-cormorant text-slate-600 mb-4 block font-light">
                                 Number of guests
