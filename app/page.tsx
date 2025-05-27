@@ -6,6 +6,7 @@ import { CoupleSection } from "@/components/couple-section"
 import { VenueSection } from "@/components/venue-section"
 import { ScheduleSection } from "@/components/schedule-section"
 import { GallerySection } from "@/components/gallery-section"
+import { RegistrySection } from "@/components/registry-section"
 import { RsvpSection } from "@/components/rsvp-section"
 import { FooterSection } from "@/components/footer-section"
 import { FaviconUpdater } from "@/components/favicon-updater"
@@ -26,6 +27,7 @@ export default function Home() {
       <VenueSection />
       <ScheduleSection />
       <GallerySection />
+      <RegistrySection />
       <RsvpSection />
       <FooterSection />
     </main>

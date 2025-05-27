@@ -5,9 +5,6 @@ import { FloralDivider } from "@/components/floral-divider"
 export function CoupleSection() {
   return (
     <section id="couple" className="py-20 bg-cream relative overflow-hidden">
-      {/* Background floral pattern */}
-      <div className="absolute inset-0 bg-floral-pattern opacity-[0.03] pointer-events-none"></div>
-
       <div className="container mx-auto px-4 relative z-10">
         <SectionTitle>Our Story</SectionTitle>
 
@@ -55,6 +52,7 @@ export function CoupleSection() {
           <FloralDivider className="text-sage/70 h-8 w-auto mx-auto mb-8" />
 
           <h3 className="text-3xl font-cormorant text-navy mb-6 font-light">How We Met</h3>
+
           <p className="text-lg text-slate-700 mb-6 leading-relaxed">
             Emily and Matthew's paths crossed at a mutual friend's crawfish boil in the spring of 2020. They bonded over
             their shared love for Louisiana culture, history, and food. After several months of friendship, they began

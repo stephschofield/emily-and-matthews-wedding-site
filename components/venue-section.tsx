@@ -2,7 +2,6 @@ import Image from "next/image"
 import { SectionTitle } from "@/components/section-title"
 import { Card, CardContent } from "@/components/ui/card"
 import { MapPin, Clock, Car } from "lucide-react"
-import { FloralCornerTopLeft, FloralCornerBottomRight } from "@/components/floral-corner"
 
 export function VenueSection() {
   return (
@@ -16,8 +15,6 @@ export function VenueSection() {
             <div className="absolute inset-0 bg-navy/20 backdrop-blur-[2px]"></div>
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="bg-white/90 p-6 rounded-lg shadow-lg text-center relative max-w-xs">
-                <FloralCornerTopLeft className="absolute top-0 left-0 text-sage/70 w-12 h-12" />
-                <FloralCornerBottomRight className="absolute bottom-0 right-0 text-sage/70 w-12 h-12" />
                 <h4 className="text-xl font-cormorant text-navy font-light">Old Louisiana State Capitol</h4>
                 <p className="text-sm text-slate-700">Where we'll celebrate our special day</p>
               </div>
@@ -26,6 +23,7 @@ export function VenueSection() {
 
           <div>
             <h3 className="text-3xl font-cormorant text-navy mb-6 font-light">Old Louisiana State Capitol</h3>
+
             <p className="text-lg text-slate-700 mb-8 leading-relaxed">
               Known as the "Castle on the River," the Old Louisiana State Capitol stands as a testament to Gothic
               Revival architecture and the rich history of Louisiana. With its stunning stained glass dome, spiral
@@ -60,6 +58,7 @@ export function VenueSection() {
 
         <div className="mt-16 max-w-3xl mx-auto text-center">
           <h3 className="text-3xl font-cormorant text-navy mb-6 font-light">Accommodations</h3>
+
           <p className="text-lg text-slate-700 mb-6">
             We have reserved room blocks at the following hotels for our wedding guests:
           </p>

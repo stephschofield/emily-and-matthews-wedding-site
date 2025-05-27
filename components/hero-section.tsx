@@ -1,11 +1,5 @@
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import {
-  FloralCornerTopLeft,
-  FloralCornerTopRight,
-  FloralCornerBottomLeft,
-  FloralCornerBottomRight,
-} from "@/components/floral-corner"
 
 export function HeroSection() {
   return (
@@ -16,17 +10,11 @@ export function HeroSection() {
       </div>
 
       <div className="container mx-auto px-4 z-10 text-center text-white">
-        <div className="max-w-3xl mx-auto relative p-8 md:p-12">
-          {/* Decorative corners */}
-          <FloralCornerTopLeft className="absolute top-0 left-0 text-gold/70 w-16 h-16 md:w-24 md:h-24" />
-          <FloralCornerTopRight className="absolute top-0 right-0 text-gold/70 w-16 h-16 md:w-24 md:h-24" />
-          <FloralCornerBottomLeft className="absolute bottom-0 left-0 text-gold/70 w-16 h-16 md:w-24 md:h-24" />
-          <FloralCornerBottomRight className="absolute bottom-0 right-0 text-gold/70 w-16 h-16 md:w-24 md:h-24" />
-
+        <div className="max-w-4xl mx-auto relative p-8 md:p-12">
           {/* Content */}
           <p className="text-xl md:text-2xl mb-4 font-cormorant italic">Together with their families</p>
 
-          <h1 className="font-cormorant text-5xl md:text-7xl font-light mb-4 tracking-wide">
+          <h1 className="font-cormorant text-5xl md:text-7xl font-light tracking-wide mb-4">
             Emily <span className="text-gold">&</span> Matthew
           </h1>
 

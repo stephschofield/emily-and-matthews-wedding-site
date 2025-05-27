@@ -4,22 +4,16 @@ import { SectionTitle } from "@/components/section-title"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Calendar, Users, Utensils } from "lucide-react"
-import { FloralCornerTopLeft, FloralCornerBottomRight } from "@/components/floral-corner"
 
 export function RsvpSection() {
   return (
     <section id="rsvp" className="py-20 bg-cream relative overflow-hidden">
-      {/* Background floral pattern */}
-      <div className="absolute inset-0 bg-floral-pattern opacity-[0.03] pointer-events-none"></div>
-
       <div className="container mx-auto px-4 relative z-10">
         <SectionTitle>RSVP</SectionTitle>
 
         <Card className="max-w-2xl mx-auto mt-12 border-sage/20 overflow-hidden shadow-lg">
           <CardContent className="p-0">
             <div className="bg-navy text-white p-6 text-center relative">
-              <FloralCornerTopLeft className="absolute top-0 left-0 text-white/20 w-16 h-16" />
-              <FloralCornerBottomRight className="absolute bottom-0 right-0 text-white/20 w-16 h-16" />
               <h3 className="text-2xl md:text-3xl font-cormorant font-light relative z-10">
                 Please respond by April 9, 2026
               </h3>
