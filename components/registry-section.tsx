@@ -6,7 +6,7 @@ import { ExternalLink, Gift, Heart } from "lucide-react"
 import { FloralCornerTopLeft, FloralCornerBottomRight } from "@/components/floral-corner"
 
 export function RegistrySection() {
-  const registryUrl = "https://www.zola.com/wedding/stephanieandmr2026/registry"
+  const registryUrl = "https://www.zola.com/registry/stephanieandmr2026"
 
   return (
     <section id="registry" className="py-20 bg-sky-blue/5 relative">
