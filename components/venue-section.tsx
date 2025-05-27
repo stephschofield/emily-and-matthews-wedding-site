@@ -1,0 +1,88 @@
+import Image from "next/image"
+import { SectionTitle } from "@/components/section-title"
+import { Card, CardContent } from "@/components/ui/card"
+import { MapPin, Clock, Car } from "lucide-react"
+import { FloralCornerTopLeft, FloralCornerBottomRight } from "@/components/floral-corner"
+
+export function VenueSection() {
+  return (
+    <section id="venue" className="py-20 bg-sky-blue/5 relative">
+      <div className="container mx-auto px-4">
+        <SectionTitle>The Venue</SectionTitle>
+
+        <div className="grid md:grid-cols-2 gap-12 mt-12 items-center">
+          <div className="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-xl">
+            <Image src="/images/proposal.jpeg" alt="Old Louisiana State Capitol" fill className="object-cover" />
+            <div className="absolute inset-0 bg-navy/20 backdrop-blur-[2px]"></div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="bg-white/90 p-6 rounded-lg shadow-lg text-center relative max-w-xs">
+                <FloralCornerTopLeft className="absolute top-0 left-0 text-sage/70 w-12 h-12" />
+                <FloralCornerBottomRight className="absolute bottom-0 right-0 text-sage/70 w-12 h-12" />
+                <h4 className="text-xl font-cormorant text-navy font-light">Old Louisiana State Capitol</h4>
+                <p className="text-sm text-slate-700">Where we'll celebrate our special day</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-3xl font-cormorant text-navy mb-6 font-light">Old Louisiana State Capitol</h3>
+            <p className="text-lg text-slate-700 mb-8 leading-relaxed">
+              Known as the "Castle on the River," the Old Louisiana State Capitol stands as a testament to Gothic
+              Revival architecture and the rich history of Louisiana. With its stunning stained glass dome, spiral
+              staircase, and ornate details, this National Historic Landmark provides the perfect backdrop for Emily and
+              Matthew's elegant celebration.
+            </p>
+
+            <div className="space-y-4">
+              <Card className="border-sage/20 overflow-hidden">
+                <CardContent className="p-4 flex items-center">
+                  <MapPin className="text-emerald mr-4" />
+                  <p className="text-slate-700">100 North Blvd, Baton Rouge, LA 70801</p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-sage/20 overflow-hidden">
+                <CardContent className="p-4 flex items-center">
+                  <Clock className="text-emerald mr-4" />
+                  <p className="text-slate-700">Ceremony begins at 4:00 PM</p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-sage/20 overflow-hidden">
+                <CardContent className="p-4 flex items-center">
+                  <Car className="text-emerald mr-4" />
+                  <p className="text-slate-700">Complimentary valet parking available for guests</p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-16 max-w-3xl mx-auto text-center">
+          <h3 className="text-3xl font-cormorant text-navy mb-6 font-light">Accommodations</h3>
+          <p className="text-lg text-slate-700 mb-6">
+            We have reserved room blocks at the following hotels for our wedding guests:
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-6 mt-8">
+            <Card className="border-sage/20 overflow-hidden">
+              <CardContent className="p-6">
+                <h4 className="text-xl font-cormorant text-navy mb-2 font-light">Hilton Baton Rouge Capitol Center</h4>
+                <p className="text-slate-700 mb-2">201 Lafayette St, Baton Rouge, LA 70801</p>
+                <p className="text-slate-700">Use code: BUECHE-ADAMS</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-sage/20 overflow-hidden">
+              <CardContent className="p-6">
+                <h4 className="text-xl font-cormorant text-navy mb-2 font-light">Watermark Baton Rouge</h4>
+                <p className="text-slate-700 mb-2">150 3rd St, Baton Rouge, LA 70801</p>
+                <p className="text-slate-700">Use code: EMILY-MATT</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
