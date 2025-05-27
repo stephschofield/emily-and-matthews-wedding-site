@@ -42,13 +42,13 @@ export function RegistrySection() {
                 <FloralCornerBottomRight className="absolute bottom-0 right-0 text-sage/30 w-16 h-16" />
 
                 <div className="relative z-10">
-                  <div className="relative w-48 h-24 mx-auto mb-6">
+                  <div className="relative w-full max-w-2xl mx-auto mb-6">
                     <Image
-                      src="/images/zola-logo.png"
-                      alt="Zola Registry"
-                      width={200}
-                      height={80}
-                      className="object-contain"
+                      src="/images/zola-registry-thumbnail.png"
+                      alt="Emily & Matthew's Zola Registry"
+                      width={800}
+                      height={400}
+                      className="object-cover rounded-lg shadow-md"
                     />
                   </div>
 
