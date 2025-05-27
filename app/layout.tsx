@@ -9,6 +9,21 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Emily & Matthew - May 9, 2026",
   description: "Join us for our wedding celebration at the Old Louisiana State Capitol in Baton Rouge, Louisiana",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
+  openGraph: {
+    title: "Emily & Matthew - May 9, 2026",
+    description: "Join us for our wedding celebration at the Old Louisiana State Capitol in Baton Rouge, Louisiana",
+    images: ["/apple-touch-icon.png"],
+  },
+  twitter: {
+    card: "summary",
+    title: "Emily & Matthew - May 9, 2026",
+    description: "Join us for our wedding celebration at the Old Louisiana State Capitol in Baton Rouge, Louisiana",
+    images: ["/apple-touch-icon.png"],
+  },
     generator: 'v0.dev'
 }
 
