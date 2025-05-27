@@ -9,6 +9,7 @@ import { GallerySection } from "@/components/gallery-section"
 import { RsvpSection } from "@/components/rsvp-section"
 import { RegistrySection } from "@/components/registry-section"
 import { FooterSection } from "@/components/footer-section"
+import { FaviconUpdater } from "@/components/favicon-updater"
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -19,6 +20,7 @@ const cormorant = Cormorant_Garamond({
 export default function Home() {
   return (
     <main className={cn("min-h-screen bg-cream text-slate-900", cormorant.variable)}>
+      <FaviconUpdater />
       <NavBar />
       <HeroSection />
       <CoupleSection />

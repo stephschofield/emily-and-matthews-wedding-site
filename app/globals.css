@@ -88,30 +88,30 @@ h6 {
   text-align: center;
 }
 
-/* Tighter margins for paragraph text - more specific selectors */
+/* Much tighter margins for paragraph text - reduced by 50% */
 p {
-  margin-bottom: 0.5rem !important;
+  margin-bottom: 0.25rem !important;
 }
 
 /* Override default prose margins */
 .prose p {
-  margin-bottom: 0.5rem !important;
+  margin-bottom: 0.25rem !important;
 }
 
 /* Specific adjustments for better spacing */
 .text-lg p,
 .text-xl p {
-  margin-bottom: 0.375rem !important;
+  margin-bottom: 0.19rem !important;
 }
 
 /* Ensure section paragraphs have tighter spacing */
 section p {
-  margin-bottom: 0.5rem !important;
+  margin-bottom: 0.25rem !important;
 }
 
 /* Card content paragraphs */
 .card p {
-  margin-bottom: 0.5rem !important;
+  margin-bottom: 0.25rem !important;
 }
 
 /* Elegant typography enhancements */
