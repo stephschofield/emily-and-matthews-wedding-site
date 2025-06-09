@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { searchSpotifyTracks, formatArtists } from "@/lib/spotify"
+import { formatArtists } from "@/lib/spotify"
 import { Music, Search } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -46,12 +46,26 @@ export function SongSearchInput({
       if (query.trim().length >= 2) {
         setIsLoading(true)
         try {
-          const tracks = await searchSpotifyTracks(query)
-          setResults(tracks)
-          setShowResults(true)
+          // Use our API route instead of calling Spotify directly
+          const response = await fetch(`/api/spotify-search?q=${encodeURIComponent(query)}`)
+
+          if (!response.ok) {
+            throw new Error("Search failed")
+          }
+
+          const data = await response.json()
+
+          if (data.error) {
+            console.error("Search API error:", data.error)
+            setResults([])
+          } else {
+            setResults(data.tracks || [])
+            setShowResults(true)
+          }
         } catch (error) {
           console.error("Search error:", error)
           setResults([])
+          // Optionally show a user-friendly error message
         } finally {
           setIsLoading(false)
         }
@@ -192,10 +206,16 @@ export function SongSearchInput({
                 </div>
               </div>
             ))
+          ) : query.length >= 2 ? (
+            <div className="p-4 text-center text-slate-500">
+              <Music className="w-8 h-8 mx-auto mb-2 text-slate-300" />
+              <p className="font-cormorant">No songs found for "{query}"</p>
+              <p className="text-xs text-slate-400 mt-1">Try a different search term</p>
+            </div>
           ) : (
             <div className="p-4 text-center text-slate-500">
               <Music className="w-8 h-8 mx-auto mb-2 text-slate-300" />
-              <p className="font-cormorant">No songs found</p>
+              <p className="font-cormorant">Start typing to search...</p>
             </div>
           )}
         </div>
