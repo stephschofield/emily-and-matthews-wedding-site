@@ -59,8 +59,8 @@ export function CoupleSection() {
             dating and have been inseparable ever since.
           </p>
           <p className="text-lg text-slate-700 mb-8 leading-relaxed">
-            Matthew proposed during a sunset picnic at the Sarah and Bob Bigham Scenic Overlook, with the Old Louisiana
-            State Capitol in view – the very place where they would later decide to celebrate their wedding day.
+            Matthew proposed during a romantic stroll through the Dallas Arboretum and Botanical Garden, surrounded by
+            beautiful blooms and serene landscapes – a perfect setting that reflects their love for nature and beauty.
           </p>
 
           <div className="grid md:grid-cols-3 gap-6 mt-12">

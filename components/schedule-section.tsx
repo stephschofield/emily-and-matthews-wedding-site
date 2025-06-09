@@ -1,6 +1,7 @@
 import { SectionTitle } from "@/components/section-title"
 import { Card, CardContent } from "@/components/ui/card"
 import { FloralDivider } from "@/components/floral-divider"
+import { Shirt } from "lucide-react"
 
 export function ScheduleSection() {
   const events = [
@@ -18,6 +19,7 @@ export function ScheduleSection() {
       time: "6:30 PM",
       title: "Dinner & Reception",
       description: "Celebrate with dinner, dancing, and festivities in the Rotunda",
+      dressCode: true,
     },
     {
       time: "10:00 PM",
@@ -60,6 +62,15 @@ export function ScheduleSection() {
                   <Card className="border-sage/20 overflow-hidden w-80">
                     <CardContent className="p-4">
                       <p className="text-slate-700">{event.description}</p>
+                      {event.dressCode && (
+                        <div className="mt-3 pt-3 border-t border-sage/20">
+                          <div className="flex items-center justify-center mb-2">
+                            <Shirt className="w-4 h-4 text-sage mr-2" />
+                            <span className="text-sm font-medium text-navy">Dress Code</span>
+                          </div>
+                          <p className="text-sm text-slate-600 text-center">Elevated Cocktail • No ties required</p>
+                        </div>
+                      )}
                     </CardContent>
                   </Card>
                 </div>

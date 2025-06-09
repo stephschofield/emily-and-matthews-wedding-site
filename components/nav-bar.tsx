@@ -28,6 +28,7 @@ export function NavBar() {
     { name: "Schedule", href: "/#schedule" },
     { name: "Gallery", href: "/#gallery" },
     { name: "Registry", href: "/#registry" },
+    { name: "Playlist", href: "/#playlist" },
     { name: "RSVP", href: "/rsvp" },
   ]
 
