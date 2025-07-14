@@ -56,7 +56,10 @@ export function NavBar() {
             </Button>
 
             {isMenuOpen && (
-              <div className="fixed inset-0 top-16 bg-cream z-40 flex flex-col items-center pt-10 border-t border-sage/20 shadow-lg">
+              <div
+                className="fixed inset-0 top-16 bg-cream z-40 flex flex-col items-center pt-10 border-t border-sage/20 shadow-lg"
+                style={{ backgroundColor: "#F9F6F0" }}
+              >
                 {navLinks.map((link) => (
                   <Link
                     key={link.name}
