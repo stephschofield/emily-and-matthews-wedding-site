@@ -109,9 +109,8 @@ const timelineEvents: TimelineEvent[] = [
     date: "February 1, 2025",
     title: "The Proposal",
     description: "Matthew pops the question!",
-    image: "/images/timeline-proposal.jpeg",
-    imageAlt:
-      "Matthew proposing to Emily at the Sarah and Bob Bigham Scenic Overlook with Dallas skyline in background",
+    image: "/images/proposal-new.jpeg",
+    imageAlt: "Matthew proposing to Emily on one knee by a lake with Emily covering her mouth in surprise",
     side: "right",
   },
 ]
@@ -131,43 +130,15 @@ export function TimelineSection() {
           <div className="space-y-16 lg:space-y-24">
             {timelineEvents.map((event, index) => (
               <div key={event.id} className="relative">
-                {/* Timeline Dot and Date - Date on opposite side of bullet with consistent spacing */}
+                {/* Timeline Dot */}
                 <div className="absolute left-1/2 top-0 z-10 hidden lg:block">
-                  {/* Left side events - date on right, bullet on left */}
-                  {event.side === "left" && (
-                    <>
-                      {/* Date on right side of center line - consistent 24px spacing */}
-                      <div className="absolute left-6 top-0">
-                        <span className="inline-block px-4 py-2 bg-sage/10 text-sage font-cormorant font-medium text-lg rounded-full whitespace-nowrap">
-                          {event.date}
-                        </span>
-                      </div>
-                      {/* Bullet on left side of center line */}
-                      <div className="absolute -left-3 top-2 w-6 h-6 bg-sage rounded-full border-4 border-cream shadow-lg" />
-                    </>
-                  )}
-
-                  {/* Right side events - date on left, bullet on right */}
-                  {event.side === "right" && (
-                    <>
-                      {/* Date on left side of center line - consistent 24px spacing */}
-                      <div className="absolute -left-6 top-0 -translate-x-full">
-                        <span className="inline-block px-4 py-2 bg-sage/10 text-sage font-cormorant font-medium text-lg rounded-full whitespace-nowrap">
-                          {event.date}
-                        </span>
-                      </div>
-                      {/* Bullet on right side of center line */}
-                      <div className="absolute -right-3 top-2 w-6 h-6 bg-sage rounded-full border-4 border-cream shadow-lg" />
-                    </>
-                  )}
+                  <div className="w-6 h-6 bg-sage rounded-full border-4 border-cream shadow-lg -translate-x-1/2" />
                 </div>
 
-                {/* Event Content */}
-                <div className={`grid lg:grid-cols-2 gap-8 lg:gap-16 items-start`}>
-                  {/* Image */}
-                  <div
-                    className={`relative ${event.side === "right" ? "lg:order-2" : "lg:order-1"} flex justify-center`}
-                  >
+                {/* Event Content - All aligned to the right of the timeline */}
+                <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+                  {/* Image - Always on the left */}
+                  <div className="flex justify-center lg:justify-end lg:pr-8">
                     <div className="relative w-full max-w-lg">
                       <div className="relative rounded-lg overflow-hidden shadow-xl">
                         <Image
@@ -187,24 +158,24 @@ export function TimelineSection() {
                     </div>
                   </div>
 
-                  {/* Content - Aligned with dates */}
-                  <div
-                    className={`${event.side === "right" ? "lg:order-1 lg:pr-16" : "lg:order-2 lg:pl-16"} text-center lg:mt-0`}
-                  >
+                  {/* Content - Always on the right, aligned with bullet */}
+                  <div className="text-center lg:text-left lg:pl-8">
+                    {/* Date Badge - Stacked above content card */}
+                    <div className="mb-4 flex justify-center lg:justify-start">
+                      <span className="inline-block px-4 py-2 bg-sage/10 text-sage font-cormorant font-medium text-lg rounded-full">
+                        {event.date}
+                      </span>
+                    </div>
+
                     <Card className="border-sage/20 overflow-hidden shadow-lg bg-white/90 backdrop-blur-sm">
                       <CardContent className="p-8">
-                        {/* Date Badge - Mobile Only */}
-                        <div className="inline-flex items-center px-4 py-2 bg-sage/10 rounded-full mb-6 lg:hidden">
-                          <span className="text-sage font-cormorant font-medium text-lg">{event.date}</span>
-                        </div>
-
                         {/* Title */}
                         <h3 className="text-3xl font-cormorant text-navy mb-4 font-light tracking-wide">
                           {event.title}
                         </h3>
 
                         {/* Decorative divider */}
-                        <div className="flex justify-center mb-6">
+                        <div className="flex justify-center lg:justify-start mb-6">
                           <div className="w-16 h-px bg-sage/40" />
                         </div>
 
