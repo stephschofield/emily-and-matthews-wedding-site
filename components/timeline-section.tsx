@@ -108,7 +108,7 @@ const timelineEvents: TimelineEvent[] = [
     id: "10",
     date: "February 1, 2025",
     title: "The Proposal",
-    description: "Matthew pops the question!",
+    description: "Matthew pops the question in the Dallas Arboretum and Botanical Garden!",
     image: "/images/proposal-new.jpeg",
     imageAlt: "Matthew proposing to Emily on one knee by a lake with Emily covering her mouth in surprise",
     side: "right",
