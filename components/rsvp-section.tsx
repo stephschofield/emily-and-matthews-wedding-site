@@ -49,8 +49,8 @@ export function RsvpSection() {
 
               <p className="mt-6 text-sm text-slate-500">
                 Having trouble with your RSVP? Contact us directly at
-                <a href="mailto:emilyplusmatthew@example.com" className="text-navy hover:text-sage ml-1">
-                  emilyplusmatthew@example.com
+                <a href="mailto:eebueche@gmail.com" className="text-navy hover:text-sage ml-1">
+                  eebueche@gmail.com
                 </a>
               </p>
             </div>

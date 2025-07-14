@@ -117,8 +117,8 @@ export default function RSVPPage() {
                 </p>
                 <p className="text-sm text-slate-500">
                   Questions? Contact us at{" "}
-                  <a href="mailto:emilyplusmatthew@example.com" className="text-sage hover:text-sage/80">
-                    emilyplusmatthew@example.com
+                  <a href="mailto:eebueche@gmail.com" className="text-sage hover:text-sage/80">
+                    eebueche@gmail.com
                   </a>
                 </p>
               </div>
@@ -180,8 +180,8 @@ export default function RSVPPage() {
                             <AlertCircle className="w-5 h-5 text-red-500 mr-2" />
                             <p className="text-red-700 text-sm font-light">
                               We could not locate your name. Please verify the spelling or contact us at{" "}
-                              <a href="mailto:emilyplusmatthew@example.com" className="underline">
-                                emilyplusmatthew@example.com
+                              <a href="mailto:eebueche@gmail.com" className="underline">
+                                eebueche@gmail.com
                               </a>
                             </p>
                           </div>
