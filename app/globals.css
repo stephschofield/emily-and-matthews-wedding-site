@@ -78,6 +78,19 @@
   }
 }
 
+/* Ensure mobile menu overlay has highest priority */
+.mobile-menu-overlay {
+  background-color: #f9f6f0 !important;
+  z-index: 9999 !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+}
+
 /* Center all headers across the site */
 h1,
 h2,
