@@ -114,16 +114,6 @@ const timelineEvents: TimelineEvent[] = [
       "Matthew proposing to Emily at the Sarah and Bob Bigham Scenic Overlook with Dallas skyline in background",
     side: "right",
   },
-  {
-    id: "11",
-    date: "May 9, 2026",
-    title: "Our Wedding Day",
-    description:
-      "The beginning of our next chapter as husband and wife, celebrating with all our loved ones at the beautiful Old Louisiana State Capitol.",
-    image: "/images/timeline-wedding.jpg",
-    imageAlt: "Emily and Matthew's wedding day",
-    side: "left",
-  },
 ]
 
 export function TimelineSection() {
@@ -141,11 +131,39 @@ export function TimelineSection() {
           <div className="space-y-16 lg:space-y-24">
             {timelineEvents.map((event, index) => (
               <div key={event.id} className="relative">
-                {/* Timeline Dot */}
-                <div className="absolute left-1/2 -translate-x-1/2 w-6 h-6 bg-sage rounded-full border-4 border-cream shadow-lg z-10 hidden lg:block" />
+                {/* Timeline Dot and Date - Date on opposite side of bullet with consistent spacing */}
+                <div className="absolute left-1/2 top-0 z-10 hidden lg:block">
+                  {/* Left side events - date on right, bullet on left */}
+                  {event.side === "left" && (
+                    <>
+                      {/* Date on right side of center line - consistent 24px spacing */}
+                      <div className="absolute left-6 top-0">
+                        <span className="inline-block px-4 py-2 bg-sage/10 text-sage font-cormorant font-medium text-lg rounded-full whitespace-nowrap">
+                          {event.date}
+                        </span>
+                      </div>
+                      {/* Bullet on left side of center line */}
+                      <div className="absolute -left-3 top-2 w-6 h-6 bg-sage rounded-full border-4 border-cream shadow-lg" />
+                    </>
+                  )}
+
+                  {/* Right side events - date on left, bullet on right */}
+                  {event.side === "right" && (
+                    <>
+                      {/* Date on left side of center line - consistent 24px spacing */}
+                      <div className="absolute -left-6 top-0 -translate-x-full">
+                        <span className="inline-block px-4 py-2 bg-sage/10 text-sage font-cormorant font-medium text-lg rounded-full whitespace-nowrap">
+                          {event.date}
+                        </span>
+                      </div>
+                      {/* Bullet on right side of center line */}
+                      <div className="absolute -right-3 top-2 w-6 h-6 bg-sage rounded-full border-4 border-cream shadow-lg" />
+                    </>
+                  )}
+                </div>
 
                 {/* Event Content */}
-                <div className={`grid lg:grid-cols-2 gap-8 lg:gap-16 items-center`}>
+                <div className={`grid lg:grid-cols-2 gap-8 lg:gap-16 items-start`}>
                   {/* Image */}
                   <div
                     className={`relative ${event.side === "right" ? "lg:order-2" : "lg:order-1"} flex justify-center`}
@@ -169,14 +187,14 @@ export function TimelineSection() {
                     </div>
                   </div>
 
-                  {/* Content - Always centered text */}
+                  {/* Content - Aligned with dates */}
                   <div
-                    className={`${event.side === "right" ? "lg:order-1 lg:pr-16" : "lg:order-2 lg:pl-16"} text-center`}
+                    className={`${event.side === "right" ? "lg:order-1 lg:pr-16" : "lg:order-2 lg:pl-16"} text-center lg:mt-0`}
                   >
                     <Card className="border-sage/20 overflow-hidden shadow-lg bg-white/90 backdrop-blur-sm">
                       <CardContent className="p-8">
-                        {/* Date Badge */}
-                        <div className="inline-flex items-center px-4 py-2 bg-sage/10 rounded-full mb-6">
+                        {/* Date Badge - Mobile Only */}
+                        <div className="inline-flex items-center px-4 py-2 bg-sage/10 rounded-full mb-6 lg:hidden">
                           <span className="text-sage font-cormorant font-medium text-lg">{event.date}</span>
                         </div>
 
