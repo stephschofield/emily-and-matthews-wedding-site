@@ -2,7 +2,7 @@ import { Cormorant_Garamond } from "next/font/google"
 import { cn } from "@/lib/utils"
 import { NavBar } from "@/components/nav-bar"
 import { HeroSection } from "@/components/hero-section"
-import { CoupleSection } from "@/components/couple-section"
+import { TimelineSection } from "@/components/timeline-section"
 import { VenueSection } from "@/components/venue-section"
 import { ScheduleSection } from "@/components/schedule-section"
 import { GallerySection } from "@/components/gallery-section"
@@ -24,7 +24,7 @@ export default function Home() {
       <FaviconUpdater />
       <NavBar />
       <HeroSection />
-      <CoupleSection />
+      <TimelineSection />
       <VenueSection />
       <ScheduleSection />
       <GallerySection />

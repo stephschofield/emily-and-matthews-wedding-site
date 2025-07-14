@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Cormorant_Garamond } from "next/font/google"
 import { cn } from "@/lib/utils"
 import { NavBar } from "@/components/nav-bar"
@@ -9,9 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { CheckCircle, AlertCircle } from "lucide-react"
+import { AlertCircle, Heart, Info } from "lucide-react"
 import { findGuestByName } from "@/lib/guest-list"
 
 const cormorant = Cormorant_Garamond({
@@ -20,98 +18,49 @@ const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
 })
 
-interface EventRSVP {
-  eventName: string
-  attending: string
-  partySize: number
-}
-
 interface FormData {
   guestName: string
-  events: EventRSVP[]
-  mealPreference: string
-  dietaryRestrictions: string
-  additionalNotes: string
+  message: string
 }
 
 export default function RSVPPage() {
   const [currentStep, setCurrentStep] = useState(1)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [guestNotFound, setGuestNotFound] = useState(false)
-  const [invitedEvents, setInvitedEvents] = useState<string[]>([])
-  const [maxPartySize, setMaxPartySize] = useState(1)
   const [formData, setFormData] = useState<FormData>({
     guestName: "",
-    events: [],
-    mealPreference: "",
-    dietaryRestrictions: "",
-    additionalNotes: "",
+    message: "",
   })
 
-  // Update events when guest name changes
-  useEffect(() => {
-    if (formData.guestName.trim()) {
-      const guest = findGuestByName(formData.guestName)
-      if (guest) {
-        setGuestNotFound(false)
-        setInvitedEvents(guest.events)
-        setMaxPartySize(guest.maxPartySize)
-        // Initialize events array with only invited events
-        const initialEvents = guest.events.map((eventName) => ({
-          eventName,
-          attending: "",
-          partySize: 1,
-        }))
-        setFormData((prev) => ({ ...prev, events: initialEvents }))
-      } else {
-        setGuestNotFound(true)
-        setInvitedEvents([])
-        setMaxPartySize(1)
-        setFormData((prev) => ({ ...prev, events: [] }))
-      }
+  // Check guest when name changes
+  const handleNameChange = (name: string) => {
+    setFormData({ ...formData, guestName: name })
+
+    if (name.trim()) {
+      const guest = findGuestByName(name)
+      setGuestNotFound(!guest)
     } else {
       setGuestNotFound(false)
-      setInvitedEvents([])
-      setMaxPartySize(1)
-      setFormData((prev) => ({ ...prev, events: [] }))
     }
-  }, [formData.guestName])
-
-  const updateEventRSVP = (index: number, field: keyof EventRSVP, value: string | number) => {
-    const updatedEvents = [...formData.events]
-    updatedEvents[index] = { ...updatedEvents[index], [field]: value }
-
-    // If attending "yes" and maxPartySize is 1, automatically set partySize to 1
-    if (field === "attending" && value === "yes" && maxPartySize === 1) {
-      updatedEvents[index].partySize = 1
-    }
-
-    setFormData({ ...formData, events: updatedEvents })
   }
 
   const handleSubmit = async () => {
-    // Here you would typically send the data to your backend
-    console.log("RSVP Data:", formData)
-    setIsSubmitted(true)
-  }
+    try {
+      // Here you would typically send the data to your backend
+      console.log("RSVP Decline Data:", { ...formData, attending: "no" })
 
-  const canProceedToStep2 = formData.guestName.trim() !== "" && !guestNotFound && invitedEvents.length > 0
-  const canProceedToStep3 = formData.events.every((event) => event.attending !== "")
-  const canSubmit = canProceedToStep3 && formData.mealPreference !== ""
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000))
 
-  // Generate party size options based on maxPartySize
-  const getPartySizeOptions = () => {
-    const options = []
-    for (let i = 1; i <= maxPartySize; i++) {
-      if (i === 1) {
-        options.push({ value: i, label: "Myself" })
-      } else {
-        options.push({ value: i, label: `${i} people` })
-      }
+      setIsSubmitted(true)
+    } catch (error) {
+      console.error("Error submitting RSVP:", error)
     }
-    return options
   }
 
+  const canProceedToStep2 = formData.guestName.trim() !== "" && !guestNotFound
+
+  // Success page for declined RSVPs
   if (isSubmitted) {
     return (
       <main className={cn("min-h-screen bg-gradient-to-b from-cream to-white text-slate-900", cormorant.variable)}>
@@ -120,23 +69,23 @@ export default function RSVPPage() {
           <div className="container mx-auto px-4">
             <div className="max-w-2xl mx-auto text-center">
               <div className="bg-white/90 backdrop-blur-sm rounded-lg shadow-sm border border-sage/10 p-16">
-                <CheckCircle className="w-16 h-16 text-sage mx-auto mb-8" />
+                <Heart className="w-16 h-16 text-sage mx-auto mb-8" />
                 <h1 className="text-5xl font-cormorant text-slate-700 mb-6 font-light tracking-wide">Thank You</h1>
                 <div className="w-16 h-px bg-sage/40 mx-auto mb-6"></div>
                 <p className="text-lg text-slate-600 mb-8 font-light leading-relaxed">
-                  Your response has been received.
+                  We're sorry you won't be able to join us on our special day, but we completely understand.
                   <br />
-                  We cannot wait to celebrate with you.
+                  Thank you for letting us know.
                 </p>
+                {formData.message && (
+                  <div className="bg-sage/5 p-4 rounded-lg mb-6">
+                    <p className="text-slate-700 italic font-cormorant">"{formData.message}"</p>
+                  </div>
+                )}
                 <p className="text-sm text-slate-500 font-light tracking-wide">
-                  Should you need to make changes, please contact us at
+                  We'll be thinking of you on May 9, 2026.
                   <br />
-                  <a
-                    href="mailto:emilyplusmatthew@example.com"
-                    className="text-sage hover:text-sage/80 transition-colors"
-                  >
-                    emilyplusmatthew@example.com
-                  </a>
+                  With love, Emily & Matthew
                 </p>
               </div>
             </div>
@@ -153,10 +102,32 @@ export default function RSVPPage() {
       <div className="pt-20 pb-20">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
+            {/* Combined RSVP Information Block */}
+            <div className="bg-sky-blue/10 border border-sky-blue/20 rounded-lg p-6 mb-8">
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-3">
+                  <Info className="w-6 h-6 text-sky-blue mr-3" />
+                  <h3 className="text-xl font-cormorant font-medium text-navy">RSVP Information</h3>
+                </div>
+                <p className="text-slate-700 leading-relaxed mb-4">
+                  Thank you for looking to RSVP in advance! We will let you know when it is time to RSVP closer to the
+                  event. For now, if you know that you are unable to attend, please fill in your RSVP below. If you're
+                  planning to join us for our special day, we'll send you an email when the full RSVP process opens
+                  closer to the wedding date.
+                </p>
+                <p className="text-sm text-slate-500">
+                  Questions? Contact us at{" "}
+                  <a href="mailto:emilyplusmatthew@example.com" className="text-sage hover:text-sage/80">
+                    emilyplusmatthew@example.com
+                  </a>
+                </p>
+              </div>
+            </div>
+
             {/* Progress Indicator */}
             <div className="flex justify-center mb-12">
               <div className="flex items-center space-x-6">
-                {[1, 2, 3].map((step) => (
+                {[1, 2].map((step) => (
                   <div key={step} className="flex items-center">
                     <div
                       className={cn(
@@ -166,7 +137,7 @@ export default function RSVPPage() {
                     >
                       {step}
                     </div>
-                    {step < 3 && (
+                    {step < 2 && (
                       <div className={cn("w-12 h-px mx-3", currentStep > step ? "bg-sage" : "bg-sage/20")} />
                     )}
                   </div>
@@ -178,7 +149,10 @@ export default function RSVPPage() {
             {currentStep === 1 && (
               <div className="bg-white/90 backdrop-blur-sm rounded-lg shadow-sm border border-sage/10 overflow-hidden">
                 <div className="bg-sage/5 p-6 text-center border-b border-sage/10">
-                  <h2 className="text-3xl font-cormorant font-medium text-slate-800 tracking-wide">Your Information</h2>
+                  <h2 className="text-3xl font-cormorant font-medium text-slate-800 tracking-wide">
+                    Unable to Attend RSVP
+                  </h2>
+                  <p className="text-slate-600 mt-2 font-light">Only for guests who cannot attend</p>
                 </div>
                 <div className="p-8">
                   <div className="space-y-8">
@@ -192,7 +166,7 @@ export default function RSVPPage() {
                       <Input
                         id="guestName"
                         value={formData.guestName}
-                        onChange={(e) => setFormData({ ...formData, guestName: e.target.value })}
+                        onChange={(e) => handleNameChange(e.target.value)}
                         placeholder="Full Name"
                         className={cn(
                           "text-xl p-4 text-center border-sage/20 focus:border-sage bg-white/80 font-cormorant",
@@ -229,77 +203,46 @@ export default function RSVPPage() {
               </div>
             )}
 
-            {/* Step 2: Event Attendance */}
+            {/* Step 2: Decline Message */}
             {currentStep === 2 && (
               <div className="bg-white/90 backdrop-blur-sm rounded-lg shadow-sm border border-sage/10 overflow-hidden">
                 <div className="bg-sage/5 p-6 text-center border-b border-sage/10">
-                  <h2 className="text-3xl font-cormorant font-medium text-slate-800 tracking-wide">Event Attendance</h2>
+                  <h2 className="text-3xl font-cormorant font-medium text-slate-800 tracking-wide">
+                    We'll Miss You There
+                  </h2>
+                  <p className="text-slate-600 mt-2 font-light">Thank you for letting us know</p>
                 </div>
                 <div className="p-8">
                   <div className="space-y-8">
-                    {formData.events.map((event, index) => (
-                      <div key={index} className="border border-sage/10 rounded-lg p-6 bg-white/60">
-                        <div className="text-center mb-6">
-                          <h3 className="text-2xl font-cormorant text-slate-800 font-medium tracking-wide">
-                            {event.eventName}
-                          </h3>
-                          <div className="w-12 h-px bg-sage/30 mx-auto mt-2"></div>
-                        </div>
+                    {/* Confirmation Message */}
+                    <div className="text-center bg-sage/5 p-6 rounded-lg">
+                      <p className="text-lg font-cormorant text-slate-700 mb-2">
+                        <strong>{formData.guestName}</strong>, we understand you won't be able to join us on May 9,
+                        2026.
+                      </p>
+                      <p className="text-slate-600">We'll miss having you there to celebrate with us.</p>
+                    </div>
 
-                        <div className={cn("grid gap-8", maxPartySize > 1 ? "md:grid-cols-2" : "grid-cols-1")}>
-                          <div className="text-center">
-                            <Label className="text-sm font-cormorant text-slate-700 mb-4 block font-medium">
-                              Will you attend?
-                            </Label>
-                            <RadioGroup
-                              value={event.attending}
-                              onValueChange={(value) => updateEventRSVP(index, "attending", value)}
-                              className="flex flex-col space-y-3"
-                            >
-                              <div className="flex items-center justify-center space-x-3">
-                                <RadioGroupItem value="yes" id={`yes-${index}`} className="border-sage text-sage" />
-                                <Label htmlFor={`yes-${index}`} className="font-cormorant text-slate-700 font-medium">
-                                  Joyfully accepts
-                                </Label>
-                              </div>
-                              <div className="flex items-center justify-center space-x-3">
-                                <RadioGroupItem value="no" id={`no-${index}`} className="border-sage text-sage" />
-                                <Label htmlFor={`no-${index}`} className="font-cormorant text-slate-700 font-medium">
-                                  Regretfully declines
-                                </Label>
-                              </div>
-                            </RadioGroup>
-                          </div>
-
-                          {event.attending === "yes" && maxPartySize > 1 && (
-                            <div className="text-center">
-                              <Label className="text-sm font-cormorant text-slate-700 mb-4 block font-medium">
-                                Number of guests
-                              </Label>
-                              <Select
-                                value={event.partySize.toString()}
-                                onValueChange={(value) => updateEventRSVP(index, "partySize", Number.parseInt(value))}
-                              >
-                                <SelectTrigger className="border-sage/20 focus:border-sage bg-white/80 font-cormorant">
-                                  <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  {getPartySizeOptions().map((option) => (
-                                    <SelectItem
-                                      key={option.value}
-                                      value={option.value.toString()}
-                                      className="font-cormorant"
-                                    >
-                                      {option.label}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    ))}
+                    {/* Optional Message Field */}
+                    <div className="space-y-4">
+                      <Label
+                        htmlFor="message"
+                        className="text-lg font-cormorant text-slate-700 block font-medium text-center"
+                      >
+                        Optional Message for Emily & Matthew
+                      </Label>
+                      <Textarea
+                        id="message"
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        placeholder="Share a message with the happy couple..."
+                        className="border-sage/20 focus:border-sage bg-white/80 font-cormorant text-center"
+                        rows={4}
+                      />
+                      <p className="text-sm text-slate-500 text-center">
+                        Feel free to share your well wishes or let us know why you'll be missed!
+                      </p>
+                    </div>
 
                     <div className="flex justify-between pt-6">
                       <Button
@@ -309,107 +252,12 @@ export default function RSVPPage() {
                       >
                         Back
                       </Button>
-                      <Button
-                        onClick={() => setCurrentStep(3)}
-                        disabled={!canProceedToStep3}
-                        className="bg-sage hover:bg-sage/90 text-white px-12 py-3 rounded-full font-cormorant font-light tracking-wide"
-                      >
-                        Continue
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
 
-            {/* Step 3: Additional Questions */}
-            {currentStep === 3 && (
-              <div className="bg-white/90 backdrop-blur-sm rounded-lg shadow-sm border border-sage/10 overflow-hidden">
-                <div className="bg-sage/5 p-6 text-center border-b border-sage/10">
-                  <h2 className="text-3xl font-cormorant font-medium text-slate-800 tracking-wide">
-                    Additional Details
-                  </h2>
-                </div>
-                <div className="p-8">
-                  <div className="space-y-8">
-                    <div className="text-center">
-                      <Label className="text-lg font-cormorant text-slate-700 mb-6 block font-medium">
-                        Meal Selection
-                      </Label>
-                      <RadioGroup
-                        value={formData.mealPreference}
-                        onValueChange={(value) => setFormData({ ...formData, mealPreference: value })}
-                        className="flex flex-col space-y-4"
-                      >
-                        <div className="flex items-center justify-center space-x-3">
-                          <RadioGroupItem value="chicken" id="chicken" className="border-sage text-sage" />
-                          <Label htmlFor="chicken" className="font-cormorant text-slate-700 font-medium">
-                            Herb-Crusted Chicken
-                          </Label>
-                        </div>
-                        <div className="flex items-center justify-center space-x-3">
-                          <RadioGroupItem value="fish" id="fish" className="border-sage text-sage" />
-                          <Label htmlFor="fish" className="font-cormorant text-slate-700 font-medium">
-                            Blackened Red Fish
-                          </Label>
-                        </div>
-                        <div className="flex items-center justify-center space-x-3">
-                          <RadioGroupItem value="vegetarian" id="vegetarian" className="border-sage text-sage" />
-                          <Label htmlFor="vegetarian" className="font-cormorant text-slate-700 font-medium">
-                            Vegetarian Selection
-                          </Label>
-                        </div>
-                      </RadioGroup>
-                    </div>
-
-                    <div>
-                      <Label
-                        htmlFor="dietary"
-                        className="text-lg font-cormorant text-slate-700 mb-4 block font-medium text-center"
-                      >
-                        Dietary Considerations
-                      </Label>
-                      <Textarea
-                        id="dietary"
-                        value={formData.dietaryRestrictions}
-                        onChange={(e) => setFormData({ ...formData, dietaryRestrictions: e.target.value })}
-                        placeholder="Please share any dietary restrictions or allergies"
-                        className="border-sage/20 focus:border-sage bg-white/80 font-cormorant text-center"
-                        rows={3}
-                      />
-                    </div>
-
-                    <div>
-                      <Label
-                        htmlFor="notes"
-                        className="text-lg font-cormorant text-slate-700 mb-4 block font-medium text-center"
-                      >
-                        Special Notes
-                      </Label>
-                      <Textarea
-                        id="notes"
-                        value={formData.additionalNotes}
-                        onChange={(e) => setFormData({ ...formData, additionalNotes: e.target.value })}
-                        placeholder="Any special requests or messages for Emily and Matthew"
-                        className="border-sage/20 focus:border-sage bg-white/80 font-cormorant text-center"
-                        rows={3}
-                      />
-                    </div>
-
-                    <div className="flex justify-between pt-6">
-                      <Button
-                        onClick={() => setCurrentStep(2)}
-                        variant="outline"
-                        className="border-sage/30 text-sage hover:bg-sage/5 px-8 py-3 rounded-full font-cormorant font-light tracking-wide"
-                      >
-                        Back
-                      </Button>
                       <Button
                         onClick={handleSubmit}
-                        disabled={!canSubmit}
                         className="bg-sage hover:bg-sage/90 text-white px-12 py-3 rounded-full font-cormorant font-light tracking-wide"
                       >
-                        Submit Response
+                        Submit RSVP
                       </Button>
                     </div>
                   </div>
