@@ -36,12 +36,19 @@ export function SongSearchInput({
   const [isLoading, setIsLoading] = useState(false)
   const [showResults, setShowResults] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState(-1)
+  const [justSelected, setJustSelected] = useState(false) // Flag to prevent search after selection
 
   const inputRef = useRef<HTMLInputElement>(null)
   const resultsRef = useRef<HTMLDivElement>(null)
 
   // Debounced search
   useEffect(() => {
+    // Don't search if we just selected a song
+    if (justSelected) {
+      setJustSelected(false)
+      return
+    }
+
     const timeoutId = setTimeout(async () => {
       if (query.trim().length >= 2) {
         setIsLoading(true)
@@ -76,7 +83,7 @@ export function SongSearchInput({
     }, 300)
 
     return () => clearTimeout(timeoutId)
-  }, [query])
+  }, [query, justSelected])
 
   // Handle keyboard navigation
   useEffect(() => {
@@ -131,20 +138,31 @@ export function SongSearchInput({
 
   const handleSongSelect = (track: SpotifyTrack) => {
     const artistNames = formatArtists(track.artists)
+
+    // Set the flag to prevent search from triggering
+    setJustSelected(true)
+
+    // Update the query with the selected song
     setQuery(`${track.name} - ${artistNames}`)
 
-    // Hide the dropdown immediately after selection
+    // Hide the dropdown immediately
     setShowResults(false)
     setSelectedIndex(-1)
-    setResults([]) // Clear results to prevent re-showing
+    setResults([])
 
     // Call the parent callback
     onSongSelect(track.name, artistNames)
+
+    // Blur the input to remove focus and prevent any further interactions
+    if (inputRef.current) {
+      inputRef.current.blur()
+    }
   }
 
   const handleInputChange = (value: string) => {
     setQuery(value)
     setSelectedIndex(-1)
+    setJustSelected(false) // Reset the flag when user manually types
 
     // If user clears the input, hide results
     if (!value.trim()) {
@@ -154,8 +172,8 @@ export function SongSearchInput({
   }
 
   const handleInputFocus = () => {
-    // Only show results if we have them and the query is long enough
-    if (results.length > 0 && query.trim().length >= 2) {
+    // Only show results if we have them, the query is long enough, and we didn't just select
+    if (results.length > 0 && query.trim().length >= 2 && !justSelected) {
       setShowResults(true)
     }
   }
@@ -190,7 +208,7 @@ export function SongSearchInput({
       </div>
 
       {/* Search Results Dropdown */}
-      {showResults && (
+      {showResults && !justSelected && (
         <div
           ref={resultsRef}
           className="absolute z-50 w-full mt-1 bg-white border border-sage/20 rounded-md shadow-lg max-h-60 overflow-y-auto"
