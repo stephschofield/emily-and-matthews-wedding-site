@@ -7,24 +7,23 @@ export function FAQSection() {
     {
       icon: <Shirt className="w-6 h-6 text-sage" />,
       question: "What should I wear?",
-      answer: "The dress code is cocktail attire. Think dressy but not formal - no ties required for gentlemen!",
+      answer: "Cocktail attire - dressy but not formal. No ties required for gentlemen!",
     },
     {
       icon: <Car className="w-6 h-6 text-sage" />,
       question: "Where should I park?",
       answer:
-        "Parking at the Old State Capitol is limited and restricted to vendors and the wedding party. We advise carpooling and parking in paid lots near the venue or using rideshare apps. If your hotel is located downtown, ask the receptionist if shuttle rides are available.",
+        "Parking at the venue is limited. We recommend carpooling, using paid lots nearby, or rideshare apps. Downtown hotel guests can ask about shuttle service.",
     },
     {
       icon: <Users className="w-6 h-6 text-sage" />,
       question: "Are children invited?",
-      answer: "While we love your little ones, we have decided to only host guests ages 15+. Thanks for understanding!",
+      answer: "We've decided to host guests ages 15+ only. Thanks for understanding!",
     },
     {
       icon: <MapPin className="w-6 h-6 text-sage" />,
       question: "What time should I arrive?",
-      answer:
-        "Please plan to arrive by 3:45 PM for the 4:00 PM ceremony. This will give you time to find parking and get seated before we begin.",
+      answer: "Please arrive by 3:45 PM for the 4:00 PM ceremony to allow time for parking and seating.",
     },
   ]
 
@@ -42,9 +41,9 @@ export function FAQSection() {
                     <div className="flex-shrink-0 w-12 h-12 bg-sage/10 rounded-full flex items-center justify-center">
                       {faq.icon}
                     </div>
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <h3 className="text-xl font-cormorant text-navy mb-3 font-medium">{faq.question}</h3>
-                      <p className="text-slate-700 leading-relaxed">{faq.answer}</p>
+                      <p className="text-slate-700 leading-relaxed text-sm">{faq.answer}</p>
                     </div>
                   </div>
                 </CardContent>
