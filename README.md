@@ -6,7 +6,7 @@ Welcome to the official repository for Emily and Matthew's wedding website, crea
 
 This repository hosts the source code for a wedding website deployed via the v0.dev platform, backend configured using Supabase, and hosted on Vercel. The website offers a user-friendly interface where guests can find event information, RSVP, and receive updates.
 
-The main features of Emily and Matthew's wedding website likely include the following based on typical essential and popular wedding website features:
+The main features of Emily and Matthew's wedding website include the following features:
 
 - **Event Information**: Clear details of the wedding date, time, and venue locations, including maps or directions to help guests navigate where the ceremony and reception are taking place.
 - **RSVP Tool**: An integrated feature allowing guests to easily respond to invitations online, including options for meal preferences and RSVP deadlines to streamline guest management.
