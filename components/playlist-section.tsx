@@ -23,6 +23,7 @@ export function PlaylistSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState("")
   const [useSearch, setUseSearch] = useState(true)
+  const [submittedCount, setSubmittedCount] = useState(0)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -61,6 +62,10 @@ export function PlaylistSection() {
       if (!response.ok) {
         throw new Error(result.error || "Failed to submit song requests")
       }
+
+      // Store the count before resetting
+      const validCount = validRequests.length
+      setSubmittedCount(validCount)
 
       console.log("Song requests saved successfully:", result)
       setIsSubmitted(true)
@@ -101,8 +106,6 @@ export function PlaylistSection() {
   }
 
   if (isSubmitted) {
-    const submittedCount = getValidRequestsCount()
-
     return (
       <section id="playlist" className="py-20 bg-sky-blue/5 relative">
         <div className="container mx-auto px-4">
@@ -119,7 +122,10 @@ export function PlaylistSection() {
                 We can't wait to dance to your suggestions!
               </p>
               <Button
-                onClick={() => setIsSubmitted(false)}
+                onClick={() => {
+                  setIsSubmitted(false)
+                  setSubmittedCount(0)
+                }}
                 variant="outline"
                 className="border-sage text-sage hover:bg-sage/5"
               >
