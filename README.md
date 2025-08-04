@@ -18,7 +18,7 @@ The main features of Emily and Matthew's wedding website include the following f
 - **FAQ Section**: Answers to common guest questions regarding dress code, parking, kids attendance, accessibility, and any social media guidelines for the event.
 - **Design Consistency**: The site’s visual style is coordinated with the wedding’s theme or venue ambiance for a cohesive and welcoming experience.
 
-These features create a comprehensive, user-friendly hub for guests to find everything they need for the wedding celebration, reducing confusion and increasing guest engagement before the event[^1][^2][^3].
+These features create a comprehensive, user-friendly hub for guests to find everything they need for the wedding celebration, reducing confusion and increasing guest engagement before the event.
 
 - **Live Site (password protected):** [Visit the Wedding Site](https://vercel.com/sschofield-microsoftcos-projects/v0-emily-matthew-s-wedding-may-26)
 
