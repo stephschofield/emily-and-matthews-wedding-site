@@ -132,14 +132,32 @@ export function SongSearchInput({
   const handleSongSelect = (track: SpotifyTrack) => {
     const artistNames = formatArtists(track.artists)
     setQuery(`${track.name} - ${artistNames}`)
+
+    // Hide the dropdown immediately after selection
     setShowResults(false)
     setSelectedIndex(-1)
+    setResults([]) // Clear results to prevent re-showing
+
+    // Call the parent callback
     onSongSelect(track.name, artistNames)
   }
 
   const handleInputChange = (value: string) => {
     setQuery(value)
     setSelectedIndex(-1)
+
+    // If user clears the input, hide results
+    if (!value.trim()) {
+      setShowResults(false)
+      setResults([])
+    }
+  }
+
+  const handleInputFocus = () => {
+    // Only show results if we have them and the query is long enough
+    if (results.length > 0 && query.trim().length >= 2) {
+      setShowResults(true)
+    }
   }
 
   return (
@@ -156,6 +174,7 @@ export function SongSearchInput({
           id="song-search"
           value={query}
           onChange={(e) => handleInputChange(e.target.value)}
+          onFocus={handleInputFocus}
           placeholder={placeholder}
           className="border-sage/20 focus:border-sage bg-white/80 font-cormorant text-lg pr-10"
           autoComplete="off"
