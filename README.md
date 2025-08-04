@@ -4,7 +4,7 @@ Welcome to the official repository for Emily and Matthew's wedding website, crea
 
 ## Project Overview
 
-This repository hosts the source code for a wedding website deployed via the v0.dev platform and hosted on Vercel. The website offers a user-friendly interface where guests can find event information, RSVP, and receive updates.
+This repository hosts the source code for a wedding website deployed via the v0.dev platform, backend configured using Supabase, and hosted on Vercel. The website offers a user-friendly interface where guests can find event information, RSVP, and receive updates.
 
 The main features of Emily and Matthew's wedding website likely include the following based on typical essential and popular wedding website features:
 
