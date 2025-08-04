@@ -5,6 +5,7 @@ import { HeroSection } from "@/components/hero-section"
 import { TimelineSection } from "@/components/timeline-section"
 import { VenueSection } from "@/components/venue-section"
 import { ScheduleSection } from "@/components/schedule-section"
+import { FAQSection } from "@/components/faq-section"
 import { GallerySection } from "@/components/gallery-section"
 import { RegistrySection } from "@/components/registry-section"
 import { RsvpSection } from "@/components/rsvp-section"
@@ -27,6 +28,7 @@ export default function Home() {
       <TimelineSection />
       <VenueSection />
       <ScheduleSection />
+      <FAQSection />
       <GallerySection />
       <RegistrySection />
       <PlaylistSection />

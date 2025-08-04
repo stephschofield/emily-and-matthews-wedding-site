@@ -1,7 +1,7 @@
 import { SectionTitle } from "@/components/section-title"
 import { Card, CardContent } from "@/components/ui/card"
 import { FloralDivider } from "@/components/floral-divider"
-import { Shirt } from "lucide-react"
+import { Shirt, Users } from "lucide-react"
 
 export function ScheduleSection() {
   const events = [
@@ -38,6 +38,35 @@ export function ScheduleSection() {
       <div className="container mx-auto px-4 relative z-10">
         <SectionTitle>Wedding Day Schedule</SectionTitle>
 
+        {/* Important Information Cards */}
+        <div className="max-w-4xl mx-auto mb-16">
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card className="border-sage/20 overflow-hidden shadow-lg bg-white/90 backdrop-blur-sm">
+              <CardContent className="p-6 text-center">
+                <div className="flex items-center justify-center mb-4">
+                  <Shirt className="w-8 h-8 text-sage mr-3" />
+                  <h3 className="text-xl font-cormorant text-navy font-medium">Dress Code</h3>
+                </div>
+                <p className="text-lg text-slate-700 mb-2">Cocktail Attire</p>
+                <p className="text-sm text-slate-600">Dressy but not formal - no ties required for gentlemen!</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-sage/20 overflow-hidden shadow-lg bg-white/90 backdrop-blur-sm">
+              <CardContent className="p-6 text-center">
+                <div className="flex items-center justify-center mb-4">
+                  <Users className="w-8 h-8 text-sage mr-3" />
+                  <h3 className="text-xl font-cormorant text-navy font-medium">Guest Ages</h3>
+                </div>
+                <p className="text-lg text-slate-700 mb-2">Ages 15+ Only</p>
+                <p className="text-sm text-slate-600">
+                  While we love your little ones, this celebration is for ages 15 and up
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
         <div className="max-w-2xl mx-auto mt-12 relative">
           <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-sage/30 -translate-x-1/2 z-0" />
 
@@ -62,15 +91,6 @@ export function ScheduleSection() {
                   <Card className="border-sage/20 overflow-hidden w-80">
                     <CardContent className="p-4">
                       <p className="text-slate-700">{event.description}</p>
-                      {event.dressCode && (
-                        <div className="mt-3 pt-3 border-t border-sage/20">
-                          <div className="flex items-center justify-center mb-2">
-                            <Shirt className="w-4 h-4 text-sage mr-2" />
-                            <span className="text-sm font-medium text-navy">Dress Code</span>
-                          </div>
-                          <p className="text-sm text-slate-600 text-center">Elevated Cocktail • No ties required</p>
-                        </div>
-                      )}
                     </CardContent>
                   </Card>
                 </div>
