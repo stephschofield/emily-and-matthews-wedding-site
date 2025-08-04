@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { SongSearchInput } from "@/components/song-search-input"
-import { Music, CheckCircle, AlertCircle, Plus, Trash2 } from "lucide-react"
+import { Music, CheckCircle, AlertCircle, Plus, Trash2, Loader2 } from "lucide-react"
 
 interface SongRequest {
   id: string
@@ -39,18 +39,37 @@ export function PlaylistSection() {
     setIsSubmitting(true)
 
     try {
-      // Here you would typically send the data to your backend
-      console.log("Song Requests Data:", validRequests)
+      const songRequestsData = validRequests.map((request) => ({
+        song_title: request.songTitle,
+        artist: request.artist,
+        guest_name: "", // Could be enhanced to collect guest name
+        email: "", // Could be enhanced to collect email
+      }))
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      const response = await fetch("/api/song-requests", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          songRequests: songRequestsData,
+        }),
+      })
 
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to submit song requests")
+      }
+
+      console.log("Song requests saved successfully:", result)
       setIsSubmitted(true)
 
       // Reset form after successful submission
       setSongRequests([{ id: "1", songTitle: "", artist: "" }])
     } catch (err) {
-      setError("Something went wrong. Please try again.")
+      console.error("Error submitting song requests:", err)
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.")
     } finally {
       setIsSubmitting(false)
     }
@@ -254,7 +273,7 @@ export function PlaylistSection() {
                     type="button"
                     variant="outline"
                     onClick={addSongRequest}
-                    className="border-sage/30 text-sage hover:bg-sage/5 flex items-center gap-2"
+                    className="border-sage/30 text-sage hover:bg-sage/5 flex items-center gap-2 bg-transparent"
                   >
                     <Plus className="h-4 w-4" />
                     Add Another Song
@@ -275,8 +294,9 @@ export function PlaylistSection() {
                   <Button
                     type="submit"
                     disabled={isSubmitting || getValidRequestsCount() === 0}
-                    className="bg-sage hover:bg-sage/90 text-white px-8 py-3 text-lg font-cormorant font-light tracking-wide"
+                    className="bg-sage hover:bg-sage/90 text-white px-8 py-3 text-lg font-cormorant font-light tracking-wide flex items-center gap-2"
                   >
+                    {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
                     {isSubmitting
                       ? "Adding Songs..."
                       : getValidRequestsCount() === 1

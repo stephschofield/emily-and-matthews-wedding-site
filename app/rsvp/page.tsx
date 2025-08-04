@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { AlertCircle, Heart, Info } from "lucide-react"
+import { AlertCircle, Heart, Info, Loader2 } from "lucide-react"
 import { findGuestByName } from "@/lib/guest-list"
 
 const cormorant = Cormorant_Garamond({
@@ -26,7 +26,9 @@ interface FormData {
 export default function RSVPPage() {
   const [currentStep, setCurrentStep] = useState(1)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [guestNotFound, setGuestNotFound] = useState(false)
+  const [submitError, setSubmitError] = useState("")
   const [formData, setFormData] = useState<FormData>({
     guestName: "",
     message: "",
@@ -45,16 +47,42 @@ export default function RSVPPage() {
   }
 
   const handleSubmit = async () => {
+    setIsSubmitting(true)
+    setSubmitError("")
+
     try {
-      // Here you would typically send the data to your backend
-      console.log("RSVP Decline Data:", { ...formData, attending: "no" })
+      const rsvpData = {
+        guest_name: formData.guestName,
+        attending: false,
+        party_size: 1,
+        events: [],
+        message: formData.message,
+      }
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      const response = await fetch("/api/rsvp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          rsvp: rsvpData,
+          partyMembers: [],
+        }),
+      })
 
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to submit RSVP")
+      }
+
+      console.log("RSVP saved successfully:", result)
       setIsSubmitted(true)
     } catch (error) {
       console.error("Error submitting RSVP:", error)
+      setSubmitError(error instanceof Error ? error.message : "Failed to submit RSVP. Please try again.")
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -123,6 +151,16 @@ export default function RSVPPage() {
                 </p>
               </div>
             </div>
+
+            {/* Error Message */}
+            {submitError && (
+              <div className="bg-red-50/80 border border-red-200/50 rounded-lg p-4 mb-6">
+                <div className="flex items-center">
+                  <AlertCircle className="w-5 h-5 text-red-500 mr-2" />
+                  <p className="text-red-700 text-sm">{submitError}</p>
+                </div>
+              </div>
+            )}
 
             {/* Progress Indicator */}
             <div className="flex justify-center mb-12">
@@ -248,6 +286,7 @@ export default function RSVPPage() {
                       <Button
                         onClick={() => setCurrentStep(1)}
                         variant="outline"
+                        disabled={isSubmitting}
                         className="border-sage/30 text-sage hover:bg-sage/5 px-8 py-3 rounded-full font-cormorant font-light tracking-wide"
                       >
                         Back
@@ -255,9 +294,11 @@ export default function RSVPPage() {
 
                       <Button
                         onClick={handleSubmit}
-                        className="bg-sage hover:bg-sage/90 text-white px-12 py-3 rounded-full font-cormorant font-light tracking-wide"
+                        disabled={isSubmitting}
+                        className="bg-sage hover:bg-sage/90 text-white px-12 py-3 rounded-full font-cormorant font-light tracking-wide flex items-center gap-2"
                       >
-                        Submit RSVP
+                        {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
+                        {isSubmitting ? "Submitting..." : "Submit RSVP"}
                       </Button>
                     </div>
                   </div>
