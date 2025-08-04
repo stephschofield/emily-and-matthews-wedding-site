@@ -1,9 +1,3 @@
-<img src="https://r2cdn.perplexity.ai/pplx-full-logo-primary-dark%402x.png" class="logo" width="120"/>
-
-# create a comprehensive readme for this github repo: [stephschofield/emily-and-matthews-wedding-site](https://github.com/stephschofield/emily-and-matthews-wedding-site)
-
-Here is a comprehensive README template tailored for the GitHub repository "stephschofield/emily-and-matthews-wedding-site" based on the provided repository description and general best practices for GitHub README files:
-
 # Emily + Matthew's Wedding Site
 
 Welcome to the official repository for Emily and Matthew's wedding website, created for their special day on May 26. This project is designed to be a dynamic, easy-to-update site that shares all the essential wedding details and keeps guests informed.
