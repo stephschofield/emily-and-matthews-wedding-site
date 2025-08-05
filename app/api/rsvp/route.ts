@@ -5,7 +5,10 @@ import type { RSVP, PartyMember } from "@/lib/supabase"
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { rsvp, partyMembers = [] }: { rsvp: RSVP; partyMembers: Omit<PartyMember, "rsvp_id">[] } = body
+    const {
+      rsvp,
+      partyMembers = [],
+    }: { rsvp: RSVP; partyMembers: Omit<PartyMember, "rsvp_id" | "id" | "created_at">[] } = body
 
     const supabase = createServerClient()
 

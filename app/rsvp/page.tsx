@@ -103,17 +103,17 @@ export default function RSVPPage() {
                   <h1 className="text-5xl font-cormorant text-slate-700 mb-6 font-light tracking-wide">Thank You</h1>
                   <div className="w-16 h-px bg-sage/40 mx-auto mb-6"></div>
                   <p className="text-lg text-slate-600 mb-8 font-light leading-relaxed">
-                    We&apos;re sorry you won&apos;t be able to join us on our special day, but we completely understand.
+                    {"We're sorry you won't be able to join us on our special day, but we completely understand."}
                     <br />
                     Thank you for letting us know.
                   </p>
                   {formData.message && (
                     <div className="bg-sage/5 p-4 rounded-lg mb-6">
-                      <p className="text-slate-700 italic font-cormorant">&quot;{formData.message}&quot;</p>
+                      <p className="text-slate-700 italic font-cormorant">"{formData.message}"</p>
                     </div>
                   )}
                   <p className="text-sm text-slate-500 font-light tracking-wide">
-                    We&apos;ll be thinking of you on May 9, 2026.
+                    {"We'll be thinking of you on May 9, 2026."}
                     <br />
                     With love, Emily & Matthew
                   </p>
@@ -144,7 +144,7 @@ export default function RSVPPage() {
                   <p className="text-slate-700 leading-relaxed mb-4">
                     Thank you for looking to RSVP in advance! We will let you know when it is time to RSVP closer to the
                     event. For now, if you know that you are unable to attend, please fill in your RSVP below. If
-                    you&apos;re planning to join us for our special day, we&apos;ll send you an email when the full RSVP
+                    {"you're planning to join us for our special day, we'll send you an email when the full RSVP"}
                     process opens closer to the wedding date.
                   </p>
                   <p className="text-sm text-slate-500">
@@ -250,7 +250,7 @@ export default function RSVPPage() {
                 <div className="bg-white/90 backdrop-blur-sm rounded-lg shadow-sm border border-sage/10 overflow-hidden">
                   <div className="bg-sage/5 p-6 text-center border-b border-sage/10">
                     <h2 className="text-3xl font-cormorant font-medium text-slate-800 tracking-wide">
-                      We&apos;ll Miss You There
+                      {"We'll Miss You There"}
                     </h2>
                     <p className="text-slate-600 mt-2 font-light">Thank you for letting us know</p>
                   </div>
@@ -259,10 +259,10 @@ export default function RSVPPage() {
                       {/* Confirmation Message */}
                       <div className="text-center bg-sage/5 p-6 rounded-lg">
                         <p className="text-lg font-cormorant text-slate-700 mb-2">
-                          <strong>{formData.guestName}</strong>, we understand you won&apos;t be able to join us on May
+                          <strong>{formData.guestName}</strong>, we understand you {"won't be able to join us on May"}
                           9, 2026.
                         </p>
-                        <p className="text-slate-600">We&apos;ll miss having you there to celebrate with us.</p>
+                        <p className="text-slate-600">{"We'll miss having you there to celebrate with us."}</p>
                       </div>
 
                       {/* Optional Message Field */}
@@ -282,7 +282,7 @@ export default function RSVPPage() {
                           rows={4}
                         />
                         <p className="text-sm text-slate-500 text-center">
-                          Feel free to share your well wishes or let us know why you&apos;ll be missed!
+                          Feel free to share your well wishes or let us know why {"you'll be missed!"}
                         </p>
                       </div>
 
