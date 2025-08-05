@@ -50,14 +50,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href={`/favicon.ico?v=${cacheVersion}`} sizes="any" />
-        <link rel="icon" type="image/png" sizes="32x32" href={`/favicon-32x32.png?v=${cacheVersion}`} />
-        <link rel="icon" type="image/png" sizes="16x16" href={`/favicon-16x16.png?v=${cacheVersion}`} />
-        <link rel="apple-touch-icon" sizes="180x180" href={`/apple-touch-icon.png?v=${cacheVersion}`} />
-        <link rel="manifest" href={`/site.webmanifest?v=${cacheVersion}`} />
-        <meta property="og:image" content={`/og-image.png?v=${cacheVersion}`} />
-      </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           {children}
