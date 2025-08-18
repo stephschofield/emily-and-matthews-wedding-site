@@ -1,6 +1,5 @@
 import { Cormorant_Garamond } from "next/font/google"
 import { cn } from "@/lib/utils"
-import { PasswordProtection } from "@/components/password-protection"
 import { NavBar } from "@/components/nav-bar"
 import { HeroSection } from "@/components/hero-section"
 import { TimelineSection } from "@/components/timeline-section"
@@ -22,21 +21,19 @@ const cormorant = Cormorant_Garamond({
 
 export default function Home() {
   return (
-    <PasswordProtection>
-      <main className={cn("min-h-screen bg-cream text-slate-900", cormorant.variable)}>
-        <FaviconUpdater />
-        <NavBar />
-        <HeroSection />
-        <TimelineSection />
-        <VenueSection />
-        <ScheduleSection />
-        <FAQSection />
-        <GallerySection />
-        <RegistrySection />
-        <PlaylistSection />
-        <RsvpSection />
-        <FooterSection />
-      </main>
-    </PasswordProtection>
+    <main className={cn("min-h-screen bg-cream text-slate-900", cormorant.variable)}>
+      <FaviconUpdater />
+      <NavBar />
+      <HeroSection />
+      <TimelineSection />
+      <VenueSection />
+      <ScheduleSection />
+      <FAQSection />
+      <GallerySection />
+      <RegistrySection />
+      <PlaylistSection />
+      <RsvpSection />
+      <FooterSection />
+    </main>
   )
 }

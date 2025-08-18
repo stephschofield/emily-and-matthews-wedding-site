@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     description: "Join us for our wedding celebration at the Old Louisiana State Capitol in Baton Rouge, Louisiana",
     images: [`/og-image.png?v=${cacheVersion}`],
   },
-    generator: 'v0.dev'
+    generator: 'v0.app'
 }
 
 interface RootLayoutProps {
