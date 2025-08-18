@@ -8,7 +8,7 @@ export function ScheduleSection() {
     {
       time: "6:00 PM",
       title: "Ceremony",
-      description: "Join us as we exchange vows in the historic Senate Chamber. The ceremony starts at 6:15 PM.",
+      description: "Join us as we exchange vows in the historic House Chambers. The ceremony starts at 6:15 PM.",
     },
     {
       time: "7:15 PM",
