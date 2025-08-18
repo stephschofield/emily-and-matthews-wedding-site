@@ -13,7 +13,7 @@ interface TimelineEvent {
   side: "left" | "right"
 }
 
-// Timeline events with updated graduation story
+// Timeline events ending with the proposal
 const timelineEvents: TimelineEvent[] = [
   {
     id: "1",

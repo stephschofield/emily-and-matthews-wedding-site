@@ -140,7 +140,7 @@ export default function RSVPPage() {
                 <p className="text-slate-700 leading-relaxed mb-4">
                   Thank you for looking to RSVP in advance! We will let you know when it is time to RSVP closer to the
                   event. For now, if you know that you are unable to attend, please fill in your RSVP below. If
-                  {"you're planning to join us for our special day, we'll send you an email when the full RSVP"}
+                  {"you're planning to join us for our special day, we'll send you an email when the full RSVP "}
                   process opens closer to the wedding date.
                 </p>
                 <p className="text-sm text-slate-500">

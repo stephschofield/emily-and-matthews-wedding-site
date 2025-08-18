@@ -21,11 +21,6 @@ export function ScheduleSection() {
       description: "Celebrate with dinner, dancing, and festivities in the Rotunda",
       dressCode: true,
     },
-    {
-      time: "11:30 PM",
-      title: "After Party",
-      description: "Continue the celebration and dance the night away!",
-    },
   ]
 
   return (
