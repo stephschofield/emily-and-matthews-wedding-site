@@ -43,7 +43,7 @@ export function VenueSection() {
               <Card className="border-sage/20 overflow-hidden">
                 <CardContent className="p-4 flex items-center">
                   <Clock className="text-emerald mr-4" />
-                  <p className="text-slate-700">Ceremony begins at 4:00 PM</p>
+                  <p className="text-slate-700">Ceremony begins at 6:15 PM - Please arrive by 6:00 PM</p>
                 </CardContent>
               </Card>
 
