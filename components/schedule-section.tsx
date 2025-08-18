@@ -11,14 +11,14 @@ export function ScheduleSection() {
       description: "Join us as we exchange vows in the historic House Chambers. The ceremony starts at 6:15 PM.",
     },
     {
-      time: "7:15 PM",
+      time: "7:00 PM",
       title: "Cocktail Hour",
-      description: "Enjoy cocktails and hors d'oeuvres on the West Lawn",
+      description: "Enjoy cocktails and hors d'oeuvres in the Rotunda",
     },
     {
-      time: "8:30 PM",
-      title: "Dinner & Reception",
-      description: "Celebrate with dinner, dancing, and festivities in the Rotunda",
+      time: "8:00 PM",
+      title: "Reception",
+      description: "Celebrate with dinner, dancing, and festivities in the Senate Chambers until 10:00 PM",
       dressCode: true,
     },
   ]
