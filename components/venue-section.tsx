@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { SectionTitle } from "@/components/section-title"
 import { Card, CardContent } from "@/components/ui/card"
-import { MapPin, Clock, AlertTriangle, ExternalLink } from "lucide-react"
+import { MapPin, Clock, ExternalLink, Info } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function VenueSection() {
@@ -47,11 +47,11 @@ export function VenueSection() {
                 </CardContent>
               </Card>
 
-              <Card className="border-amber-500/20 overflow-hidden bg-amber-50/50">
+              <Card className="border-sage/20 overflow-hidden">
                 <CardContent className="p-4 flex items-start">
-                  <AlertTriangle className="text-amber-600 mr-4 mt-0.5 flex-shrink-0" />
+                  <Info className="text-sage mr-4 mt-0.5 flex-shrink-0" />
                   <div>
-                    <p className="text-slate-700 font-medium mb-1">Important Parking Information</p>
+                    <p className="text-slate-700 font-medium mb-1">Parking Information</p>
                     <p className="text-slate-600 text-sm leading-relaxed">
                       Parking at the Old State Capitol is limited and restricted to vendors and the wedding party. We
                       advise carpooling and parking in paid lots near the venue or using rideshare apps. If your hotel

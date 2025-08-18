@@ -16,20 +16,15 @@ export function ScheduleSection() {
       description: "Enjoy cocktails and hors d'oeuvres on the West Lawn",
     },
     {
-      time: "8:45 PM",
+      time: "8:30 PM",
       title: "Dinner & Reception",
       description: "Celebrate with dinner, dancing, and festivities in the Rotunda",
       dressCode: true,
     },
     {
-      time: "11:00 PM",
-      title: "Second Line Parade",
-      description: "Join our traditional New Orleans-style celebration through downtown",
-    },
-    {
       time: "11:30 PM",
       title: "After Party",
-      description: "Continue the celebration at Tsunami Rooftop (optional)",
+      description: "Continue the celebration and dance the night away!",
     },
   ]
 

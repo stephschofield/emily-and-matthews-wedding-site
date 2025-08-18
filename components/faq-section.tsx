@@ -23,7 +23,7 @@ export function FAQSection() {
     {
       icon: <MapPin className="w-6 h-6 text-sage" />,
       question: "What time should I arrive?",
-      answer: "Please arrive by 3:45 PM for the 4:00 PM ceremony to allow time for parking and seating.",
+      answer: "Please arrive with enough time to park and find seating before the 6:15 PM ceremony.",
     },
   ]
 
