@@ -6,28 +6,28 @@ import { Shirt, Users } from "lucide-react"
 export function ScheduleSection() {
   const events = [
     {
-      time: "4:00 PM",
+      time: "6:00 PM",
       title: "Ceremony",
-      description: "Join us as we exchange vows in the historic Senate Chamber",
+      description: "Join us as we exchange vows in the historic Senate Chamber. The ceremony starts at 6:15 PM.",
     },
     {
-      time: "5:00 PM",
+      time: "7:15 PM",
       title: "Cocktail Hour",
       description: "Enjoy cocktails and hors d'oeuvres on the West Lawn",
     },
     {
-      time: "6:30 PM",
+      time: "8:45 PM",
       title: "Dinner & Reception",
       description: "Celebrate with dinner, dancing, and festivities in the Rotunda",
       dressCode: true,
     },
     {
-      time: "10:00 PM",
+      time: "11:00 PM",
       title: "Second Line Parade",
       description: "Join our traditional New Orleans-style celebration through downtown",
     },
     {
-      time: "10:30 PM",
+      time: "11:30 PM",
       title: "After Party",
       description: "Continue the celebration at Tsunami Rooftop (optional)",
     },
