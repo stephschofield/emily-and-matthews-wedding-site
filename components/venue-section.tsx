@@ -1,7 +1,8 @@
 import Image from "next/image"
 import { SectionTitle } from "@/components/section-title"
 import { Card, CardContent } from "@/components/ui/card"
-import { MapPin, Clock, AlertTriangle } from "lucide-react"
+import { MapPin, Clock, AlertTriangle, ExternalLink } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 export function VenueSection() {
   return (
@@ -66,29 +67,27 @@ export function VenueSection() {
         <div className="mt-16 max-w-3xl mx-auto text-center">
           <h3 className="text-3xl font-cormorant text-navy mb-6 font-light">Accommodations</h3>
 
-          <p className="text-lg text-slate-700 mb-6">
-            We have reserved room blocks at the following hotels for our wedding guests:
+          <p className="text-lg text-slate-700 mb-8">
+            We have reserved a room block for our wedding guests with special group rates.
           </p>
 
-          <div className="grid md:grid-cols-2 gap-6 mt-8">
-            <Card className="border-sage/20 overflow-hidden">
-              <CardContent className="p-6">
-                <h4 className="text-xl font-cormorant text-navy mb-2 font-light">Hilton Baton Rouge Capitol Center</h4>
-                <p className="text-slate-700 mb-2">201 Lafayette St, Baton Rouge, LA 70801</p>
-                <p className="text-slate-700 font-medium">Use code: BUECHE-ADAMS</p>
-                <p className="text-sm text-slate-500 mt-2">Downtown location - ask about shuttle service!</p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-sage/20 overflow-hidden">
-              <CardContent className="p-6">
-                <h4 className="text-xl font-cormorant text-navy mb-2 font-light">Watermark Baton Rouge</h4>
-                <p className="text-slate-700 mb-2">150 3rd St, Baton Rouge, LA 70801</p>
-                <p className="text-slate-700 font-medium">Use code: EMILY-MATT</p>
-                <p className="text-sm text-slate-500 mt-2">Downtown location - ask about shuttle service!</p>
-              </CardContent>
-            </Card>
-          </div>
+          <Card className="max-w-2xl mx-auto border-sage/20 overflow-hidden shadow-lg">
+            <CardContent className="p-8 text-center">
+              <h4 className="text-2xl font-cormorant text-navy mb-4 font-light">Hotel Room Block</h4>
+              <p className="text-lg text-slate-700 mb-6 leading-relaxed">
+                Book your stay through our exclusive hotel block for the best rates and guaranteed availability.
+              </p>
+              <Button
+                asChild
+                className="bg-sage hover:bg-sage/90 text-white flex items-center gap-2 text-lg px-8 py-4 mx-auto"
+              >
+                <a href="https://book.passkey.com/go/BuecheAdamsWedding" target="_blank" rel="noopener noreferrer">
+                  Book Hotel Room
+                  <ExternalLink className="h-5 w-5" />
+                </a>
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>
