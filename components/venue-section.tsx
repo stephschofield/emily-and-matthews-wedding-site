@@ -12,7 +12,12 @@ export function VenueSection() {
 
         <div className="grid md:grid-cols-2 gap-12 mt-12 items-center">
           <div className="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-xl">
-            <Image src="/images/proposal.jpeg" alt="Old Louisiana State Capitol" fill className="object-cover" />
+            <Image
+              src="/images/LouisianasOldStateCapitol.jpg"
+              alt="Old Louisiana State Capitol"
+              fill
+              className="object-cover"
+            />
             <div className="absolute inset-0 bg-navy/20 backdrop-blur-[2px]"></div>
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="bg-white/90 p-6 rounded-lg shadow-lg text-center relative max-w-xs">
