@@ -21,6 +21,11 @@ export async function POST(request: Request) {
 
     // Send confirmation email if email is provided
     if (email) {
+      console.log("Attempting to send email...");
+      console.log("FROM:", process.env.EMAIL_FROM);
+      console.log("TO:", email);
+      console.log("API Key starts with:", process.env.RESEND_API_KEY?.substring(0, 5));
+
       try {
         const attendingMembers = rsvps.filter((r: any) => r.status === "yes")
         const decliningMembers = rsvps.filter((r: any) => r.status === "no")
@@ -110,6 +115,18 @@ export async function POST(request: Request) {
                         <p style="margin: 0; font-style: italic; color: ${colors.navy}; font-family: 'Cormorant Garamond', serif; font-size: 18px;">"${message}"</p>
                       </div>
                     ` : ''}
+
+                    <!-- Guest Checklist -->
+                    <div style="margin-top: 30px; padding: 25px; background-color: rgba(125, 157, 140, 0.1); border-radius: 8px; border: 1px solid rgba(125, 157, 140, 0.3);">
+                      <h3 style="font-family: 'Cormorant Garamond', serif; color: ${colors.navy}; margin: 0 0 15px 0; font-size: 22px; text-align: center;">Guest Checklist</h3>
+                      <ul style="margin: 0; padding-left: 20px; color: ${colors.text}; text-align: left; font-size: 15px; line-height: 1.6;">
+                        <li style="margin-bottom: 10px;"><strong>The Big Day:</strong> Saturday, May 9, 2026</li>
+                        <li style="margin-bottom: 10px;"><strong>Ceremony:</strong> Please arrive at the State Capitol Building by 6:00 PM</li>
+                        <li style="margin-bottom: 10px;"><strong>Accommodation:</strong> Don't forget to <a href="https://book.passkey.com/go/BuecheAdamsWedding" style="color: ${colors.sage}; text-decoration: underline;">book your stay at the Hilton Capitol</a> (our shared hotel block)</li>
+                        <li style="margin-bottom: 10px;"><strong>Music:</strong> Have a song request? <a href="https://www.emandmatthew.com/#playlist" style="color: ${colors.sage}; text-decoration: underline;">Add it to our playlist</a></li>
+                        <li>Visit the website for full schedule and details</li>
+                      </ul>
+                    </div>
                   </div>
 
                   <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #f1f5f9; color: ${colors.muted}; font-size: 14px; line-height: 1.6;">
@@ -128,8 +145,11 @@ export async function POST(request: Request) {
 
         const primaryName = rsvps.length > 0 ? getName(rsvps[0].member_id) : 'Guest';
 
+        // Default to the verified domain if env var is missing, rather than the testing domain
+        const fromAddress = process.env.EMAIL_FROM || 'rsvp@emandmatthew.com';
+
         const { error } = await resend.emails.send({
-          from: process.env.EMAIL_FROM || 'onboarding@resend.dev',
+          from: fromAddress,
           to: email,
           subject: `RSVP Confirmation - ${primaryName}`,
           html: emailHtml,
