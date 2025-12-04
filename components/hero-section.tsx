@@ -33,7 +33,7 @@ export function HeroSection() {
             size="lg"
             className="bg-sage hover:bg-sage/90 text-white border border-white/20 rounded-none px-8 py-6 text-lg"
           >
-            <a href="#rsvp">RSVP</a>
+            <a href="/rsvp">RSVP</a>
           </Button>
         </div>
       </div>
