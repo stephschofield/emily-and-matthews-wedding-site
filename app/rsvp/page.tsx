@@ -220,7 +220,9 @@ export default function RSVPPage() {
             <div className="max-w-2xl mx-auto text-center">
               <div className="bg-white/90 backdrop-blur-sm rounded-lg shadow-sm border border-sage/10 p-16">
                 <Heart className="w-16 h-16 text-sage mx-auto mb-8" />
-                <h1 className="text-5xl font-cormorant text-slate-700 mb-6 font-light tracking-wide">Thank You</h1>
+                <h1 className="text-5xl font-cormorant text-slate-700 mb-6 font-light tracking-wide">
+                  Thank You{formData.guestName ? <>, <span className="capitalize">{formData.guestName}</span></> : ""}
+                </h1>
                 <div className="w-16 h-px bg-sage/40 mx-auto mb-6"></div>
 
                 {attendingStatus === "declining" ? (
