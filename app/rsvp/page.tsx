@@ -234,8 +234,9 @@ export default function RSVPPage() {
                 ) : (
                   <>
                     <p className="text-lg text-slate-600 mb-8 font-light leading-relaxed">
-                      {"We're so excited to celebrate with "}
-                      {attendingCount === 1 ? "you" : `${attendingCount} of you`} on May 9, 2026!
+                      {attendingCount === 1 && "We're so excited to celebrate with you on May 9, 2026!"}
+                      {attendingCount === 2 && "We're so excited to celebrate with both of you on May 9, 2026!"}
+                      {attendingCount > 2 && `We can't wait to celebrate with all ${attendingCount} of you on May 9, 2026!`}
                       <br />
                       Your RSVP has been received.
                     </p>
