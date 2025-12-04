@@ -22,7 +22,7 @@ export function PlaylistSection() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState("")
-  const [useSearch, setUseSearch] = useState(true)
+  const [useSearch, setUseSearch] = useState(true) // Spotify search enabled
   const [submittedCount, setSubmittedCount] = useState(0)
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -311,13 +311,6 @@ export function PlaylistSection() {
                   </Button>
                 </div>
               </form>
-
-              <div className="mt-8 pt-6 border-t border-sage/10 text-center">
-                <p className="text-sm text-slate-500 leading-relaxed">
-                  Please keep song requests appropriate for all ages. We'll do our best to include as many requests as
-                  possible, but the final playlist will be curated by Emily, Matthew, and their DJ.
-                </p>
-              </div>
             </div>
           </CardContent>
         </Card>

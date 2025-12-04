@@ -6,6 +6,7 @@ import { SectionTitle } from "@/components/section-title"
 import { Card, CardContent } from "@/components/ui/card"
 import { FloralDivider } from "@/components/floral-divider"
 import { Heart, Users } from "lucide-react"
+import { getWeddingParty, groupWeddingPartyBySide } from "@/lib/wedding-party"
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -13,36 +14,13 @@ const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
 })
 
-interface WeddingPartyMember {
-  name: string
-  role: string
-  side: "bride" | "groom"
-}
+// Force dynamic rendering to fetch data at request time
+export const dynamic = 'force-dynamic'
 
-const weddingParty: WeddingPartyMember[] = [
-  // Bride's side
-  { name: "Caroline Woolf", role: "Maid of Honor", side: "bride" },
-  { name: "Chloe Hendrix", role: "Maid of Honor", side: "bride" },
-  { name: "Taylor Lachney", role: "Bridesmaid", side: "bride" },
-  { name: "Helen Dyer", role: "Bridesmaid", side: "bride" },
-  { name: "Kathryn McKowen", role: "Bridesmaid", side: "bride" },
-  { name: "Kaily Belleau", role: "Bridesmaid", side: "bride" },
-  { name: "Rileigh Fontenot", role: "Bridesmaid", side: "bride" },
-
-  // Groom's side
-  { name: "Michael Adams", role: "Best Man", side: "groom" },
-  { name: "Joshua Giacone", role: "Groomsman", side: "groom" },
-  { name: "Rolland Wallace", role: "Groomsman", side: "groom" },
-  { name: "Nicholas Jones", role: "Groomsman", side: "groom" },
-  { name: "James Avault", role: "Groomsman", side: "groom" },
-  { name: "Taron Jones", role: "Groomsman", side: "groom" },
-  { name: "Jacob Sicard", role: "Groomsman", side: "groom" },
-]
-
-const brideParty = weddingParty.filter((member) => member.side === "bride")
-const groomParty = weddingParty.filter((member) => member.side === "groom")
-
-export default function WeddingPartyPage() {
+export default async function WeddingPartyPage() {
+  // Fetch wedding party data from Supabase
+  const weddingParty = await getWeddingParty()
+  const { bride: brideParty, groom: groomParty } = groupWeddingPartyBySide(weddingParty)
   return (
     <main className={cn("min-h-screen bg-gradient-to-b from-cream to-white text-slate-900", cormorant.variable)}>
       <NavBar />

@@ -48,6 +48,25 @@ export function NavBar() {
     { name: "RSVP", href: "/rsvp" },
   ]
 
+  // Don't render mobile-specific UI until we know if it's mobile
+  if (isMobile === undefined) {
+    return (
+      <nav
+        className={cn(
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-cormorant border-b border-slate-200/50",
+          isScrolled ? "bg-cream/95 backdrop-blur-sm shadow-sm py-3" : "bg-cream/90 backdrop-blur-sm py-4",
+        )}
+      >
+        <div className="container mx-auto px-4 flex justify-between items-center">
+          <Link href="/" className="text-3xl font-semibold text-navy">
+            E<span className="text-sage">&</span>M
+          </Link>
+          {/* Render nothing until we know the screen size */}
+        </div>
+      </nav>
+    )
+  }
+
   return (
     <>
       <nav

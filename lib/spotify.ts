@@ -46,6 +46,8 @@ async function getSpotifyAccessToken(): Promise<string> {
     const response = await fetch("https://accounts.spotify.com/api/token", authOptions)
 
     if (!response.ok) {
+      const errorData = await response.text()
+      console.error("Spotify auth error:", response.status, errorData)
       throw new Error("Failed to get Spotify access token")
     }
 
@@ -53,7 +55,7 @@ async function getSpotifyAccessToken(): Promise<string> {
     accessToken = data.access_token
     tokenExpiry = Date.now() + data.expires_in * 1000 // Convert seconds to milliseconds
 
-    return accessToken
+    return accessToken as string
   } catch (error) {
     console.error("Error getting Spotify token:", error)
     throw error
@@ -68,8 +70,15 @@ export async function searchSpotifyTracks(query: string): Promise<SpotifyTrack[]
   try {
     const token = await getSpotifyAccessToken()
 
+    // Check if query looks like it might be an artist search (single word or two words without common song words)
+    const isLikelyArtist = query.trim().split(/\s+/).length <= 2 && 
+                          !query.toLowerCase().match(/\b(love|heart|song|remix|feat|ft|live|version)\b/)
+    
+    // Use artist: prefix for better artist-focused results
+    const searchQuery = isLikelyArtist ? `artist:${query}` : query
+
     const response = await fetch(
-      `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=5&market=US`,
+      `https://api.spotify.com/v1/search?q=${encodeURIComponent(searchQuery)}&type=track&limit=20&market=US`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

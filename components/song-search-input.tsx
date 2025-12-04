@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
+import Image from "next/image"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { formatArtists } from "@/lib/spotify"
@@ -116,6 +117,7 @@ export function SongSearchInput({
       document.addEventListener("keydown", handleKeyDown)
       return () => document.removeEventListener("keydown", handleKeyDown)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showResults, results, selectedIndex])
 
   // Close results when clicking outside
@@ -211,7 +213,7 @@ export function SongSearchInput({
       {showResults && !justSelected && (
         <div
           ref={resultsRef}
-          className="absolute z-50 w-full mt-1 bg-white border border-sage/20 rounded-md shadow-lg max-h-60 overflow-y-auto"
+          className="absolute z-50 w-full mt-1 bg-white border border-sage/20 rounded-md shadow-lg max-h-96 overflow-y-auto pb-2"
         >
           {results.length > 0 ? (
             results.map((track, index) => (
@@ -225,9 +227,11 @@ export function SongSearchInput({
               >
                 <div className="flex-shrink-0 mr-3">
                   {track.album.images[0] ? (
-                    <img
+                    <Image
                       src={track.album.images[0].url || "/placeholder.svg"}
                       alt={track.album.name}
+                      width={40}
+                      height={40}
                       className="w-10 h-10 rounded object-cover"
                     />
                   ) : (
