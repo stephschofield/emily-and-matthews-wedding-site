@@ -5,7 +5,7 @@ import { ExternalLink, Gift } from "lucide-react"
 
 export function RegistrySection() {
   return (
-    <section id="registry" className="py-20 bg-sky-blue/5 relative">
+    <section id="registry" className="py-20 bg-sky-blue/5 relative scroll-mt-28">
       <div className="container mx-auto px-4">
         <SectionTitle>Registry</SectionTitle>
 

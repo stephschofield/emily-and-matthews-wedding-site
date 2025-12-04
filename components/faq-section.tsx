@@ -28,7 +28,7 @@ export function FAQSection() {
   ]
 
   return (
-    <section id="faq" className="py-20 bg-cream relative overflow-hidden">
+    <section id="faq" className="py-20 bg-cream relative overflow-hidden scroll-mt-28">
       <div className="container mx-auto px-4 relative z-10">
         <SectionTitle>Frequently Asked Questions</SectionTitle>
 

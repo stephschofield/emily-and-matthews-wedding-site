@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 
 export function VenueSection() {
   return (
-    <section id="venue" className="py-20 bg-sky-blue/5 relative">
+    <section id="venue" className="py-20 bg-sky-blue/5 relative scroll-mt-28">
       <div className="container mx-auto px-4">
         <SectionTitle>The Venue</SectionTitle>
 
@@ -73,10 +73,13 @@ export function VenueSection() {
 
           <Card className="max-w-2xl mx-auto border-sage/20 overflow-hidden shadow-lg">
             <CardContent className="p-8 text-center">
-              <h4 className="text-2xl font-cormorant text-navy mb-4 font-light">Hotel Room Block</h4>
-              <p className="text-lg text-slate-700 mb-6 leading-relaxed">
-                Book your stay through our exclusive hotel block for the best rates and guaranteed availability.
-              </p>
+              <h4 className="text-2xl font-cormorant text-navy mb-2 font-light">Hilton Baton Rouge Capitol Center</h4>
+              <p className="text-lg text-navy mb-4 font-medium">Bueche-Adams Wedding Block</p>
+              <div className="text-slate-700 mb-6 space-y-1">
+                <p>May 8, 2026 - May 10, 2026</p>
+                <p>201 Lafayette St.</p>
+                <p>Baton Rouge, LA 70801</p>
+              </div>
               <Button
                 asChild
                 className="bg-sage hover:bg-sage/90 text-white flex items-center gap-2 text-lg px-8 py-4 mx-auto"

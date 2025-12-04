@@ -107,7 +107,7 @@ export function PlaylistSection() {
 
   if (isSubmitted) {
     return (
-      <section id="playlist" className="py-20 bg-sky-blue/5 relative">
+      <section id="playlist" className="py-20 bg-sky-blue/5 relative scroll-mt-28">
         <div className="container mx-auto px-4">
           <SectionTitle>Wedding Playlist</SectionTitle>
 
@@ -139,7 +139,7 @@ export function PlaylistSection() {
   }
 
   return (
-    <section id="playlist" className="py-20 bg-sky-blue/5 relative">
+    <section id="playlist" className="py-20 bg-sky-blue/5 relative scroll-mt-28">
       <div className="container mx-auto px-4">
         <SectionTitle>Wedding Playlist</SectionTitle>
 

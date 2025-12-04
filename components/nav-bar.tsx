@@ -41,7 +41,7 @@ export function NavBar() {
     { name: "Venue", href: "/#venue" },
     { name: "Schedule", href: "/#schedule" },
     { name: "FAQ", href: "/#faq" },
-    { name: "Gallery", href: "/#gallery" },
+    { name: "Gallery", href: "/#our-gallery" },
     { name: "Registry", href: "/#registry" },
     { name: "Playlist", href: "/#playlist" },
     { name: "Wedding Party", href: "/wedding-party" },
