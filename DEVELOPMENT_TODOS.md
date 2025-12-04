@@ -42,7 +42,20 @@
 
 ## 📋 Pending Tasks
 
-### 3. Song Request System
+### 3. Email Confirmation System ✓
+- **Status**: COMPLETED ✅
+- **Changes Made**:
+  - Integrated `resend` for transactional emails
+  - Updated RSVP form to collect email address
+  - Updated API to send HTML confirmation emails upon successful RSVP
+  - Includes details of attending guests, meal choices, and dietary restrictions
+- **Files Modified**:
+  - `app/rsvp/page.tsx`
+  - `app/api/rsvp/route.ts`
+  - `package.json`
+- **Result**: Users now receive an email confirmation after RSVPing
+
+### 4. Song Request System
 - **Status**: ✅ COMPLETED (Implementation complete, needs testing)
 - **Completed Features**:
   - ✅ Database table: `song_requests` with RLS enabled
@@ -238,6 +251,8 @@ export async function POST(request: Request) {
 NEXT_PUBLIC_SUPABASE_URL=your-project-url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key (for admin)
+RESEND_API_KEY=re_123456789 (for email confirmations)
+EMAIL_FROM=rsvp@emandmatthew.com (optional, defaults to onboarding@resend.dev)
 ```
 
 ### Important Dates
