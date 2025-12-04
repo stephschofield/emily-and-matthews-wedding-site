@@ -1,21 +1,27 @@
--- ============================================================================
--- STEP 3: Create Secure RPC Functions for Party Lookup and RSVP Updates
--- ============================================================================
--- These functions provide validated access to party data and RSVP updates.
---
--- Run this in: Supabase Dashboard → SQL Editor
--- ============================================================================
+-- Fix security lints for all functions by setting explicit search_path
+-- and schema-qualifying object references.
 
--- ============================================================================
--- RPC 1: lookup_party_by_name
--- ============================================================================
--- Searches for a party by any member's name and returns the full party details
--- including all members and their current RSVP status.
---
--- Usage from client:
---   const { data } = await supabase.rpc('lookup_party_by_name', { q: 'John Smith' })
--- ============================================================================
+-- 1. init_member_rsvp
+CREATE OR REPLACE FUNCTION init_member_rsvp()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO public.rsvps (member_id, status)
+  VALUES (NEW.id, 'unknown')
+  ON CONFLICT (member_id) DO NOTHING;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public, pg_catalog;
 
+-- 2. update_updated_at_column
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = now();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SET search_path = public, pg_catalog;
+
+-- 3. lookup_party_by_name
 CREATE OR REPLACE FUNCTION lookup_party_by_name(q TEXT)
 RETURNS TABLE(
   party_id UUID,
@@ -25,7 +31,7 @@ RETURNS TABLE(
   is_plus_one_placeholder BOOLEAN,
   allow_attend BOOLEAN,
   sort_order INTEGER,
-  rsvp_status rsvp_status,
+  rsvp_status public.rsvp_status,
   meal_choice TEXT,
   allergies TEXT,
   notes TEXT
@@ -70,30 +76,7 @@ BEGIN
 END;
 $$;
 
--- Grant execute permission to anon and authenticated users
-GRANT EXECUTE ON FUNCTION lookup_party_by_name(TEXT) TO anon, authenticated;
-
--- ============================================================================
--- RPC 2: update_party_rsvps
--- ============================================================================
--- Updates RSVP data for members of a specific party with validation.
--- Ensures clients can only update members that belong to the specified party.
---
--- Usage from client:
---   const { data, error } = await supabase.rpc('update_party_rsvps', {
---     p_party_id: 'uuid-of-party',
---     p_items: [
---       {
---         member_id: 'uuid-of-member',
---         status: 'yes',
---         meal_choice: 'Chicken',
---         allergies: 'None',
---         notes: 'Vegetarian option preferred'
---       }
---     ]
---   })
--- ============================================================================
-
+-- 4. update_party_rsvps
 CREATE OR REPLACE FUNCTION update_party_rsvps(
   p_party_id UUID,
   p_items JSONB
@@ -177,11 +160,3 @@ BEGIN
   );
 END;
 $$;
-
--- Grant execute permission to anon and authenticated users
-GRANT EXECUTE ON FUNCTION update_party_rsvps(UUID, JSONB) TO anon, authenticated;
-
--- ============================================================================
--- SUCCESS! RPC functions created and secured.
--- Next step: Generate import data from CSV and run 04-import-parties.sql
--- ============================================================================

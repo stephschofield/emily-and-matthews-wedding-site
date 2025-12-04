@@ -14,11 +14,8 @@ const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
 })
 
-// Force dynamic rendering to fetch data at request time
-export const dynamic = 'force-dynamic'
-
 export default async function WeddingPartyPage() {
-  // Fetch wedding party data from Supabase
+  // Fetch wedding party data from local storage
   const weddingParty = await getWeddingParty()
   const { bride: brideParty, groom: groomParty } = groupWeddingPartyBySide(weddingParty)
   return (

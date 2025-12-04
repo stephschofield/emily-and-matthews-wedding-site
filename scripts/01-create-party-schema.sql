@@ -62,12 +62,12 @@ CREATE INDEX IF NOT EXISTS idx_rsvps_status ON rsvps(status);
 CREATE OR REPLACE FUNCTION init_member_rsvp()
 RETURNS TRIGGER AS $$
 BEGIN
-  INSERT INTO rsvps (member_id, status)
+  INSERT INTO public.rsvps (member_id, status)
   VALUES (NEW.id, 'unknown')
   ON CONFLICT (member_id) DO NOTHING;
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public, pg_catalog;
 
 -- 6. Create trigger on party_members
 DROP TRIGGER IF EXISTS trg_init_member_rsvp ON party_members;
@@ -83,7 +83,7 @@ BEGIN
   NEW.updated_at = now();
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SET search_path = public, pg_catalog;
 
 DROP TRIGGER IF EXISTS trg_parties_updated_at ON parties;
 CREATE TRIGGER trg_parties_updated_at
