@@ -18,6 +18,15 @@ export function createServerClient() {
   return createClient(supabaseUrl, supabaseAnonKey)
 }
 
+// Admin Supabase client (bypasses RLS)
+export function createAdminClient() {
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+  if (!serviceRoleKey) {
+    throw new Error('SUPABASE_SERVICE_ROLE_KEY is not defined')
+  }
+  return createClient(supabaseUrl, serviceRoleKey)
+}
+
 // Types for our database tables
 
 // New party-based RSVP system types

@@ -21,6 +21,7 @@ const cormorant = Cormorant_Garamond({
 
 interface FormData {
   guestName: string
+  email: string
   message: string
 }
 
@@ -52,6 +53,7 @@ export default function RSVPPage() {
   const [memberRSVPs, setMemberRSVPs] = useState<MemberRSVP[]>([])
   const [formData, setFormData] = useState<FormData>({
     guestName: "",
+    email: "",
     message: "",
   })
 
@@ -161,6 +163,7 @@ export default function RSVPPage() {
         },
         body: JSON.stringify({
           partyId: partyData.partyId,
+          email: formData.email, // Send email to API
           rsvps: rsvpUpdates,
         }),
       })
@@ -191,15 +194,19 @@ export default function RSVPPage() {
   const canProceedToStep3 =
     attendingStatus === "declining" ||
     (attendingStatus === "attending" && memberRSVPs.every((rsvp) => rsvp.status !== null))
+  
+  // Validation for final submission
+  const isValidEmail = formData.email.trim().length > 0 && formData.email.includes('@')
   const canSubmit =
-    attendingStatus === "declining" ||
+    isValidEmail && 
+    (attendingStatus === "declining" ||
     memberRSVPs.every(
       (rsvp) =>
         rsvp.status === "no" ||
         (rsvp.status === "yes" &&
           rsvp.meal_choice &&
           (!rsvp.is_plus_one_placeholder || rsvp.plus_one_name)),
-    )
+    ))
 
   // Success page
   if (isSubmitted) {
@@ -234,6 +241,10 @@ export default function RSVPPage() {
                     </p>
                   </>
                 )}
+
+                <p className="text-sm text-slate-500 mb-6">
+                  A confirmation email has been sent to {formData.email}
+                </p>
 
                 {formData.message && (
                   <div className="bg-sage/5 p-4 rounded-lg mb-6">
@@ -507,6 +518,24 @@ export default function RSVPPage() {
                       <p className="text-slate-600 mt-2">{"We'll miss having you there to celebrate with us."}</p>
                     </div>
 
+                    {/* Email Field */}
+                    <div className="space-y-4">
+                      <Label
+                        htmlFor="email"
+                        className="text-lg font-cormorant text-slate-700 block font-medium text-center"
+                      >
+                        Email Address for Confirmation *
+                      </Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        placeholder="your@email.com"
+                        className="border-sage/20 focus:border-sage bg-white/80 font-cormorant text-center"
+                      />
+                    </div>
+
                     {/* Optional Message Field */}
                     <div className="space-y-4">
                       <Label
@@ -540,7 +569,7 @@ export default function RSVPPage() {
 
                       <Button
                         onClick={handleSubmit}
-                        disabled={isSubmitting}
+                        disabled={isSubmitting || !canSubmit}
                         className="bg-sage hover:bg-sage/90 text-white px-12 py-3 rounded-full font-cormorant font-light tracking-wide flex items-center gap-2"
                       >
                         {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
@@ -666,6 +695,24 @@ export default function RSVPPage() {
                           )}
                         </div>
                       ))}
+                    </div>
+
+                    {/* Email Field */}
+                    <div className="space-y-4">
+                      <Label
+                        htmlFor="email"
+                        className="text-lg font-cormorant text-slate-700 block font-medium text-center"
+                      >
+                        Email Address for Confirmation *
+                      </Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        placeholder="your@email.com"
+                        className="border-sage/20 focus:border-sage bg-white/80 font-cormorant text-center"
+                      />
                     </div>
 
                     {/* Optional Message Field */}
