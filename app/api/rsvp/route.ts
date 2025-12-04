@@ -62,6 +62,7 @@ export async function POST(request: Request) {
         // Using a public placeholder image for now so it shows up in emails.
         // TODO: Replace with your actual deployed image URL: https://www.emandmatthew.com/images/rsvp-header.jpg
         const headerImageUrl = "https://www.emandmatthew.com/images/couple-foreheads.jpeg";
+        const logoUrl = "https://www.emandmatthew.com/images/em-monogram.png";
 
         const emailHtml = `
           <!DOCTYPE html>
@@ -83,6 +84,7 @@ export async function POST(request: Request) {
 
                 <!-- Content -->
                 <div style="padding: 40px 30px; text-align: center;">
+                  <img src="${logoUrl}" alt="E | M" style="width: 100px; height: auto; margin-bottom: 20px;" />
                   <h1 style="font-family: 'Cormorant Garamond', serif; color: ${colors.navy}; margin: 0 0 10px 0; font-size: 32px; font-weight: 500;">RSVP Confirmation</h1>
                   <p style="color: ${colors.muted}; margin: 0 0 30px 0; font-size: 16px;">Thank you for responding to our wedding invitation</p>
                   
