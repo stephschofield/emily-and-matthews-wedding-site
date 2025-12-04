@@ -103,7 +103,8 @@ export interface SongRequest {
 
 // Helper functions for the new party-based system
 export async function lookupPartyByName(name: string): Promise<PartyLookupResult[]> {
-  const supabase = createServerClient()
+  // Use admin client to bypass RLS for lookup
+  const supabase = createAdminClient()
   
   const { data, error } = await supabase.rpc('lookup_party_by_name', {
     q: name
@@ -127,7 +128,8 @@ export async function updatePartyRSVPs(
     notes?: string
   }>
 ): Promise<void> {
-  const supabase = createServerClient()
+  // Use admin client to bypass RLS for updates
+  const supabase = createAdminClient()
   
   const { error } = await supabase.rpc('update_party_rsvps', {
     p_party_id: partyId,
