@@ -18,7 +18,7 @@ export function FAQSection() {
     {
       icon: <Users className="w-6 h-6 text-sage" />,
       question: "Are children invited?",
-      answer: "We've decided to host guests ages 15+ only. Thanks for understanding!",
+      answer: "We love your little ones, but this will be an adults-only celebration. We hope you can take the night off to celebrate with us!",
     },
     {
       icon: <MapPin className="w-6 h-6 text-sage" />,

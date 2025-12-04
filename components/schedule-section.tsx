@@ -48,9 +48,9 @@ export function ScheduleSection() {
                   <Users className="w-8 h-8 text-sage mr-3" />
                   <h3 className="text-xl font-cormorant text-navy font-medium">Guest Ages</h3>
                 </div>
-                <p className="text-lg text-slate-700 mb-2">Ages 15+ Only</p>
+                <p className="text-lg text-slate-700 mb-2">Adults Only</p>
                 <p className="text-sm text-slate-600">
-                  While we love your little ones, this celebration is for ages 15 and up
+                  We love your little ones, but this will be an adults-only celebration
                 </p>
               </CardContent>
             </Card>
