@@ -62,7 +62,7 @@ export async function POST(request: Request) {
         // Using a public placeholder image for now so it shows up in emails.
         // TODO: Replace with your actual deployed image URL: https://www.emandmatthew.com/images/rsvp-header.jpg
         const headerImageUrl = "https://www.emandmatthew.com/images/couple-foreheads.jpeg";
-        const logoUrl = "https://www.emandmatthew.com/images/em-monogram.png";
+        const logoUrl = "https://www.emandmatthew.com/images/EandMlogo-flower.png";
 
         const emailHtml = `
           <!DOCTYPE html>
