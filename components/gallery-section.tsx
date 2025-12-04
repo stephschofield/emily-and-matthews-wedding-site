@@ -25,7 +25,7 @@ export function GallerySection() {
     {
       src: "/images/couple-kiss.jpeg",
       alt: "Emily and Matthew sharing a kiss",
-      caption: "Celebrating our engagement",
+      caption: "Celebrating their engagement",
     },
     {
       src: "/images/couple-standing.jpeg",
