@@ -36,7 +36,6 @@ interface MemberRSVP {
   full_name: string
   is_plus_one_placeholder: boolean
   status: "yes" | "no" | null
-  meal_choice: string | null
   dietary_restrictions: string | null
   plus_one_name: string | null
 }
@@ -86,7 +85,6 @@ export default function RSVPPage() {
             full_name: member.full_name,
             is_plus_one_placeholder: member.is_plus_one_placeholder,
             status: null,
-            meal_choice: null,
             dietary_restrictions: null,
             plus_one_name: null,
           })),
@@ -122,11 +120,11 @@ export default function RSVPPage() {
           notes: formData.message || undefined,
         }))
       } else {
-        // Individual member RSVPs with meal choices
+        // Individual member RSVPs
         rsvpUpdates = memberRSVPs.map((rsvp) => ({
           member_id: rsvp.member_id,
           status: rsvp.status,
-          meal_choice: rsvp.status === "yes" ? rsvp.meal_choice : null,
+          meal_choice: null,
           allergies: rsvp.status === "yes" ? rsvp.dietary_restrictions : null,
           notes: formData.message || undefined,
         }))
@@ -204,7 +202,6 @@ export default function RSVPPage() {
       (rsvp) =>
         rsvp.status === "no" ||
         (rsvp.status === "yes" &&
-          rsvp.meal_choice &&
           (!rsvp.is_plus_one_placeholder || rsvp.plus_one_name)),
     ))
 
@@ -648,35 +645,7 @@ export default function RSVPPage() {
                                 </div>
                               )}
 
-                              {/* Meal Choice */}
-                              <div className="space-y-2">
-                                <Label htmlFor={`meal-${rsvp.member_id}`} className="text-slate-700">
-                                  Meal Choice *
-                                </Label>
-                                <RadioGroup
-                                  value={rsvp.meal_choice || ""}
-                                  onValueChange={(value) => updateMemberRSVP(rsvp.member_id, { meal_choice: value })}
-                                >
-                                  <div className="flex items-center space-x-2">
-                                    <RadioGroupItem value="chicken" id={`${rsvp.member_id}-chicken`} />
-                                    <Label htmlFor={`${rsvp.member_id}-chicken`} className="cursor-pointer">
-                                      Chicken
-                                    </Label>
-                                  </div>
-                                  <div className="flex items-center space-x-2">
-                                    <RadioGroupItem value="beef" id={`${rsvp.member_id}-beef`} />
-                                    <Label htmlFor={`${rsvp.member_id}-beef`} className="cursor-pointer">
-                                      Beef
-                                    </Label>
-                                  </div>
-                                  <div className="flex items-center space-x-2">
-                                    <RadioGroupItem value="vegetarian" id={`${rsvp.member_id}-vegetarian`} />
-                                    <Label htmlFor={`${rsvp.member_id}-vegetarian`} className="cursor-pointer">
-                                      Vegetarian
-                                    </Label>
-                                  </div>
-                                </RadioGroup>
-                              </div>
+                              {/* Meal Choice - Removed for Buffet Style */}
 
                               {/* Dietary Restrictions */}
                               <div className="space-y-2">

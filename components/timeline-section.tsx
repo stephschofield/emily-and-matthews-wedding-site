@@ -117,9 +117,9 @@ const timelineEvents: TimelineEvent[] = [
 
 export function TimelineSection() {
   return (
-    <section id="couple" className="py-20 bg-cream relative overflow-hidden scroll-mt-28">
+    <section className="py-20 bg-cream relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
-        <SectionTitle>Our Love Story</SectionTitle>
+        <SectionTitle id="couple">Our Love Story</SectionTitle>
 
         {/* Timeline Container */}
         <div className="max-w-6xl mx-auto mt-16 relative">

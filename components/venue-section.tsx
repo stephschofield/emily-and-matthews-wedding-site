@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button"
 
 export function VenueSection() {
   return (
-    <section id="venue" className="py-20 bg-sky-blue/5 relative scroll-mt-28">
+    <section className="py-20 bg-sky-blue/5 relative">
       <div className="container mx-auto px-4">
-        <SectionTitle>The Venue</SectionTitle>
+        <SectionTitle id="the-venue">The Venue</SectionTitle>
 
         <div className="grid md:grid-cols-2 gap-12 mt-12 items-center">
           <div className="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-xl">

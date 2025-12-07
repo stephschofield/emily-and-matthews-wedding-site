@@ -5,9 +5,9 @@ import { ExternalLink, Gift } from "lucide-react"
 
 export function RegistrySection() {
   return (
-    <section id="registry" className="py-20 bg-sky-blue/5 relative scroll-mt-28">
+    <section className="py-20 bg-sky-blue/5 relative">
       <div className="container mx-auto px-4">
-        <SectionTitle>Registry</SectionTitle>
+        <SectionTitle id="registry">Registry</SectionTitle>
 
         <Card className="max-w-2xl mx-auto mt-12 border-sage/20 overflow-hidden shadow-lg">
           <CardContent className="p-8 text-center">

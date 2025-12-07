@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -11,6 +12,27 @@ export function NavBar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const isMobile = useMobile()
+  const pathname = usePathname()
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    const targetId = href.replace("/#", "").replace("#", "")
+    const element = document.getElementById(targetId)
+
+    if (element) {
+      e.preventDefault()
+      if (isMenuOpen) setIsMenuOpen(false)
+
+      const headerOffset = 80
+      const elementPosition = element.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.scrollY - headerOffset
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      })
+      window.history.pushState(null, "", `#${targetId}`)
+    }
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,13 +60,13 @@ export function NavBar() {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Our Story", href: "/#couple" },
-    { name: "Venue", href: "/#venue" },
+    { name: "Venue", href: "/#the-venue" },
     { name: "Schedule", href: "/#schedule" },
     { name: "FAQ", href: "/#faq" },
     { name: "Gallery", href: "/#our-gallery" },
     { name: "Registry", href: "/#registry" },
     { name: "Playlist", href: "/#playlist" },
-    { name: "Wedding Party", href: "/wedding-party" },
+    { name: "Wedding Party", href: "/#wedding-party" },
     { name: "RSVP", href: "/rsvp" },
   ]
 
@@ -91,15 +113,34 @@ export function NavBar() {
             </Button>
           ) : (
             <div className="flex items-center space-x-8">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className="text-xl text-navy hover:text-sage transition-colors font-medium tracking-wide"
-                >
-                  {link.name}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const isHashLink = link.href.startsWith("/#")
+                const href = pathname === "/" && isHashLink ? link.href.replace("/", "") : link.href
+                const isTargetingCurrentPage = (pathname === "/" && isHashLink) || link.href === pathname
+
+                if (isTargetingCurrentPage && isHashLink) {
+                  return (
+                    <a
+                      key={link.name}
+                      href={href}
+                      className="text-xl text-navy hover:text-sage transition-colors font-medium tracking-wide cursor-pointer"
+                      onClick={(e) => handleNavClick(e, href)}
+                    >
+                      {link.name}
+                    </a>
+                  )
+                }
+
+                return (
+                  <Link
+                    key={link.name}
+                    href={href}
+                    className="text-xl text-navy hover:text-sage transition-colors font-medium tracking-wide"
+                  >
+                    {link.name}
+                  </Link>
+                )
+              })}
             </div>
           )}
         </div>
@@ -122,17 +163,37 @@ export function NavBar() {
         >
           {/* Content container with proper spacing from top */}
           <div className="flex flex-col items-center justify-start pt-24 h-full">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="text-2xl py-4 text-navy hover:text-sage transition-colors font-medium font-cormorant"
-                onClick={() => setIsMenuOpen(false)}
-                style={{ color: "#1A3A5F" }}
-              >
-                {link.name}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isHashLink = link.href.startsWith("/#")
+              const href = pathname === "/" && isHashLink ? link.href.replace("/", "") : link.href
+              const isTargetingCurrentPage = (pathname === "/" && isHashLink) || link.href === pathname
+
+              if (isTargetingCurrentPage && isHashLink) {
+                return (
+                  <a
+                    key={link.name}
+                    href={href}
+                    className="text-2xl py-4 text-navy hover:text-sage transition-colors font-medium font-cormorant cursor-pointer"
+                    onClick={(e) => handleNavClick(e, href)}
+                    style={{ color: "#1A3A5F" }}
+                  >
+                    {link.name}
+                  </a>
+                )
+              }
+
+              return (
+                <Link
+                  key={link.name}
+                  href={href}
+                  className="text-2xl py-4 text-navy hover:text-sage transition-colors font-medium font-cormorant"
+                  onClick={() => setIsMenuOpen(false)}
+                  style={{ color: "#1A3A5F" }}
+                >
+                  {link.name}
+                </Link>
+              )
+            })}
           </div>
         </div>
       )}

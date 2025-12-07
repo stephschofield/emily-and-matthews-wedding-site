@@ -4,7 +4,7 @@ import { FloralDivider } from "@/components/floral-divider"
 
 export function CoupleSection() {
   return (
-    <section id="couple" className="py-20 bg-cream relative overflow-hidden">
+    <section className="py-20 bg-cream relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
         <SectionTitle>Our Story</SectionTitle>
 

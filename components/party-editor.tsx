@@ -22,17 +22,8 @@ interface PartyEditorProps {
 interface EditableMember extends PartyMember {
   // Local state for editing
   localStatus: 'unknown' | 'yes' | 'no'
-  localMealChoice: string
-  localAllergies: string
   localNotes: string
 }
-
-const MEAL_OPTIONS = [
-  { value: 'beef', label: 'Beef' },
-  { value: 'chicken', label: 'Chicken' },
-  { value: 'fish', label: 'Fish' },
-  { value: 'vegetarian', label: 'Vegetarian' }
-]
 
 export function PartyEditor({ partyId, householdLabel, initialMembers, onSuccess }: PartyEditorProps) {
   // Initialize editable state from initial members
@@ -40,8 +31,6 @@ export function PartyEditor({ partyId, householdLabel, initialMembers, onSuccess
     initialMembers.map(m => ({
       ...m,
       localStatus: m.rsvp_status,
-      localMealChoice: m.meal_choice || '',
-      localAllergies: m.allergies || '',
       localNotes: m.notes || ''
     }))
   )
@@ -59,13 +48,11 @@ export function PartyEditor({ partyId, householdLabel, initialMembers, onSuccess
   const handleStatusChange = (memberId: string, status: 'yes' | 'no') => {
     setMembers(prev => prev.map(m => {
       if (m.member_id === memberId) {
-        // Clear meal and allergy data when selecting "no"
+        // Clear notes data when selecting "no"
         if (status === 'no') {
           return {
             ...m,
             localStatus: status,
-            localMealChoice: '',
-            localAllergies: '',
             localNotes: ''
           }
         }
@@ -87,8 +74,8 @@ export function PartyEditor({ partyId, householdLabel, initialMembers, onSuccess
       const payload = members.map(m => ({
         member_id: m.member_id,
         status: m.localStatus,
-        meal_choice: m.localStatus === 'yes' ? m.localMealChoice : null,
-        allergies: m.localStatus === 'yes' ? m.localAllergies : null,
+        meal_choice: null,
+        allergies: null,
         notes: m.localStatus === 'yes' ? m.localNotes : null
       }))
 
@@ -240,54 +227,16 @@ export function PartyEditor({ partyId, householdLabel, initialMembers, onSuccess
                   {/* Meal and Allergy Fields (only show when attending) */}
                   {member.localStatus === 'yes' && (
                     <div className="space-y-4 pt-4 border-t border-sage/10">
-                      {/* Meal Choice */}
-                      <div className="space-y-2">
-                        <Label htmlFor={`meal-${member.member_id}`} className="font-cormorant text-base">
-                          Meal Preference
-                        </Label>
-                        <select
-                          id={`meal-${member.member_id}`}
-                          value={member.localMealChoice}
-                          onChange={(e) => updateMember(member.member_id, { localMealChoice: e.target.value })}
-                          className={cn(
-                            "w-full p-3 border border-sage/20 rounded-md",
-                            "focus:border-sage focus:ring-1 focus:ring-sage",
-                            "bg-white/80 font-cormorant text-base"
-                          )}
-                        >
-                          <option value="">Select a meal...</option>
-                          {MEAL_OPTIONS.map(option => (
-                            <option key={option.value} value={option.value}>
-                              {option.label}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      {/* Dietary Restrictions / Allergies */}
-                      <div className="space-y-2">
-                        <Label htmlFor={`allergies-${member.member_id}`} className="font-cormorant text-base">
-                          Dietary Restrictions or Allergies
-                        </Label>
-                        <Input
-                          id={`allergies-${member.member_id}`}
-                          value={member.localAllergies}
-                          onChange={(e) => updateMember(member.member_id, { localAllergies: e.target.value })}
-                          placeholder="e.g., Gluten-free, Vegetarian, None"
-                          className="border-sage/20 focus:border-sage bg-white/80 font-cormorant"
-                        />
-                      </div>
-
                       {/* Optional Notes */}
                       <div className="space-y-2">
                         <Label htmlFor={`notes-${member.member_id}`} className="font-cormorant text-base">
-                          Special Requests (Optional)
+                          Dietary Restrictions & Special Requests (Optional)
                         </Label>
                         <Textarea
                           id={`notes-${member.member_id}`}
                           value={member.localNotes}
                           onChange={(e) => updateMember(member.member_id, { localNotes: e.target.value })}
-                          placeholder="Any special accommodations needed?"
+                          placeholder="Any dietary restrictions or special accommodations needed?"
                           className="border-sage/20 focus:border-sage bg-white/80 font-cormorant"
                           rows={2}
                         />

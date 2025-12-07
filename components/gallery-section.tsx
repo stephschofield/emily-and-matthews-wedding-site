@@ -106,9 +106,9 @@ export function GallerySection() {
   }
 
   return (
-    <section id="our-gallery" className="py-20 bg-sky-blue/5 relative scroll-mt-28">
+    <section className="py-20 bg-sky-blue/5 relative">
       <div className="container mx-auto px-4">
-        <SectionTitle>Our Gallery</SectionTitle>
+        <SectionTitle id="our-gallery">Our Gallery</SectionTitle>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
           {photos.map((photo, index) => (

@@ -12,6 +12,7 @@ import { RsvpSection } from "@/components/rsvp-section"
 import { FooterSection } from "@/components/footer-section"
 import { FaviconUpdater } from "@/components/favicon-updater"
 import { PlaylistSection } from "@/components/playlist-section"
+import { WeddingPartySection } from "@/components/wedding-party-section"
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -32,6 +33,7 @@ export default function Home() {
       <GallerySection />
       <RegistrySection />
       <PlaylistSection />
+      <WeddingPartySection />
       <RsvpSection />
       <FooterSection />
     </main>

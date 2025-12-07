@@ -35,8 +35,8 @@ export function RsvpSection() {
                 </div>
                 <div className="flex flex-col items-center p-4">
                   <Utensils className="w-8 h-8 text-sage mb-2" />
-                  <h4 className="font-medium text-navy mb-1">Meal Preferences</h4>
-                  <p className="text-sm text-slate-600 text-center">Share dietary needs and preferences</p>
+                  <h4 className="font-medium text-navy mb-1">Dietary Needs</h4>
+                  <p className="text-sm text-slate-600 text-center">Let us know of any allergies</p>
                 </div>
               </div>
 

@@ -99,12 +99,6 @@ export async function POST(request: Request) {
                               ${isAttending ? 'Attending' : 'Declining'}
                             </span>
                           </div>
-                          ${isAttending ? `
-                            <div style="font-size: 15px; color: ${colors.text}; line-height: 1.5;">
-                              <div style="margin-bottom: 4px;"><span style="color: ${colors.muted};">Meal:</span> <strong>${r.meal_choice ? r.meal_choice.charAt(0).toUpperCase() + r.meal_choice.slice(1) : 'Not specified'}</strong></div>
-                              ${r.allergies ? `<div><span style="color: ${colors.muted};">Dietary Restrictions:</span> ${r.allergies}</div>` : ''}
-                            </div>
-                          ` : ''}
                         </div>
                       `;
                     }).join('')}

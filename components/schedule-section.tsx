@@ -24,9 +24,9 @@ export function ScheduleSection() {
   ]
 
   return (
-    <section id="schedule" className="py-20 bg-cream relative overflow-hidden scroll-mt-28">
+    <section className="py-20 bg-cream relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
-        <SectionTitle>Wedding Day Schedule</SectionTitle>
+        <SectionTitle id="schedule">Wedding Day Schedule</SectionTitle>
 
         {/* Important Information Cards */}
         <div className="max-w-4xl mx-auto mb-16">
