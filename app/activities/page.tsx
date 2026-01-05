@@ -35,6 +35,27 @@ const activities: Activity[] = [
   },
 ]
 
+const restaurants: Activity[] = [
+  {
+    title: "The Chimes Restaurant on Highland",
+    description: "Visit the Chimes Restaurant on Highland: enjoy classic cajun food and drinks on the rooftop.",
+    url: "https://thechimes.com",
+    icon: "utensils",
+  },
+  {
+    title: "Tsunami Sushi",
+    description: "Enjoy Sushi and a view of the Mississippi River at Tsunami Sushi!",
+    url: "https://batonrouge.servingsushi.com",
+    icon: "utensils",
+  },
+  {
+    title: "Superior Grill on Highland",
+    description: "Enjoy Mexican & Margs at Superior on Highland.",
+    url: "https://highland.superiorgrill.com",
+    icon: "utensils",
+  },
+]
+
 export default function ActivitiesPage() {
   return (
     <main className={cn("min-h-screen bg-gradient-to-b from-cream to-white text-slate-900", cormorant.variable)}>
@@ -101,10 +122,37 @@ export default function ActivitiesPage() {
               <h2 className="text-4xl font-cormorant font-medium text-slate-800">Restaurants</h2>
             </div>
 
-            <div className="bg-white/90 backdrop-blur-sm rounded-lg shadow-sm border border-sage/10 p-12 text-center">
-              <p className="text-lg text-slate-500 font-light italic">
-                Restaurant recommendations coming soon!
-              </p>
+            <div className="grid gap-8 md:grid-cols-1">
+              {restaurants.map((restaurant, index) => (
+                <div
+                  key={index}
+                  className="bg-white/90 backdrop-blur-sm rounded-lg shadow-sm border border-sage/10 p-8 hover:shadow-md transition-shadow"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-sage/10 flex items-center justify-center">
+                      <Utensils className="w-6 h-6 text-sage" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-2xl font-cormorant font-semibold text-slate-800 mb-3">
+                        {restaurant.title}
+                      </h3>
+                      <p className="text-lg text-slate-600 mb-4 leading-relaxed font-light">
+                        {restaurant.description}
+                      </p>
+                      <a
+                        href={restaurant.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-sage hover:text-sage/80 transition-colors font-medium"
+                      >
+                        <MapPin className="w-4 h-4" />
+                        <span>Visit Website</span>
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
