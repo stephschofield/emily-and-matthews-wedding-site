@@ -372,7 +372,7 @@ export default function RSVPPage() {
                             <ul className="mt-2 space-y-1">
                               {partyData.members.map((member) => (
                                 <li key={member.member_id} className="font-cormorant">
-                                  • {member.is_plus_one_placeholder ? "and Guest" : member.full_name}
+                                  • {member.is_plus_one_placeholder ? "Guest" : member.full_name}
                                 </li>
                               ))}
                             </ul>
