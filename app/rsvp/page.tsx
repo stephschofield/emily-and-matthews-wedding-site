@@ -188,7 +188,9 @@ export default function RSVPPage() {
     )
   }
 
-  const canProceedToStep2 = partyData !== null && !guestNotFound
+  const canProceedToStep2 = partyData !== null && !guestNotFound &&
+    // Ensure all plus-one names are provided before proceeding
+    memberRSVPs.every(rsvp => !rsvp.is_plus_one_placeholder || rsvp.plus_one_name?.trim())
   const canProceedToStep3 =
     attendingStatus === "declining" ||
     (attendingStatus === "attending" && memberRSVPs.every((rsvp) => rsvp.status !== null))
@@ -382,7 +384,7 @@ export default function RSVPPage() {
                               <div className="flex items-start">
                                 <Info className="w-4 h-4 text-blue-600 mr-2 mt-0.5 flex-shrink-0" />
                                 <p className="text-xs text-blue-700">
-                                  You're invited to bring a guest! You'll be able to provide their name when completing your RSVP.
+                                  You're invited to bring a guest! Please provide their name below.
                                 </p>
                               </div>
                             </div>
@@ -390,6 +392,50 @@ export default function RSVPPage() {
                         </div>
                       )}
                     </div>
+
+                    {/* Plus-One Name Entry - Required Before Proceeding */}
+                    {partyData && partyData.members.some(m => m.is_plus_one_placeholder) && (
+                      <div className="space-y-4">
+                        <div className="border-t border-sage/20 pt-6">
+                          <h3 className="text-2xl font-cormorant font-medium text-slate-800 text-center mb-6">
+                            Guest Information
+                          </h3>
+                          {memberRSVPs
+                            .filter(rsvp => rsvp.is_plus_one_placeholder)
+                            .map((rsvp) => (
+                              <div key={rsvp.member_id} className="bg-sage/5 p-6 rounded-lg space-y-3">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <Users className="w-5 h-5 text-sage" />
+                                  <Label htmlFor={`step1-plus-one-${rsvp.member_id}`} className="text-lg font-cormorant text-slate-700 font-semibold">
+                                    Guest's Full Name *
+                                  </Label>
+                                </div>
+                                <p className="text-sm text-slate-600 mb-3">
+                                  Please provide the first and last name of the guest you'll be bringing.
+                                </p>
+                                <Input
+                                  id={`step1-plus-one-${rsvp.member_id}`}
+                                  value={rsvp.plus_one_name || ""}
+                                  onChange={(e) =>
+                                    updateMemberRSVP(rsvp.member_id, { plus_one_name: e.target.value })
+                                  }
+                                  placeholder="e.g., Jane Smith"
+                                  className={cn(
+                                    "text-lg p-4 border-sage/20 focus:border-sage font-cormorant",
+                                    !rsvp.plus_one_name?.trim() && "border-blue-300"
+                                  )}
+                                />
+                                {!rsvp.plus_one_name?.trim() && (
+                                  <p className="text-sm text-blue-600 flex items-center gap-1">
+                                    <AlertCircle className="w-4 h-4" />
+                                    Required to continue
+                                  </p>
+                                )}
+                              </div>
+                            ))}
+                        </div>
+                      </div>
+                    )}
 
                     <div className="flex justify-center pt-6">
                       <Button
@@ -639,45 +685,19 @@ export default function RSVPPage() {
 
                           {rsvp.status === "yes" && (
                             <div className="space-y-4 pt-4 border-t border-sage/20">
-                              {/* Plus One Name Entry */}
-                              {rsvp.is_plus_one_placeholder && (
-                                <div className="space-y-2 bg-blue-50/50 p-4 rounded-md border border-blue-200/50">
-                                  <div className="flex items-center gap-2 mb-2">
-                                    <Info className="w-4 h-4 text-blue-600" />
-                                    <Label htmlFor={`plus-one-name-${rsvp.member_id}`} className="text-slate-700 font-semibold">
-                                      Guest's Full Name *
-                                    </Label>
-                                  </div>
-                                  <p className="text-xs text-slate-600 mb-2">
-                                    Please provide the first and last name of the guest you'll be bringing.
+                              {/* Guest name is already provided in Step 1, just show it */}
+                              {rsvp.is_plus_one_placeholder && rsvp.plus_one_name && (
+                                <div className="bg-sage/5 p-3 rounded-md">
+                                  <p className="text-sm text-slate-600">
+                                    <span className="font-semibold">Guest:</span> {rsvp.plus_one_name}
                                   </p>
-                                  <Input
-                                    id={`plus-one-name-${rsvp.member_id}`}
-                                    value={rsvp.plus_one_name || ""}
-                                    onChange={(e) =>
-                                      updateMemberRSVP(rsvp.member_id, { plus_one_name: e.target.value })
-                                    }
-                                    placeholder="e.g., Jane Smith"
-                                    className={cn(
-                                      "border-sage/20 focus:border-sage font-medium",
-                                      !rsvp.plus_one_name?.trim() && "border-blue-300"
-                                    )}
-                                  />
-                                  {!rsvp.plus_one_name?.trim() && (
-                                    <p className="text-xs text-blue-600 mt-1 flex items-center gap-1">
-                                      <AlertCircle className="w-3 h-3" />
-                                      Required before submitting
-                                    </p>
-                                  )}
                                 </div>
                               )}
-
-                              {/* Meal Choice - Removed for Buffet Style */}
 
                               {/* Dietary Restrictions */}
                               <div className="space-y-2">
                                 <Label htmlFor={`dietary-${rsvp.member_id}`} className="text-slate-700">
-                                  Dietary Restrictions or Allergies {rsvp.is_plus_one_placeholder ? "(Optional)" : ""}
+                                  Dietary Restrictions or Allergies {rsvp.is_plus_one_placeholder ? `for ${rsvp.plus_one_name}` : ""}
                                 </Label>
                                 <Textarea
                                   id={`dietary-${rsvp.member_id}`}
@@ -743,12 +763,6 @@ export default function RSVPPage() {
                             <p className="font-medium mb-1">Please complete the following:</p>
                             <ul className="list-disc list-inside space-y-1">
                               {!isValidEmail && <li>Enter a valid email address</li>}
-                              {memberRSVPs.some(
-                                (rsvp) =>
-                                  rsvp.status === "yes" &&
-                                  rsvp.is_plus_one_placeholder &&
-                                  !rsvp.plus_one_name?.trim()
-                              ) && <li>Provide the name of your guest</li>}
                             </ul>
                           </div>
                         </div>
