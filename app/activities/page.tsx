@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { Cormorant_Garamond } from "next/font/google"
 import { cn } from "@/lib/utils"
 import { NavBar } from "@/components/nav-bar"
@@ -18,6 +19,7 @@ interface Activity {
   description: string
   url: string
   icon: "landmark" | "utensils"
+  image?: string
 }
 
 const activities: Activity[] = [
@@ -26,6 +28,7 @@ const activities: Activity[] = [
     description: "Take a stroll around the LSU Lakes and visit Mike the Tiger's Oasis on the way out!",
     url: "https://www.mikethetiger.com/mikes-habitat",
     icon: "landmark",
+    image: "/images/mike-tiger-habitat.jpg",
   },
   {
     title: "LSU Rural Life Museum",
@@ -81,33 +84,45 @@ export default function ActivitiesPage() {
               {activities.map((activity, index) => (
                 <div
                   key={index}
-                  className="bg-white/90 backdrop-blur-sm rounded-lg shadow-sm border border-sage/10 p-8 hover:shadow-md transition-shadow"
+                  className="bg-white/90 backdrop-blur-sm rounded-lg shadow-sm border border-sage/10 overflow-hidden hover:shadow-md transition-shadow"
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-sage/10 flex items-center justify-center">
-                      {activity.icon === "landmark" ? (
-                        <Landmark className="w-6 h-6 text-sage" />
-                      ) : (
-                        <Utensils className="w-6 h-6 text-sage" />
-                      )}
+                  {activity.image && (
+                    <div className="relative w-full h-64 md:h-80">
+                      <Image
+                        src={activity.image}
+                        alt={activity.title}
+                        fill
+                        className="object-cover"
+                      />
                     </div>
-                    <div className="flex-1">
-                      <h3 className="text-2xl font-cormorant font-semibold text-slate-800 mb-3">
-                        {activity.title}
-                      </h3>
-                      <p className="text-lg text-slate-600 mb-4 leading-relaxed font-light">
-                        {activity.description}
-                      </p>
-                      <a
-                        href={activity.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-sage hover:text-sage/80 transition-colors font-medium"
-                      >
-                        <MapPin className="w-4 h-4" />
-                        <span>Learn More</span>
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
+                  )}
+                  <div className="p-8">
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-sage/10 flex items-center justify-center">
+                        {activity.icon === "landmark" ? (
+                          <Landmark className="w-6 h-6 text-sage" />
+                        ) : (
+                          <Utensils className="w-6 h-6 text-sage" />
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-2xl font-cormorant font-semibold text-slate-800 mb-3">
+                          {activity.title}
+                        </h3>
+                        <p className="text-lg text-slate-600 mb-4 leading-relaxed font-light">
+                          {activity.description}
+                        </p>
+                        <a
+                          href={activity.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 text-sage hover:text-sage/80 transition-colors font-medium"
+                        >
+                          <MapPin className="w-4 h-4" />
+                          <span>Learn More</span>
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
