@@ -52,6 +52,7 @@ const restaurants: Activity[] = [
     description: "Enjoy Sushi and a view of the Mississippi River at Tsunami Sushi!",
     url: "https://batonrouge.servingsushi.com",
     icon: "utensils",
+    image: "/images/tsunami-sushi.jpg",
   },
   {
     title: "Superior Grill on Highland",
