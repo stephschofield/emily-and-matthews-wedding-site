@@ -28,7 +28,7 @@ const activities: Activity[] = [
     description: "Take a stroll around the LSU Lakes and visit Mike the Tiger's Oasis on the way out!",
     url: "https://www.mikethetiger.com/mikes-habitat",
     icon: "landmark",
-    image: "/images/lsu-tiger-walk.jpg",
+    image: "/images/tigerhabatat628.png",
   },
   {
     title: "LSU Rural Life Museum",
