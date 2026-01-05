@@ -59,6 +59,7 @@ const restaurants: Activity[] = [
     description: "Enjoy Mexican & Margs at Superior on Highland.",
     url: "https://highland.superiorgrill.com",
     icon: "utensils",
+    image: "/images/superiorgrill.jpg",
   },
 ]
 
