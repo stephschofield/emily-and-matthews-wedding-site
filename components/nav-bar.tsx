@@ -62,7 +62,7 @@ export function NavBar() {
     { name: "Our Story", href: "/#couple" },
     { name: "Venue", href: "/#the-venue" },
     { name: "Schedule", href: "/#schedule" },
-    { name: "Activities", href: "/activities" },
+    { name: "Things to Do", href: "/activities" },
     { name: "FAQ", href: "/#faq" },
     { name: "Gallery", href: "/#our-gallery" },
     { name: "Registry", href: "/#registry" },
