@@ -45,7 +45,7 @@ const restaurants: Activity[] = [
     description: "Visit the Chimes Restaurant on Highland: enjoy classic cajun food and drinks on the rooftop.",
     url: "https://thechimes.com",
     icon: "utensils",
-    image: "/images/chimes-restaurant.jpg",
+    image: "/images/chimesrestaurant.jpg",
   },
   {
     title: "Tsunami Sushi",
