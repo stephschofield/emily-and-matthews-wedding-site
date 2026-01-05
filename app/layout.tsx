@@ -10,6 +10,7 @@ const inter = Inter({ subsets: ["latin"] })
 const cacheVersion = Date.now()
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
   title: "Emily & Matthew - May 9, 2026",
   description: "Join us for our wedding celebration at the Old Louisiana State Capitol in Baton Rouge, Louisiana",
   icons: {
