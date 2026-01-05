@@ -35,7 +35,7 @@ const activities: Activity[] = [
     description: "Learn about Louisiana history at the LSU Rural Life Museum.",
     url: "https://www.lsu.edu/rurallife/",
     icon: "landmark",
-    image: "/images/rural-life-museum.jpg",
+    image: "/images/LSUrurallifemuseum.jpg",
   },
 ]
 
@@ -45,6 +45,7 @@ const restaurants: Activity[] = [
     description: "Visit the Chimes Restaurant on Highland: enjoy classic cajun food and drinks on the rooftop.",
     url: "https://thechimes.com",
     icon: "utensils",
+    image: "/images/chimes-restaurant.jpg",
   },
   {
     title: "Tsunami Sushi",
@@ -142,29 +143,41 @@ export default function ActivitiesPage() {
               {restaurants.map((restaurant, index) => (
                 <div
                   key={index}
-                  className="bg-white/90 backdrop-blur-sm rounded-lg shadow-sm border border-sage/10 p-8 hover:shadow-md transition-shadow"
+                  className="bg-white/90 backdrop-blur-sm rounded-lg shadow-sm border border-sage/10 overflow-hidden hover:shadow-md transition-shadow"
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-sage/10 flex items-center justify-center">
-                      <Utensils className="w-6 h-6 text-sage" />
+                  {restaurant.image && (
+                    <div className="relative w-full h-64 md:h-80">
+                      <Image
+                        src={restaurant.image}
+                        alt={restaurant.title}
+                        fill
+                        className="object-cover"
+                      />
                     </div>
-                    <div className="flex-1">
-                      <h3 className="text-2xl font-cormorant font-semibold text-slate-800 mb-3">
-                        {restaurant.title}
-                      </h3>
-                      <p className="text-lg text-slate-600 mb-4 leading-relaxed font-light">
-                        {restaurant.description}
-                      </p>
-                      <a
-                        href={restaurant.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-sage hover:text-sage/80 transition-colors font-medium"
-                      >
-                        <MapPin className="w-4 h-4" />
-                        <span>Visit Website</span>
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
+                  )}
+                  <div className="p-8">
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-sage/10 flex items-center justify-center">
+                        <Utensils className="w-6 h-6 text-sage" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-2xl font-cormorant font-semibold text-slate-800 mb-3">
+                          {restaurant.title}
+                        </h3>
+                        <p className="text-lg text-slate-600 mb-4 leading-relaxed font-light">
+                          {restaurant.description}
+                        </p>
+                        <a
+                          href={restaurant.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 text-sage hover:text-sage/80 transition-colors font-medium"
+                        >
+                          <MapPin className="w-4 h-4" />
+                          <span>Visit Website</span>
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
