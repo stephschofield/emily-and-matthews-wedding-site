@@ -35,6 +35,7 @@ const activities: Activity[] = [
     description: "Learn about Louisiana history at the LSU Rural Life Museum.",
     url: "https://www.lsu.edu/rurallife/",
     icon: "landmark",
+    image: "/images/rural-life-museum.jpg",
   },
 ]
 
