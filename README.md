@@ -20,15 +20,7 @@ The main features of Emily and Matthew's wedding website include the following f
 
 These features create a comprehensive, user-friendly hub for guests to find everything they need for the wedding celebration, reducing confusion and increasing guest engagement before the event.
 
-- **Live Site (password protected):** [Visit the Wedding Site](https://vercel.com/sschofield-microsoftcos-projects/v0-emily-matthew-s-wedding-may-26)
-
-## Contributing
-
-Contributions and improvements are welcome! To contribute:
-
-- Fork the repository.
-- Make changes and commit them with clear messages.
-- Open a pull request describing your proposed updates.
+- **Live Site:** [Visit the Wedding Site](https://vercel.com/sschofield-microsoftcos-projects/v0-emily-matthew-s-wedding-may-26)
 
 ## Contact
 

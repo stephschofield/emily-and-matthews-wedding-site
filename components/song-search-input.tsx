@@ -24,6 +24,7 @@ interface SongSearchInputProps {
   placeholder?: string
   label?: string
   className?: string
+  resetTrigger?: number // Add a reset trigger prop
 }
 
 export function SongSearchInput({
@@ -31,6 +32,7 @@ export function SongSearchInput({
   placeholder = "Search for a song...",
   label,
   className,
+  resetTrigger = 0,
 }: SongSearchInputProps) {
   const [query, setQuery] = useState("")
   const [results, setResults] = useState<SpotifyTrack[]>([])
@@ -41,6 +43,17 @@ export function SongSearchInput({
 
   const inputRef = useRef<HTMLInputElement>(null)
   const resultsRef = useRef<HTMLDivElement>(null)
+
+  // Reset when resetTrigger changes
+  useEffect(() => {
+    if (resetTrigger > 0) {
+      setQuery("")
+      setResults([])
+      setShowResults(false)
+      setSelectedIndex(-1)
+      setJustSelected(false)
+    }
+  }, [resetTrigger])
 
   // Debounced search
   useEffect(() => {
@@ -144,8 +157,8 @@ export function SongSearchInput({
     // Set the flag to prevent search from triggering
     setJustSelected(true)
 
-    // Update the query with the selected song
-    setQuery(`${track.name} - ${artistNames}`)
+    // Clear the query instead of keeping the song name
+    setQuery("")
 
     // Hide the dropdown immediately
     setShowResults(false)
