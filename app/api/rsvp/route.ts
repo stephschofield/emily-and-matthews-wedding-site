@@ -90,6 +90,8 @@ export async function POST(request: Request) {
                     ${rsvps.map((r: any) => {
                       const name = getName(r.member_id);
                       const isAttending = r.status === 'yes';
+                      const hasMeal = isAttending && r.meal_choice;
+                      const hasAllergies = isAttending && r.allergies && r.allergies.trim();
                       
                       return `
                         <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(125, 157, 140, 0.2); last-child: border-bottom: none;">
@@ -99,6 +101,20 @@ export async function POST(request: Request) {
                               ${isAttending ? 'Attending' : 'Declining'}
                             </span>
                           </div>
+                          ${hasMeal ? `
+                            <div style="margin-top: 8px; padding-left: 12px;">
+                              <p style="margin: 0; color: ${colors.muted}; font-size: 14px;">
+                                <strong>Meal Choice:</strong> ${r.meal_choice}
+                              </p>
+                            </div>
+                          ` : ''}
+                          ${hasAllergies ? `
+                            <div style="margin-top: 6px; padding-left: 12px;">
+                              <p style="margin: 0; color: ${colors.muted}; font-size: 14px;">
+                                <strong>Dietary Restrictions:</strong> ${r.allergies}
+                              </p>
+                            </div>
+                          ` : ''}
                         </div>
                       `;
                     }).join('')}

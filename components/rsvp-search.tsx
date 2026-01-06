@@ -121,7 +121,7 @@ export function RsvpSearch({ onFound }: RsvpSearchProps) {
               htmlFor="searchName"
               className="text-xl font-cormorant text-slate-700 mb-4 block font-medium"
             >
-              Please enter your name as it appears on your invitation
+              Please enter your name
             </Label>
             <div className="relative">
               <Input
