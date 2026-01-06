@@ -188,7 +188,9 @@ export default function RSVPPage() {
     )
   }
 
-  const canProceedToStep2 = partyData !== null && !guestNotFound
+  const canProceedToStep2 = partyData !== null && !guestNotFound &&
+    // Ensure all plus-one names are provided before proceeding
+    memberRSVPs.every(rsvp => !rsvp.is_plus_one_placeholder || rsvp.plus_one_name?.trim())
   const canProceedToStep3 =
     attendingStatus === "declining" ||
     (attendingStatus === "attending" && memberRSVPs.every((rsvp) => rsvp.status !== null))
@@ -372,15 +374,68 @@ export default function RSVPPage() {
                             <ul className="mt-2 space-y-1">
                               {partyData.members.map((member) => (
                                 <li key={member.member_id} className="font-cormorant">
-                                  • {member.full_name}
-                                  {member.is_plus_one_placeholder && " (Plus One)"}
+                                  • {member.is_plus_one_placeholder ? "Guest" : member.full_name}
                                 </li>
                               ))}
                             </ul>
                           </div>
+                          {partyData.members.some(m => m.is_plus_one_placeholder) && (
+                            <div className="mt-3 p-3 bg-blue-50/80 border border-blue-200/50 rounded-md">
+                              <div className="flex items-start">
+                                <Info className="w-4 h-4 text-blue-600 mr-2 mt-0.5 flex-shrink-0" />
+                                <p className="text-xs text-blue-700">
+                                  You're invited to bring a guest! Please provide their name below.
+                                </p>
+                              </div>
+                            </div>
+                          )}
                         </div>
                       )}
                     </div>
+
+                    {/* Plus-One Name Entry - Required Before Proceeding */}
+                    {partyData && partyData.members.some(m => m.is_plus_one_placeholder) && (
+                      <div className="space-y-4">
+                        <div className="border-t border-sage/20 pt-6">
+                          <h3 className="text-2xl font-cormorant font-medium text-slate-800 text-center mb-6">
+                            Guest Information
+                          </h3>
+                          {memberRSVPs
+                            .filter(rsvp => rsvp.is_plus_one_placeholder)
+                            .map((rsvp) => (
+                              <div key={rsvp.member_id} className="bg-sage/5 p-6 rounded-lg space-y-3">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <Users className="w-5 h-5 text-sage" />
+                                  <Label htmlFor={`step1-plus-one-${rsvp.member_id}`} className="text-lg font-cormorant text-slate-700 font-semibold">
+                                    Guest's Full Name *
+                                  </Label>
+                                </div>
+                                <p className="text-sm text-slate-600 mb-3">
+                                  Please provide the first and last name of the guest you'll be bringing.
+                                </p>
+                                <Input
+                                  id={`step1-plus-one-${rsvp.member_id}`}
+                                  value={rsvp.plus_one_name || ""}
+                                  onChange={(e) =>
+                                    updateMemberRSVP(rsvp.member_id, { plus_one_name: e.target.value })
+                                  }
+                                  placeholder="e.g., Jane Smith"
+                                  className={cn(
+                                    "text-lg p-4 border-sage/20 focus:border-sage font-cormorant",
+                                    !rsvp.plus_one_name?.trim() && "border-blue-300"
+                                  )}
+                                />
+                                {!rsvp.plus_one_name?.trim() && (
+                                  <p className="text-sm text-blue-600 flex items-center gap-1">
+                                    <AlertCircle className="w-4 h-4" />
+                                    Required to continue
+                                  </p>
+                                )}
+                              </div>
+                            ))}
+                        </div>
+                      </div>
+                    )}
 
                     <div className="flex justify-center pt-6">
                       <Button
@@ -598,7 +653,10 @@ export default function RSVPPage() {
                         <div key={rsvp.member_id} className="bg-sage/5 p-6 rounded-lg space-y-4">
                           <div className="flex items-center justify-between">
                             <h3 className="text-xl font-cormorant font-medium text-slate-800">
-                              {rsvp.is_plus_one_placeholder ? "Plus One" : rsvp.full_name}
+                              {rsvp.is_plus_one_placeholder ? "Your Guest" : rsvp.full_name}
+                              {rsvp.is_plus_one_placeholder && rsvp.plus_one_name && (
+                                <span className="text-base text-slate-600 ml-2">({rsvp.plus_one_name})</span>
+                              )}
                             </h3>
                             <div className="flex items-center gap-4">
                               <Label className="text-sm text-slate-600">Will attend?</Label>
@@ -627,30 +685,19 @@ export default function RSVPPage() {
 
                           {rsvp.status === "yes" && (
                             <div className="space-y-4 pt-4 border-t border-sage/20">
-                              {/* Plus One Name Entry */}
-                              {rsvp.is_plus_one_placeholder && (
-                                <div className="space-y-2">
-                                  <Label htmlFor={`plus-one-name-${rsvp.member_id}`} className="text-slate-700">
-                                    Guest Name *
-                                  </Label>
-                                  <Input
-                                    id={`plus-one-name-${rsvp.member_id}`}
-                                    value={rsvp.plus_one_name || ""}
-                                    onChange={(e) =>
-                                      updateMemberRSVP(rsvp.member_id, { plus_one_name: e.target.value })
-                                    }
-                                    placeholder="Enter full name of your guest"
-                                    className="border-sage/20 focus:border-sage"
-                                  />
+                              {/* Guest name is already provided in Step 1, just show it */}
+                              {rsvp.is_plus_one_placeholder && rsvp.plus_one_name && (
+                                <div className="bg-sage/5 p-3 rounded-md">
+                                  <p className="text-sm text-slate-600">
+                                    <span className="font-semibold">Guest:</span> {rsvp.plus_one_name}
+                                  </p>
                                 </div>
                               )}
-
-                              {/* Meal Choice - Removed for Buffet Style */}
 
                               {/* Dietary Restrictions */}
                               <div className="space-y-2">
                                 <Label htmlFor={`dietary-${rsvp.member_id}`} className="text-slate-700">
-                                  Dietary Restrictions or Allergies
+                                  Dietary Restrictions or Allergies {rsvp.is_plus_one_placeholder ? `for ${rsvp.plus_one_name}` : ""}
                                 </Label>
                                 <Textarea
                                   id={`dietary-${rsvp.member_id}`}
@@ -658,7 +705,9 @@ export default function RSVPPage() {
                                   onChange={(e) =>
                                     updateMemberRSVP(rsvp.member_id, { dietary_restrictions: e.target.value })
                                   }
-                                  placeholder="Please let us know of any dietary restrictions or food allergies..."
+                                  placeholder={rsvp.is_plus_one_placeholder 
+                                    ? "Please let us know of any dietary restrictions or food allergies for your guest..."
+                                    : "Please let us know of any dietary restrictions or food allergies..."}
                                   className="border-sage/20 focus:border-sage"
                                   rows={2}
                                 />
@@ -704,6 +753,21 @@ export default function RSVPPage() {
                         rows={3}
                       />
                     </div>
+
+                    {/* Validation Messages */}
+                    {!canSubmit && (
+                      <div className="bg-yellow-50/80 border border-yellow-200/50 rounded-md p-4">
+                        <div className="flex items-start">
+                          <AlertCircle className="w-5 h-5 text-yellow-600 mr-2 mt-0.5 flex-shrink-0" />
+                          <div className="text-sm text-yellow-800">
+                            <p className="font-medium mb-1">Please complete the following:</p>
+                            <ul className="list-disc list-inside space-y-1">
+                              {!isValidEmail && <li>Enter a valid email address</li>}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    )}
 
                     <div className="flex justify-between pt-6">
                       <Button
