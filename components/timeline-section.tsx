@@ -20,7 +20,7 @@ const timelineEvents: TimelineEvent[] = [
     date: "November 19, 2021",
     title: "First Meeting",
     description:
-      "Emily and Matthew met in the fall of his first, and her last, year of grad school at LSU. This is one of their first date events together!",
+      "We met in the fall of Matthew's first, and Emily's last, year of grad school at LSU. This is one of our first date events together!",
     image: "/images/timeline-first-date.jpeg",
     imageAlt: "Emily and Matthew at their first date event at LSU",
     side: "left",
@@ -39,7 +39,7 @@ const timelineEvents: TimelineEvent[] = [
     date: "July 2022",
     title: "Long Distance Begins",
     description:
-      "Emily leaves Baton Rouge and moves to Dallas, TX, now beginning their long-distance relationship. This was Matthew's first visit after the move!",
+      "Emily leaves Baton Rouge and moves to Dallas, TX, now beginning our long-distance relationship. This was Matthew's first visit after the move!",
     image: "/images/timeline-dallas-visit.jpeg",
     imageAlt: "Emily and Matthew in front of the Dallas sign during Matthew's first visit",
     side: "left",
@@ -78,7 +78,7 @@ const timelineEvents: TimelineEvent[] = [
     date: "January 2024",
     title: "Matthew Moves to Dallas",
     description:
-      "Matthew moves to Dallas! Him and Emily were too busy unpacking to take pictures, but thankfully captured a picture of Doobie sunbathing on his new balcony!",
+      "Matthew moves to Dallas! We were too busy unpacking to take pictures, but thankfully captured a picture of Doobie sunbathing on his new balcony!",
     image: "/images/timeline-matthew-moves.jpeg",
     imageAlt: "Doobie sunbathing on the balcony of Matthew's new Dallas apartment",
     side: "left",
@@ -88,7 +88,7 @@ const timelineEvents: TimelineEvent[] = [
     date: "June 2024",
     title: "First House Together",
     description:
-      "Emily and Matthew started renting their first house together! This was their first meal - pre-coffee or dining table.",
+      "We started renting our first house together! This was our first meal - pre-coffee or dining table.",
     image: "/images/timeline-first-house.jpeg",
     imageAlt:
       "Matthew enjoying their first meal in their new house with Doobie, using a side table as their dining surface",
@@ -99,7 +99,7 @@ const timelineEvents: TimelineEvent[] = [
     date: "October 2024",
     title: "Football Season Away From Home",
     description:
-      "Emily and Matthew's first football season away from home together. Emily showed Matthew all of the go-to watch spots, like Texas Live!, Dodies, and Truckyard!",
+      "Our first football season away from home together. Emily showed Matthew all of the go-to watch spots, like Texas Live!, Dodies, and Truckyard!",
     image: "/images/timeline-football-season.jpeg",
     imageAlt: "Emily and Matthew enjoying football season at a Dallas entertainment venue",
     side: "left",

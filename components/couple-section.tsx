@@ -54,13 +54,13 @@ export function CoupleSection() {
           <h3 className="text-3xl font-cormorant text-navy mb-6 font-light">How We Met</h3>
 
           <p className="text-lg text-slate-700 mb-6 leading-relaxed">
-            Emily and Matthew's paths crossed at a mutual friend's crawfish boil in the spring of 2020. They bonded over
-            their shared love for Louisiana culture, history, and food. After several months of friendship, they began
+            Our paths crossed at a mutual friend's crawfish boil in the spring of 2020. We bonded over
+            our shared love for Louisiana culture, history, and food. After several months of friendship, we began
             dating and have been inseparable ever since.
           </p>
           <p className="text-lg text-slate-700 mb-8 leading-relaxed">
             Matthew proposed during a romantic stroll through the Dallas Arboretum and Botanical Garden, surrounded by
-            beautiful blooms and serene landscapes – a perfect setting that reflects their love for nature and beauty.
+            beautiful blooms and serene landscapes – a perfect setting that reflects our love for nature and beauty.
           </p>
 
           <div className="grid md:grid-cols-3 gap-6 mt-12">

@@ -33,8 +33,8 @@ export function VenueSection() {
             <p className="text-lg text-slate-700 mb-8 leading-relaxed">
               Known as the "Castle on the River," the Old Louisiana State Capitol stands as a testament to Gothic
               Revival architecture and the rich history of Louisiana. With its stunning stained glass dome, spiral
-              staircase, and ornate details, this National Historic Landmark provides the perfect backdrop for Emily and
-              Matthew's elegant celebration.
+              staircase, and ornate details, this National Historic Landmark provides the perfect backdrop for our
+              elegant celebration.
             </p>
 
             <div className="space-y-4">

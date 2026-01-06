@@ -5,14 +5,14 @@ export function HeroSection() {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
-        <Image src="/images/proposal.jpeg" alt="Emily and Matthew's Proposal" fill priority className="object-cover" />
+        <Image src="/images/proposal.jpeg" alt="Our Proposal" fill priority className="object-cover" />
         <div className="absolute inset-0 bg-navy/40 backdrop-blur-[1px]" />
       </div>
 
       <div className="container mx-auto px-4 z-10 text-center text-white">
         <div className="max-w-4xl mx-auto relative p-8 md:p-12">
           {/* Content */}
-          <p className="text-xl md:text-2xl mb-4 font-cormorant italic">Together with their families</p>
+          <p className="text-xl md:text-2xl mb-4 font-cormorant italic">Together with our families</p>
 
           <h1 className="font-cormorant text-5xl md:text-7xl font-light tracking-wide mb-4">
             Emily <span className="text-gold">&</span> Matthew
