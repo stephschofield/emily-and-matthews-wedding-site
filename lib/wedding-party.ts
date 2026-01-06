@@ -17,7 +17,6 @@ const WEDDING_PARTY_DATA: WeddingPartyMember[] = [
   { name: 'Kathryn McKowen', role: 'Bridesmaid', side: 'bride', order_position: 5 },
   { name: 'Kaily Belleau', role: 'Bridesmaid', side: 'bride', order_position: 6 },
   { name: 'Rileigh Fontenot', role: 'Bridesmaid', side: 'bride', order_position: 7 },
-  { name: 'Chelsea Wong', role: 'Bridesmaid', side: 'bride', order_position: 8 },
   
   // Groom's Side
   { name: 'Michael Adams', role: 'Best Man', side: 'groom', order_position: 1 },

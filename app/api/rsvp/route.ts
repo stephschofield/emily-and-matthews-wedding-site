@@ -90,6 +90,8 @@ export async function POST(request: Request) {
                     ${rsvps.map((r: any) => {
                       const name = getName(r.member_id);
                       const isAttending = r.status === 'yes';
+                      const hasMeal = isAttending && r.meal_choice;
+                      const hasAllergies = isAttending && r.allergies && r.allergies.trim();
                       
                       return `
                         <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(125, 157, 140, 0.2); last-child: border-bottom: none;">
@@ -99,6 +101,20 @@ export async function POST(request: Request) {
                               ${isAttending ? 'Attending' : 'Declining'}
                             </span>
                           </div>
+                          ${hasMeal ? `
+                            <div style="margin-top: 8px; padding-left: 12px;">
+                              <p style="margin: 0; color: ${colors.muted}; font-size: 14px;">
+                                <strong>Meal Choice:</strong> ${r.meal_choice}
+                              </p>
+                            </div>
+                          ` : ''}
+                          ${hasAllergies ? `
+                            <div style="margin-top: 6px; padding-left: 12px;">
+                              <p style="margin: 0; color: ${colors.muted}; font-size: 14px;">
+                                <strong>Dietary Restrictions:</strong> ${r.allergies}
+                              </p>
+                            </div>
+                          ` : ''}
                         </div>
                       `;
                     }).join('')}
@@ -118,7 +134,7 @@ export async function POST(request: Request) {
                         <li style="margin-bottom: 10px;"><strong>Ceremony:</strong> Please arrive at the State Capitol Building by 6:00 PM</li>
                         <li style="margin-bottom: 10px;"><strong>Accommodation:</strong> Don't forget to <a href="https://book.passkey.com/go/BuecheAdamsWedding" style="color: ${colors.sage}; text-decoration: underline;">book your stay at the Hilton Capitol</a> (our shared hotel block)</li>
                         <li style="margin-bottom: 10px;"><strong>Music:</strong> Have a song request? <a href="https://www.emandmatthew.com/#playlist" style="color: ${colors.sage}; text-decoration: underline;">Add it to our playlist</a></li>
-                        <li>Visit the website for full schedule and details</li>
+                        <li><a href="https://www.emandmatthew.com" style="color: ${colors.sage}; text-decoration: underline;">Visit the website</a> for full schedule and details</li>
                       </ul>
                     </div>
                   </div>
