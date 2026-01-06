@@ -134,7 +134,7 @@ export default function ActivitiesPage() {
             </div>
           </div>
 
-          {/* Restaurants Section - Placeholder for future additions */}
+          {/* Restaurants Section */}
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center justify-center mb-8">
               <Utensils className="w-8 h-8 text-sage mr-3" />
