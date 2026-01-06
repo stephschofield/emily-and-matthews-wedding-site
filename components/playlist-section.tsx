@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { SongSearchInput } from "@/components/song-search-input"
-import { Music, CheckCircle, AlertCircle, Plus, Trash2, Loader2 } from "lucide-react"
+import { Music, CheckCircle, AlertCircle, Trash2, Loader2 } from "lucide-react"
 
 interface SongRequest {
   id: string
@@ -18,31 +18,31 @@ interface SongRequest {
 }
 
 export function PlaylistSection() {
-  const [songRequests, setSongRequests] = useState<SongRequest[]>([{ id: "1", songTitle: "", artist: "" }])
+  const [addedSongs, setAddedSongs] = useState<SongRequest[]>([])
+  const [currentSongTitle, setCurrentSongTitle] = useState("")
+  const [currentArtist, setCurrentArtist] = useState("")
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState("")
   const [useSearch, setUseSearch] = useState(true) // Spotify search enabled
   const [submittedCount, setSubmittedCount] = useState(0)
+  const [searchResetTrigger, setSearchResetTrigger] = useState(0) // Add reset trigger
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("")
 
-    // Filter out empty requests and validate
-    const validRequests = songRequests.filter((request) => request.songTitle.trim() && request.artist.trim())
-
-    if (validRequests.length === 0) {
-      setError("Please add at least one song with both title and artist")
+    if (addedSongs.length === 0) {
+      setError("Please add at least one song to your playlist")
       return
     }
 
     setIsSubmitting(true)
 
     try {
-      const songRequestsData = validRequests.map((request) => ({
-        song_title: request.songTitle,
-        artist: request.artist,
+      const songRequestsData = addedSongs.map((song) => ({
+        song_title: song.songTitle,
+        artist: song.artist,
         guest_name: "", // Could be enhanced to collect guest name
         email: "", // Could be enhanced to collect email
       }))
@@ -64,14 +64,16 @@ export function PlaylistSection() {
       }
 
       // Store the count before resetting
-      const validCount = validRequests.length
+      const validCount = addedSongs.length
       setSubmittedCount(validCount)
 
       console.log("Song requests saved successfully:", result)
       setIsSubmitted(true)
 
       // Reset form after successful submission
-      setSongRequests([{ id: "1", songTitle: "", artist: "" }])
+      setAddedSongs([])
+      setCurrentSongTitle("")
+      setCurrentArtist("")
     } catch (err) {
       console.error("Error submitting song requests:", err)
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.")
@@ -80,29 +82,41 @@ export function PlaylistSection() {
     }
   }
 
-  const handleInputChange = (id: string, field: keyof Omit<SongRequest, "id">, value: string) => {
-    setSongRequests((prev) => prev.map((request) => (request.id === id ? { ...request, [field]: value } : request)))
-    if (error) setError("") // Clear error when user starts typing
+  const handleAddSong = () => {
+    if (!currentSongTitle.trim() || !currentArtist.trim()) {
+      setError("Please enter both song title and artist")
+      return
+    }
+
+    const newSong: SongRequest = {
+      id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      songTitle: currentSongTitle,
+      artist: currentArtist,
+    }
+
+    console.log("Adding song:", newSong)
+    console.log("Current addedSongs before:", addedSongs)
+    
+    setAddedSongs((prev) => {
+      const updated = [...prev, newSong]
+      console.log("Updated addedSongs:", updated)
+      return updated
+    })
+    
+    setCurrentSongTitle("")
+    setCurrentArtist("")
+    setError("")
+    setSearchResetTrigger((prev) => prev + 1) // Trigger reset of search component
   }
 
-  const handleSongSelect = (id: string, songTitle: string, artist: string) => {
-    setSongRequests((prev) => prev.map((request) => (request.id === id ? { ...request, songTitle, artist } : request)))
+  const handleSongSelect = (songTitle: string, artist: string) => {
+    setCurrentSongTitle(songTitle)
+    setCurrentArtist(artist)
     if (error) setError("")
   }
 
-  const addSongRequest = () => {
-    const newId = Date.now().toString()
-    setSongRequests((prev) => [...prev, { id: newId, songTitle: "", artist: "" }])
-  }
-
-  const removeSongRequest = (id: string) => {
-    if (songRequests.length > 1) {
-      setSongRequests((prev) => prev.filter((request) => request.id !== id))
-    }
-  }
-
-  const getValidRequestsCount = () => {
-    return songRequests.filter((request) => request.songTitle.trim() && request.artist.trim()).length
+  const removeSong = (id: string) => {
+    setAddedSongs((prev) => prev.filter((song) => song.id !== id))
   }
 
   if (isSubmitted) {
@@ -119,7 +133,7 @@ export function PlaylistSection() {
                 {submittedCount === 1
                   ? "Your song request has been added to our wedding playlist."
                   : `Your ${submittedCount} song requests have been added to our wedding playlist.`}{" "}
-                We can't wait to dance to your suggestions!
+                We can't wait to dance with you!
               </p>
               <Button
                 onClick={() => {
@@ -192,122 +206,132 @@ export function PlaylistSection() {
                   </div>
                 </div>
 
-                {/* Song Requests List */}
-                <div className="space-y-6">
-                  {songRequests.map((request, index) => (
-                    <div key={request.id} className="relative">
-                      <div className="flex items-start gap-4">
-                        <div className="flex-shrink-0 w-8 h-8 bg-sage/20 rounded-full flex items-center justify-center mt-8">
-                          <span className="text-sm font-medium text-sage">{index + 1}</span>
-                        </div>
+                {/* Song Input Form */}
+                <div className="space-y-4">
+                  {useSearch ? (
+                    <SongSearchInput
+                      onSongSelect={(songTitle, artist) => handleSongSelect(songTitle, artist)}
+                      placeholder="Search for a song..."
+                      label="Song *"
+                      className="mb-4"
+                      resetTrigger={searchResetTrigger}
+                    />
+                  ) : (
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <Label htmlFor="songTitle" className="text-lg font-cormorant text-slate-700 mb-2 block font-medium">
+                          Song Title *
+                        </Label>
+                        <Input
+                          id="songTitle"
+                          value={currentSongTitle}
+                          onChange={(e) => {
+                            setCurrentSongTitle(e.target.value)
+                            if (error) setError("")
+                          }}
+                          placeholder="Enter song title"
+                          className="border-sage/20 focus:border-sage bg-white/80 font-cormorant text-lg"
+                        />
+                      </div>
 
-                        <div className="flex-1">
-                          {useSearch ? (
-                            <SongSearchInput
-                              onSongSelect={(songTitle, artist) => handleSongSelect(request.id, songTitle, artist)}
-                              placeholder={`Search for song ${index + 1}...`}
-                              label={`Song ${index + 1} *`}
-                              className="mb-4"
-                            />
-                          ) : (
-                            <div className="grid md:grid-cols-2 gap-4">
-                              <div>
-                                <Label
-                                  htmlFor={`songTitle-${request.id}`}
-                                  className="text-lg font-cormorant text-slate-700 mb-2 block font-medium"
-                                >
-                                  Song Title *
-                                </Label>
-                                <Input
-                                  id={`songTitle-${request.id}`}
-                                  value={request.songTitle}
-                                  onChange={(e) => handleInputChange(request.id, "songTitle", e.target.value)}
-                                  placeholder="Enter song title"
-                                  className="border-sage/20 focus:border-sage bg-white/80 font-cormorant text-lg"
-                                />
-                              </div>
+                      <div>
+                        <Label htmlFor="artist" className="text-lg font-cormorant text-slate-700 mb-2 block font-medium">
+                          Artist *
+                        </Label>
+                        <Input
+                          id="artist"
+                          value={currentArtist}
+                          onChange={(e) => {
+                            setCurrentArtist(e.target.value)
+                            if (error) setError("")
+                          }}
+                          placeholder="Enter artist name"
+                          className="border-sage/20 focus:border-sage bg-white/80 font-cormorant text-lg"
+                        />
+                      </div>
+                    </div>
+                  )}
 
-                              <div>
-                                <Label
-                                  htmlFor={`artist-${request.id}`}
-                                  className="text-lg font-cormorant text-slate-700 mb-2 block font-medium"
-                                >
-                                  Artist *
-                                </Label>
-                                <Input
-                                  id={`artist-${request.id}`}
-                                  value={request.artist}
-                                  onChange={(e) => handleInputChange(request.id, "artist", e.target.value)}
-                                  placeholder="Enter artist name"
-                                  className="border-sage/20 focus:border-sage bg-white/80 font-cormorant text-lg"
-                                />
-                              </div>
+                  {/* Show selected song when using search */}
+                  {useSearch && (currentSongTitle || currentArtist) && (
+                    <div className="p-3 bg-sage/5 rounded-lg border border-sage/20">
+                      <p className="text-sm text-slate-600 mb-1 font-cormorant">Selected Song:</p>
+                      <p className="font-medium text-slate-900 font-cormorant">
+                        {currentSongTitle} {currentArtist && `- ${currentArtist}`}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Add to List Button */}
+                  <div className="flex justify-center">
+                    <Button
+                      type="button"
+                      onClick={handleAddSong}
+                      className="bg-sage hover:bg-sage/90 text-white px-6 py-2 text-base font-cormorant"
+                    >
+                      Add to List
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Added Songs List */}
+                {addedSongs.length > 0 && (
+                  <div className="mt-8 pt-6 border-t border-sage/10">
+                    <h4 className="text-xl font-cormorant text-navy mb-4 font-medium">
+                      Your Playlist ({addedSongs.length} {addedSongs.length === 1 ? "song" : "songs"})
+                    </h4>
+                    <div className="space-y-3">
+                      {addedSongs.map((song, index) => (
+                        <div
+                          key={song.id}
+                          className="flex items-center justify-between p-4 bg-sage/5 rounded-lg border border-sage/20"
+                        >
+                          <div className="flex items-center gap-3 flex-1">
+                            <div className="flex-shrink-0 w-8 h-8 bg-sage/20 rounded-full flex items-center justify-center">
+                              <span className="text-sm font-medium text-sage">{index + 1}</span>
                             </div>
-                          )}
-
-                          {/* Show selected song when using search */}
-                          {useSearch && (request.songTitle || request.artist) && (
-                            <div className="mt-3 p-3 bg-sage/5 rounded-lg border border-sage/20">
-                              <p className="text-sm text-slate-600 mb-1 font-cormorant">Selected Song:</p>
-                              <p className="font-medium text-slate-900 font-cormorant">
-                                {request.songTitle} {request.artist && `- ${request.artist}`}
-                              </p>
+                            <div className="flex-1 min-w-0">
+                              <p className="font-medium text-slate-900 font-cormorant truncate">{song.songTitle}</p>
+                              <p className="text-sm text-slate-600 truncate">{song.artist}</p>
                             </div>
-                          )}
-                        </div>
-
-                        {/* Remove button (only show if more than 1 song) */}
-                        {songRequests.length > 1 && (
+                          </div>
                           <Button
                             type="button"
                             variant="ghost"
                             size="icon"
-                            onClick={() => removeSongRequest(request.id)}
-                            className="flex-shrink-0 text-red-500 hover:text-red-700 hover:bg-red-50 mt-8"
+                            onClick={() => removeSong(song.id)}
+                            className="flex-shrink-0 text-red-500 hover:text-red-700 hover:bg-red-50"
                           >
                             <Trash2 className="h-4 w-4" />
                           </Button>
-                        )}
-                      </div>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-
-                {/* Add Another Song Button */}
-                <div className="flex justify-center pt-4">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={addSongRequest}
-                    className="border-sage/30 text-sage hover:bg-sage/5 flex items-center gap-2 bg-transparent"
-                  >
-                    <Plus className="h-4 w-4" />
-                    Add Another Song
-                  </Button>
-                </div>
+                  </div>
+                )}
 
                 {/* Submit Button */}
                 <div className="text-center pt-6 border-t border-sage/10">
                   <div className="mb-4">
                     <p className="text-sm text-slate-600 font-cormorant">
-                      {getValidRequestsCount() === 0
+                      {addedSongs.length === 0
                         ? "Add at least one song to submit"
-                        : getValidRequestsCount() === 1
+                        : addedSongs.length === 1
                           ? "1 song ready to submit"
-                          : `${getValidRequestsCount()} songs ready to submit`}
+                          : `${addedSongs.length} songs ready to submit`}
                     </p>
                   </div>
                   <Button
                     type="submit"
-                    disabled={isSubmitting || getValidRequestsCount() === 0}
+                    disabled={isSubmitting || addedSongs.length === 0}
                     className="bg-sage hover:bg-sage/90 text-white px-8 py-3 text-lg font-cormorant font-light tracking-wide flex items-center gap-2"
                   >
                     {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
                     {isSubmitting
                       ? "Adding Songs..."
-                      : getValidRequestsCount() === 1
+                      : addedSongs.length === 1
                         ? "Add Song to Playlist"
-                        : `Add ${getValidRequestsCount()} Songs to Playlist`}
+                        : `Add ${addedSongs.length} Songs to Playlist`}
                   </Button>
                 </div>
               </form>
