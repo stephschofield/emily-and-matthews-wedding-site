@@ -1,6 +1,6 @@
 # Emily & Matthew's Wedding Website - Development TODO List
 
-**Last Updated**: November 17, 2025  
+**Last Updated**: January 6, 2026  
 **Wedding Date**: May 9, 2026
 
 ---
@@ -38,10 +38,6 @@
   - ✅ 16 plus-one placeholder slots
 - **Result**: RSVP system now fully functional with database lookup
 
----
-
-## 📋 Pending Tasks
-
 ### 3. Email Confirmation System ✓
 - **Status**: COMPLETED ✅
 - **Changes Made**:
@@ -55,8 +51,8 @@
   - `package.json`
 - **Result**: Users now receive an email confirmation after RSVPing
 
-### 4. Song Request System
-- **Status**: ✅ COMPLETED (Implementation complete, needs testing)
+### 4. Song Request System ✓
+- **Status**: COMPLETED ✅ (Implementation complete, tested and working)
 - **Completed Features**:
   - ✅ Database table: `song_requests` with RLS enabled
   - ✅ Insert & read policies configured for anonymous users
@@ -66,25 +62,14 @@
   - ✅ Manual entry fallback option
   - ✅ Multi-song submission (add multiple at once)
   - ✅ Success/error handling with user feedback
-- **Testing Required**:
-  - [ ] Test song submission from website
-  - [ ] Verify data appears in Supabase `song_requests` table
-  - [ ] Test Spotify search functionality
-  - [ ] Test manual entry mode
-  - [ ] Test adding multiple songs at once
-  - [ ] Test form validation (empty submissions)
 - **Files Involved**:
   - `components/playlist-section.tsx` - Main form UI
   - `app/api/song-requests/route.ts` - Backend API
   - `components/song-search-input.tsx` - Spotify integration
   - Database: `public.song_requests` table
-- **Next Steps**: Browser testing with real submissions
 
----
-
-### 4. Build Full RSVP Form for Attending Guests
-- **Priority**: HIGH
-- **Current Status**: ✅ COMPLETED (Implementation complete, needs testing)
+### 5. Build Full RSVP Form for Attending Guests ✓
+- **Status**: COMPLETED ✅ (Implementation complete, tested and working)
 - **Completed Features**:
   - ✅ Full 3-step RSVP flow (lookup → attend/decline → details/submit)
   - ✅ Individual RSVP per party member with Yes/No controls
@@ -94,24 +79,108 @@
   - ✅ Form validation and error handling
   - ✅ Thank you page for both attending and declining
   - ✅ API endpoint for updating plus-one names
-- **Testing Required**:
-  - [ ] Test full RSVP submission flow in browser
-  - [ ] Test attending with meal selections
-  - [ ] Test declining flow
-  - [ ] Test plus-one name updates
-  - [ ] Test mobile responsiveness
-  - [ ] Test with real guest names
 - **Files Modified**:
   - `app/rsvp/page.tsx` - Complete 3-step form
   - `app/api/rsvp/update-names/route.ts` - Plus-one name updates
   - `lib/supabase.ts` - Fixed RPC parameter (p_items)
-- **Database State**: Ready with 196 RSVPs (all status="unknown")
-- **Timeline**: Ready to launch ~January 2026 (3-4 months before wedding)
-- **Next Steps**: Browser testing and potential UI refinements
+- **Database State**: Ready with 196 RSVPs
+- **Timeline**: Ready to launch now (January 2026, ~4 months before wedding)
+
+### 6. Admin Authentication System ✓
+- **Status**: COMPLETED ✅
+- **Changes Made**:
+  - Implemented password-based authentication using ADMIN_PASSWORD env variable
+  - Created login page at `/admin/login`
+  - Added authentication middleware for route protection
+  - Secure HTTP-only session cookies with 7-day expiration
+- **Files Created**:
+  - `app/admin/login/page.tsx` - Login UI
+  - `app/api/admin/auth/route.ts` - Auth API (login/logout)
+  - `lib/auth.ts` - Auth helper functions
+  - `middleware.ts` - Route protection
+  - `app/admin/page.tsx` - Protected admin dashboard
+- **Security Features**:
+  - HTTP-only cookies prevent XSS attacks
+  - Secure flag enabled in production
+  - SameSite strict policy
+  - All /admin/* routes protected except /admin/login
+- **Environment Variable**: ADMIN_PASSWORD (required in .env.local)
 
 ---
 
-### 5. Create Admin Dashboard for RSVP Management
+## 📋 Current Tasks (In Progress)
+
+### 7. Complete Admin Dashboard Layout and Navigation
+- **Status**: IN PROGRESS (Backlog Task #002)
+- **Priority**: MEDIUM
+- **What's Done**:
+  - ✅ Basic admin dashboard page at `/admin/page.tsx`
+  - ✅ Authentication protection via middleware
+  - ✅ Basic navigation links to RSVP and Song sections
+- **Remaining Work**:
+  - [ ] Build RSVP management page (task #003)
+  - [ ] Build song requests page (task #004)
+  - [ ] Add proper header with logout functionality
+  - [ ] Improve mobile responsiveness
+  - [ ] Add dashboard statistics/overview (task #005)
+
+---
+
+## 📋 Pending Tasks
+
+### 8. Build RSVP List View with Filtering (Backlog Task #003)
+- **Priority**: HIGH
+- **Features Needed**:
+  - [ ] RSVP list page at `/admin/rsvps/page.tsx`
+  - [ ] Display all RSVPs with party name and member details
+  - [ ] Show RSVP status (attending/declined/unknown) for each member
+  - [ ] Filter by status (attending/not attending/unknown)
+  - [ ] Search functionality by guest name
+  - [ ] Display meal choices and dietary restrictions
+  - [ ] Show total counts at top of page
+  - [ ] Sortable table columns
+  - [ ] Pagination for large guest lists
+- **Database Query**: Needs to join `parties`, `party_members`, and `rsvps` tables
+
+### 9. Build Song Requests View Page (Backlog Task #004)
+- **Priority**: MEDIUM
+- **Features Needed**:
+  - [ ] Song requests page at `/admin/songs/page.tsx`
+  - [ ] Display all song requests with guest info
+  - [ ] Show song title and artist for each request
+  - [ ] Search by song title or artist name
+  - [ ] Filter by date submitted
+  - [ ] Show total count of requests
+  - [ ] Sortable table columns
+  - [ ] Display submission timestamp
+- **Database Table**: `song_requests` (already created and populated)
+
+### 10. Add Summary Statistics to Admin Dashboard (Backlog Task #005)
+- **Priority**: MEDIUM
+- **Features Needed**:
+  - [ ] Total invited guests count
+  - [ ] RSVPs received (yes/no/unknown) counts
+  - [ ] Total attending count
+  - [ ] Breakdown of meal choices with counts
+  - [ ] List of dietary restrictions with guest names
+  - [ ] Song request count
+  - [ ] Real-time updates from database
+  - [ ] Visual cards or charts
+- **Implementation**: Add stats API endpoint and dashboard cards
+
+### 11. Implement CSV Export Functionality (Backlog Task #006)
+- **Priority**: LOW
+- **Features Needed**:
+  - [ ] Export button on RSVP list page
+  - [ ] Download CSV file with all RSVP data
+  - [ ] Include names, status, meals, dietary restrictions
+  - [ ] File naming with date (e.g., rsvps-2026-01-06.csv)
+  - [ ] Excel/Google Sheets compatible format
+  - [ ] Export respects current filters
+  - [ ] API endpoint at `/api/admin/export/route.ts`
+  - [ ] Handle large guest lists without timeout
+
+### 12. Run Postgres Diagnostic and Apply Security Patches
 - **Priority**: MEDIUM
 - **Features Needed**:
   - [ ] View all RSVPs with filters (attending/not attending, by event)
@@ -149,7 +218,7 @@ export function middleware(request: NextRequest) {
 
 ---
 
-### 6. Run Postgres Diagnostic and Apply Security Patches
+### 12. Run Postgres Diagnostic and Apply Security Patches
 - **Priority**: MEDIUM-HIGH (Security)
 - **Current Version**: PostgreSQL 17.4.1.064 (has security patches available)
 - **Required Actions**:
@@ -165,9 +234,7 @@ export function middleware(request: NextRequest) {
 - **Timeline**: Complete before production launch
 - **Downtime**: ~2-10 minutes (small database)
 
----
-
-### 7. Add Rate Limiting and Spam Protection
+### 13. Add Rate Limiting and Spam Protection
 - **Priority**: MEDIUM
 - **Current Issue**: No protection against spam submissions
 - **Options**:
@@ -179,35 +246,12 @@ export function middleware(request: NextRequest) {
   - `app/api/song-requests/route.ts`
 - **Recommended Package**: `@upstash/ratelimit` with Vercel Edge
 
-**Example Rate Limiting**:
-```typescript
-import { Ratelimit } from '@upstash/ratelimit'
-import { Redis } from '@upstash/redis'
-
-const ratelimit = new Ratelimit({
-  redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(5, '1 h'), // 5 requests per hour
-})
-
-export async function POST(request: Request) {
-  const ip = request.headers.get('x-forwarded-for') ?? 'anonymous'
-  const { success } = await ratelimit.limit(ip)
-  
-  if (!success) {
-    return Response.json({ error: 'Too many requests' }, { status: 429 })
-  }
-  // ... rest of handler
-}
-```
-
----
-
-### 8. Testing and Launch Preparation
+### 14. Testing and Launch Preparation
 - **Priority**: HIGH (Before Launch)
 - **Testing Checklist**:
-  - [ ] Full RSVP submission flow (attending & not attending)
-  - [ ] Song request submission
-  - [ ] Email notifications (if implemented)
+  - [x] Full RSVP submission flow (attending & not attending)
+  - [x] Song request submission
+  - [x] Email notifications
   - [ ] Mobile responsiveness (all pages)
   - [ ] Cross-browser testing (Chrome, Safari, Firefox, Edge)
   - [ ] Performance optimization (Lighthouse score)
@@ -253,11 +297,18 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key (for admin)
 RESEND_API_KEY=re_123456789 (for email confirmations)
 EMAIL_FROM=rsvp@emandmatthew.com (optional, defaults to onboarding@resend.dev)
+ADMIN_PASSWORD=your-secure-password (for admin dashboard access)
 ```
+
+### Backlog Management
+All tasks are tracked in the `backlog/` directory:
+- **Completed**: `backlog/completed/` - Finished tasks
+- **In Progress**: `backlog/tasks/` - Active tasks (task-002 currently)
+- **Pending**: `backlog/tasks/` - Tasks 003-006 ready to start
 
 ### Important Dates
 - **Wedding Date**: May 9, 2026
-- **RSVP Open**: ~January 2026 (3-4 months before)
+- **RSVP Open**: January 2026 (NOW - ready to launch!)
 - **RSVP Deadline**: ~April 2026 (1 month before)
 
 ---
@@ -274,7 +325,7 @@ EMAIL_FROM=rsvp@emandmatthew.com (optional, defaults to onboarding@resend.dev)
 
 **Current Build Status**: ✅ Passing
 - Static routes: `/`, `/rsvp`, `/_not-found`
-- Dynamic routes: `/wedding-party`, `/api/*`
+- Dynamic routes: `/wedding-party`, `/admin`, `/api/*`
 
 **Vercel Deployment**:
 ```bash
